@@ -131,20 +131,20 @@ def create_manufacturer(manufacturer_name):
         "Accept": "application/json"
     }
     # Mandatory fields
-    manufacturer_name = os.environ.get('KALM_MANUFACTURER_NAME')
+    manufacturer_name = os.environ.get('IGN8_MANUFACTURER_NAME')
     if manufacturer_name == None:
         manufacturer_name = "default"
 
-    manufacturer_slug = os.environ.get('KALM_MANUFACTURER_SLUG')
+    manufacturer_slug = os.environ.get('IGN8_MANUFACTURER_SLUG')
     if manufacturer_slug == None:
         manufacturer_name = manufacturer_name.lower()
-    manufacturer_description = os.environ.get('KALM_MANUFACTURER_DESCRIPTION')
+    manufacturer_description = os.environ.get('IGN8_MANUFACTURER_DESCRIPTION')
     if manufacturer_description == None:
         manufacturer_description = ""
-    manufacturer_comments = os.environ.get('KALM_MANUFACTURER_COMMENTS')
+    manufacturer_comments = os.environ.get('IGN8_MANUFACTURER_COMMENTS')
     if manufacturer_comments == None:
         manufacturer_comments = ""
-    manufacturer_custom_fields = os.environ.get('KALM_MANUFACTURER_CUSTOM_FIELDS')
+    manufacturer_custom_fields = os.environ.get('IGN8_MANUFACTURER_CUSTOM_FIELDS')
     if manufacturer_custom_fields == None:
         manufacturer_custom_fields = {}
 
@@ -180,59 +180,59 @@ def create_device_type(device_type_name):
     }
     # Mandatory fields
     prettyllog("manage", "netbox", "device", "new", "000", "Getting device type name")
-    device_type_name = os.environ.get('KALM_DEVICE_TYPE_NAME')
+    device_type_name = os.environ.get('IGN8_DEVICE_TYPE_NAME')
     if device_type_name == None:
         device_type_name = "default"
 
-    device_type_model = os.environ.get('KALM_DEVICE_TYPE_MODEL')
+    device_type_model = os.environ.get('IGN8_DEVICE_TYPE_MODEL')
     if device_type_model == None:
         device_type_model = "default"
-    device_type_slug = os.environ.get('KALM_DEVICE_TYPE_SLUG')
+    device_type_slug = os.environ.get('IGN8_DEVICE_TYPE_SLUG')
     if device_type_slug == None:
         device_type_slug = device_type_name.lower()
-    device_type_description = os.environ.get('KALM_DEVICE_TYPE_DESCRIPTION')
+    device_type_description = os.environ.get('IGN8_DEVICE_TYPE_DESCRIPTION')
     if device_type_description == None:
         device_type_description = ""
-    device_type_comments = os.environ.get('KALM_DEVICE_TYPE_COMMENTS')
+    device_type_comments = os.environ.get('IGN8_DEVICE_TYPE_COMMENTS')
     if device_type_comments == None:
         device_type_comments = ""
-    device_type_custom_fields = os.environ.get('KALM_DEVICE_TYPE_CUSTOM_FIELDS')
+    device_type_custom_fields = os.environ.get('IGN8_DEVICE_TYPE_CUSTOM_FIELDS')
     if device_type_custom_fields == None:
 
         device_type_custom_fields = {}
     # Optional fields
-    device_type_part_number = os.environ.get('KALM_DEVICE_TYPE_PART_NUMBER')
+    device_type_part_number = os.environ.get('IGN8_DEVICE_TYPE_PART_NUMBER')
     if device_type_part_number == None:
         device_type_part_number = ""
-    device_type_is_full_depth = os.environ.get('KALM_DEVICE_TYPE_IS_FULL_DEPTH')
+    device_type_is_full_depth = os.environ.get('IGN8_DEVICE_TYPE_IS_FULL_DEPTH')
     if device_type_is_full_depth == None:
         device_type_is_full_depth = True
-    device_type_is_console_server = os.environ.get('KALM_DEVICE_TYPE_IS_CONSOLE_SERVER')
+    device_type_is_console_server = os.environ.get('IGN8_DEVICE_TYPE_IS_CONSOLE_SERVER')
     if device_type_is_console_server == None:
         device_type_is_console_server = False
-    device_type_is_pdu = os.environ.get('KALM_DEVICE_TYPE_IS_PDU')
+    device_type_is_pdu = os.environ.get('IGN8_DEVICE_TYPE_IS_PDU')
     if device_type_is_pdu == None:
         device_type_is_pdu = False
-    device_type_is_network_device = os.environ.get('KALM_DEVICE_TYPE_IS_NETWORK_DEVICE')
+    device_type_is_network_device = os.environ.get('IGN8_DEVICE_TYPE_IS_NETWORK_DEVICE')
     if device_type_is_network_device == None:
         device_type_is_network_device = False
-    device_type_subdevice_role = os.environ.get('KALM_DEVICE_TYPE_SUBDEVICE_ROLE')
+    device_type_subdevice_role = os.environ.get('IGN8_DEVICE_TYPE_SUBDEVICE_ROLE')
     if device_type_subdevice_role == None:
         device_type_subdevice_role = "" 
-    device_type_interface_ordering = os.environ.get('KALM_DEVICE_TYPE_INTERFACE_ORDERING')
+    device_type_interface_ordering = os.environ.get('IGN8_DEVICE_TYPE_INTERFACE_ORDERING')
     if device_type_interface_ordering == None:
         device_type_interface_ordering = None
-    device_type_tags = os.environ.get('KALM_DEVICE_TYPE_TAGS')
+    device_type_tags = os.environ.get('IGN8_DEVICE_TYPE_TAGS')
     if device_type_tags == None:
         device_type_tags = []
-    device_type_manufacturer = os.environ.get('KALM_DEVICE_TYPE_MANUFACTURER')
+    device_type_manufacturer = os.environ.get('IGN8_DEVICE_TYPE_MANUFACTURER')
     if device_type_manufacturer == None:
         device_type_manufacturer = "default"
     device_type_manufacturer_id = get_manufacturer_id(device_type_manufacturer)
     if device_type_manufacturer_id == None:
         create_manufacturer(device_type_manufacturer)
         device_type_manufacturer_id = get_manufacturer_id(device_type_manufacturer)
-    device_type_height = os.environ.get('KALM_DEVICE_TYPE_HEIGHT')
+    device_type_height = os.environ.get('IGN8_DEVICE_TYPE_HEIGHT')
     if device_type_height == None:
         device_type_height = 1
 
@@ -273,22 +273,22 @@ def create_device():
     }
 
     # Mandatory fields
-    device_name = os.environ.get('KALM_DEVICE_NAME')
+    device_name = os.environ.get('IGN8_DEVICE_NAME')
     if device_name == None:
         device_name = "default"
-    device_type = os.environ.get('KALM_DEVICE_TYPE')
+    device_type = os.environ.get('IGN8_DEVICE_TYPE')
     if device_type == None:
         device_type = "default"
-    device_role = os.environ.get('KALM_DEVICE_ROLE')
+    device_role = os.environ.get('IGN8_DEVICE_ROLE')
     if device_role == None:
         device_role = "default"
-    device_site = os.environ.get('KALM_DEVICE_SITE')
+    device_site = os.environ.get('IGN8_DEVICE_SITE')
     if device_site == None:
         device_site = "default"
-    device_status = os.environ.get('KALM_DEVICE_STATUS')
+    device_status = os.environ.get('IGN8_DEVICE_STATUS')
     if device_status == None:
         device_status = "active"
-    device_comments = os.environ.get('KALM_DEVICE_COMMENTS')
+    device_comments = os.environ.get('IGN8_DEVICE_COMMENTS')
     if device_comments == None:
         device_comments = ""
     devicetype_id = get_type_id(device_type)
@@ -323,23 +323,23 @@ def create_role():
     }
     # Mandatory fields
     prettyllog("manage", "netbox", "device", "new", "000", "Getting role name")
-    role_name = os.environ.get('KALM_ROLE_NAME')
+    role_name = os.environ.get('IGN8_ROLE_NAME')
     if role_name == None:
         role_name = "default"
     prettyllog("manage", "netbox", "device", "new", "000", "Getting role name is %s" % role_name)
     prettyllog("manage", "netbox", "device", "new", "000", "Getting role slug")
-    role_slug = os.environ.get('KALM_ROLE_SLUG')
+    role_slug = os.environ.get('IGN8_ROLE_SLUG')
     if role_slug == None:
         role_slug = role_name.lower()
     prettyllog("manage", "netbox", "device", "new", "000", "Getting role slug is %s" % role_slug)
     prettyllog("manage", "netbox", "device", "new", "000", "Getting role description")
-    role_description = os.environ.get('KALM_ROLE_DESCRIPTION')
+    role_description = os.environ.get('IGN8_ROLE_DESCRIPTION')
     if role_description == None:
         role_description = ""
     prettyllog("manage", "netbox", "device", "new", "000", "Getting role description is %s" % role_description)
     prettyllog("manage", "netbox", "device", "new", "000", "Getting role comments")
 
-    role_comments = os.environ.get('KALM_ROLE_COMMENTS')
+    role_comments = os.environ.get('IGN8_ROLE_COMMENTS')
     if role_comments == None:
         role_comments = ""
     prettyllog("manage", "netbox", "device", "new", "000", "Getting role comments is %s" % role_comments)
@@ -371,16 +371,16 @@ def create_platform(platform_name):
         "Accept": "application/json"
     }
     # Mandatory fields
-    platform_name = os.environ.get('KALM_PLATFORM_NAME')
+    platform_name = os.environ.get('IGN8_PLATFORM_NAME')
     if platform_name == None:
         platform_name = "default"
-    platform_slug = os.environ.get('KALM_PLATFORM_SLUG')
+    platform_slug = os.environ.get('IGN8_PLATFORM_SLUG')
     if platform_slug == None:
         platform_slug = platform_name.lower()
-    platform_description = os.environ.get('KALM_PLATFORM_DESCRIPTION')
+    platform_description = os.environ.get('IGN8_PLATFORM_DESCRIPTION')
     if platform_description == None:
         platform_description = ""
-    platform_comments = os.environ.get('KALM_PLATFORM_COMMENTS')
+    platform_comments = os.environ.get('IGN8_PLATFORM_COMMENTS')
     if platform_comments == None:
         platform_comments = ""
 
@@ -392,19 +392,19 @@ def create_site(site_name):
         "Accept": "application/json"
     }
     # Mandatory fields
-    site_name = os.environ.get('KALM_SITE_NAME')
+    site_name = os.environ.get('IGN8_SITE_NAME')
     if site_name == None:
         site_name = "default"
-    site_slug = os.environ.get('KALM_SITE_SLUG')
+    site_slug = os.environ.get('IGN8_SITE_SLUG')
     if site_slug == None:
         site_slug = site_name.lower()
-    site_description = os.environ.get('KALM_SITE_DESCRIPTION')
+    site_description = os.environ.get('IGN8_SITE_DESCRIPTION')
     if site_description == None:
         site_description = ""
-    site_comments = os.environ.get('KALM_SITE_COMMENTS')
+    site_comments = os.environ.get('IGN8_SITE_COMMENTS')
     if site_comments == None:
         site_comments = ""
-    site_custom_fields = os.environ.get('KALM_SITE_CUSTOM_FIELDS')
+    site_custom_fields = os.environ.get('IGN8_SITE_CUSTOM_FIELDS')
     if site_custom_fields == None:
         site_custom_fields = {}
 
@@ -437,20 +437,20 @@ def create_manufacturer(manufacturer_name):
         "Accept": "application/json"
     }
     # Mandatory fields
-    manufacturer_name = os.environ.get('KALM_MANUFACTURER_NAME')
+    manufacturer_name = os.environ.get('IGN8_MANUFACTURER_NAME')
     if manufacturer_name == None:
         manufacturer_name = "default"
 
-    manufacturer_slug = os.environ.get('KALM_MANUFACTURER_SLUG')
+    manufacturer_slug = os.environ.get('IGN8_MANUFACTURER_SLUG')
     if manufacturer_slug == None:
         manufacturer_name = manufacturer_name.lower()
-    manufacturer_description = os.environ.get('KALM_MANUFACTURER_DESCRIPTION')
+    manufacturer_description = os.environ.get('IGN8_MANUFACTURER_DESCRIPTION')
     if manufacturer_description == None:
         manufacturer_description = ""
-    manufacturer_comments = os.environ.get('KALM_MANUFACTURER_COMMENTS')
+    manufacturer_comments = os.environ.get('IGN8_MANUFACTURER_COMMENTS')
     if manufacturer_comments == None:
         manufacturer_comments = ""
-    manufacturer_custom_fields = os.environ.get('KALM_MANUFACTURER_CUSTOM_FIELDS')
+    manufacturer_custom_fields = os.environ.get('IGN8_MANUFACTURER_CUSTOM_FIELDS')
     if manufacturer_custom_fields == None:
         manufacturer_custom_fields = {}
 
@@ -483,7 +483,7 @@ def create_type(type_name):
         "Authorization": f"Token {NETBOX_TOKEN}",
         "Accept": "application/json"
     }
-    manufacturer = os.environ.get("KALM_NETBOX_MANUFACTURER")
+    manufacturer = os.environ.get("IGN8_NETBOX_MANUFACTURER")
     if manufacturer == None:
         manufacturer == "noname"
     manufacturer_id = get_manufacturer_id(manufacturer)
@@ -521,22 +521,22 @@ def create_platform(platform_name):
         "Accept": "application/json"
     }
     # Mandatory fields
-    platform_name = os.environ.get('KALM_PLATFORM_NAME')
+    platform_name = os.environ.get('IGN8_PLATFORM_NAME')
     if platform_name == None:
         platform_name = "default"
-    platform_slug = os.environ.get('KALM_PLATFORM_SLUG')
+    platform_slug = os.environ.get('IGN8_PLATFORM_SLUG')
     if platform_slug == None:
         platform_slug = platform_name.lower()
-    platform_description = os.environ.get('KALM_PLATFORM_DESCRIPTION')
+    platform_description = os.environ.get('IGN8_PLATFORM_DESCRIPTION')
     if platform_description == None:
         platform_description = ""
-    platform_comments = os.environ.get('KALM_PLATFORM_COMMENTS')
+    platform_comments = os.environ.get('IGN8_PLATFORM_COMMENTS')
     if platform_comments == None:
         platform_comments = ""
-    platform_napalm_driver = os.environ.get('KALM_PLATFORM_NAPALM_DRIVER')
+    platform_napalm_driver = os.environ.get('IGN8_PLATFORM_NAPALM_DRIVER')
     if platform_napalm_driver == None:
         platform_napalm_driver = ""
-    platform_napalm_args = os.environ.get('KALM_PLATFORM_NAPALM_ARGS')
+    platform_napalm_args = os.environ.get('IGN8_PLATFORM_NAPALM_ARGS')
     if platform_napalm_args == None:
         platform_napalm_args = ""
     data = {
@@ -567,29 +567,29 @@ def create_virtual_machine(vm_name):
         "Accept": "application/json"
     }
     # Mandatory fields
-    vm_name = os.environ.get('KALM_VM_NAME')
+    vm_name = os.environ.get('IGN8_VM_NAME')
     if vm_name == None:
         vm_name = "default"
 
-    vm_cluster = os.environ.get('KALM_VM_CLUSTER')
+    vm_cluster = os.environ.get('IGN8_VM_CLUSTER')
     if vm_cluster == None:
         vm_cluster = "default"
-    vm_tenant = os.environ.get('KALM_VM_TENANT')
+    vm_tenant = os.environ.get('IGN8_VM_TENANT')
     if vm_tenant == None:
         vm_tenant = "default"
-    vm_role = os.environ.get('KALM_VM_ROLE')
+    vm_role = os.environ.get('IGN8_VM_ROLE')
     if vm_role == None:
         vm_role = "default"
-    vm_status = os.environ.get('KALM_VM_STATUS')
+    vm_status = os.environ.get('IGN8_VM_STATUS')
     if vm_status == None:
         vm_status = "active"
-    vm_comments = os.environ.get('KALM_VM_COMMENTS')
+    vm_comments = os.environ.get('IGN8_VM_COMMENTS')
     if vm_comments == None:
         vm_comments = ""
-    vm_custom_fields = os.environ.get('KALM_VM_CUSTOM_FIELDS')
+    vm_custom_fields = os.environ.get('IGN8_VM_CUSTOM_FIELDS')
     if vm_custom_fields == None:
         vm_custom_fields = {}
-    vm_type = os.environ.get('KALM_VM_TYPE')
+    vm_type = os.environ.get('IGN8_VM_TYPE')
     if vm_type == None:
         vm_type = "default"
     vm_type_id = get_type_id(vm_type)
@@ -636,29 +636,29 @@ def create_iprange(iprange_description = "default"):
     }
     # Mandatory fields
     prettyllog("manage", "netbox", "iprange", "new", "000", "Getting iprange start address")
-    ip_start_address = os.environ.get('KALM_IP_START_ADDRESS')
+    ip_start_address = os.environ.get('IGN8_IP_START_ADDRESS')
     if ip_start_address == None:
         ip_start_address = ""
     prettyllog("manage", "netbox", "iprange", "new", "000", "Getting iprange end address")
-    ip_end_address = os.environ.get('KALM_IP_END_ADDRESS')
+    ip_end_address = os.environ.get('IGN8_IP_END_ADDRESS')
     if ip_end_address == None:
         ip_end_address = ""
     prettyllog("manage", "netbox", "iprange", "new", "000", "Getting iprange status")
-    ip_status = os.environ.get('KALM_IP_STATUS')
+    ip_status = os.environ.get('IGN8_IP_STATUS')
     if ip_status == None:
         ip_status = "active"
     prettyllog("manage", "netbox", "iprange", "new", "000", "Getting iprange vrf")
 
-    ip_vrf = os.environ.get('KALM_IP_VRF')
+    ip_vrf = os.environ.get('IGN8_IP_VRF')
     if ip_vrf == None:
         ip_vrf = "Global"
     prettyllog("manage", "netbox", "iprange", "new", "000", "Getting iprange role")
-    ip_role = os.environ.get('KALM_IP_ROLE')
+    ip_role = os.environ.get('IGN8_IP_ROLE')
     if ip_role == None:
         ip_role = "loopback"
 
     prettyllog("manage", "netbox", "iprange", "new", "000", "Getting iprange tenant")
-    ip_tenant = os.environ.get('KALM_IP_TENANT')
+    ip_tenant = os.environ.get('IGN8_IP_TENANT')
     if ip_tenant == None:
         ip_tenant = "default"
     ip_tenant_id = get_tenant_id(ip_tenant)
@@ -667,7 +667,7 @@ def create_iprange(iprange_description = "default"):
         create_tenant(ip_tenant)
         ip_tenant_id = get_tenant_id(ip_tenant)
     prettyllog("manage", "netbox", "iprange", "new", "000", "Getting iprange description")
-    iprange_description = os.environ.get('KALM_IPRANGE_DESCRIPTION')
+    iprange_description = os.environ.get('IGN8_IPRANGE_DESCRIPTION')
     prettyllog("manage", "netbox", "iprange", "new", "000", "Getting iprange description is %s" % iprange_description)
     prettyllog("manage", "netbox", "iprange", "new", "000", "Getting iprange iprange id")
     iprange_description_id = get_iprange_id(iprange_description)
@@ -731,16 +731,16 @@ def create_ip4(ip4_address = "default"):
     }
 
     # Mandatory fields
-    ip_address = os.environ.get('KALM_IP_ADDRESS')
+    ip_address = os.environ.get('IGN8_IP_ADDRESS')
     if ip_address == None:
         ip_address = "127.0.0.1"
-    ip4_status = os.environ.get('KALM_IP_STATUS')
+    ip4_status = os.environ.get('IGN8_IP_STATUS')
     if ip_status == None:  
         ip_status = "active"
-    ip4_role = os.environ.get('KALM_IP4_ROLE')
+    ip4_role = os.environ.get('IGN8_IP4_ROLE')
     if ip_role == None:
         ip_role = "loopback"
-    tenant = os.environ.get('KALM_NETBOX_TENANT')   
+    tenant = os.environ.get('IGN8_NETBOX_TENANT')   
     if ip_tenant == None:
         ip_tenant = "default"
     tenant_id = get_tenant_id(ip_tenant)
@@ -758,22 +758,22 @@ def create_virtual_interface(interface_name):
         "Accept": "application/json"
     }
     # Mandatory fields
-    interface_name = os.environ.get('KALM_VINTERFACE_NAME')
+    interface_name = os.environ.get('IGN8_VINTERFACE_NAME')
     if interface_name == None:
         interface_name = "default"
-    interface_type = os.environ.get('KALM_INTERFACE_TYPE')
+    interface_type = os.environ.get('IGN8_INTERFACE_TYPE')
     if interface_type == None:
         interface_type = "virtual"
-    interface_mac_address = os.environ.get('KALM_INTERFACE_MAC_ADDRESS')
+    interface_mac_address = os.environ.get('IGN8_INTERFACE_MAC_ADDRESS')
     if interface_mac_address == None:
         interface_mac_address = ""
-    interface_mtu = os.environ.get('KALM_INTERFACE_MTU')
+    interface_mtu = os.environ.get('IGN8_INTERFACE_MTU')
     if interface_mtu == None:
         interface_mtu = ""
-    interface_description = os.environ.get('KALM_INTERFACE_DESCRIPTION')
+    interface_description = os.environ.get('IGN8_INTERFACE_DESCRIPTION')
     if interface_description == None:
         interface_description = ""
-    interface_mode = os.environ.get('KALM_INTERFACE_MODE')
+    interface_mode = os.environ.get('IGN8_INTERFACE_MODE')
 
     
 
@@ -783,7 +783,7 @@ def create_cluster(cluster_name):
         "Accept": "application/json"
     }
     # Mandatory fields
-    vmtype = os.environ.get('KALM_VM_TYPE')
+    vmtype = os.environ.get('IGN8_VM_TYPE')
     if vmtype == None:
         vmtype = "default"
     typeid = get_type_id(vmtype)
@@ -807,19 +807,19 @@ def create_tenant(tenant_name):
         "Accept": "application/json"
     }
     # Mandatory fields
-    tenant_name = os.environ.get('KALM_TENANT_NAME')
+    tenant_name = os.environ.get('IGN8_TENANT_NAME')
     if tenant_name == None:
         tenant_name = "default"
-    tenant_slug = os.environ.get('KALM_TENANT_SLUG')
+    tenant_slug = os.environ.get('IGN8_TENANT_SLUG')
     if tenant_slug == None:
         tenant_slug = tenant_name.lower()
-    tenant_description = os.environ.get('KALM_TENANT_DESCRIPTION')
+    tenant_description = os.environ.get('IGN8_TENANT_DESCRIPTION')
     if tenant_description == None:
         tenant_description = ""
-    tenant_comments = os.environ.get('KALM_TENANT_COMMENTS')
+    tenant_comments = os.environ.get('IGN8_TENANT_COMMENTS')
     if tenant_comments == None:
         tenant_comments = ""
-    tenant_custom_fields = os.environ.get('KALM_TENANT_CUSTOM_FIELDS')
+    tenant_custom_fields = os.environ.get('IGN8_TENANT_CUSTOM_FIELDS')
     if tenant_custom_fields == None:
         tenant_custom_fields = {}
         
@@ -881,38 +881,38 @@ def add_device():
         }
         # Mandatory fields
         prettyllog("manage", "netbox", "device", "new", "000", "Getting device name")
-        device_name = os.environ.get("KALM_DEVICE_NAME")
+        device_name = os.environ.get("IGN8_DEVICE_NAME")
         if device_name == None:
             device_name = os.environ.get('HOSTNAME')
         prettyllog("manage", "netbox", "device", "new", "000",  "Getting device name is %s" % device_name)
 
         prettyllog("manage", "netbox", "device", "new", "000",  "Getting device type")    
-        device_type = os.environ.get("KALM_DEVICE_TYPE")
+        device_type = os.environ.get("IGN8_DEVICE_TYPE")
         if device_type == None:
             device_type = "default"
         prettyllog("manage", "netbox", "device", "new", "000",  "Getting device type is %s" % device_type)
 
         prettyllog("manage", "netbox", "device", "new", "000",  "Getting device role")    
-        device_role = os.environ.get("KALM_DEVICE_ROLE")
+        device_role = os.environ.get("IGN8_DEVICE_ROLE")
         if device_role == None:
             device_role = "default"
         prettyllog("manage", "netbox", "device", "new", "000",  "Getting device role is %s" % device_role)   
 
         prettyllog("manage", "netbox", "device", "new", "000",  "Getting device site")
-        device_site = os.environ.get("KALM_DEVICE_SITE")
+        device_site = os.environ.get("IGN8_DEVICE_SITE")
         if device_site == None:
             device_site = "default"
         prettyllog("manage", "netbox", "device", "new", "000",  "Getting device site is %s" % device_site)
 
         prettyllog("manage", "netbox", "device", "new", "000",  "Getting device status")
-        device_status = os.environ.get("KALM_DEVICE_STATUS")
+        device_status = os.environ.get("IGN8_DEVICE_STATUS")
         if device_status == None:
             device_status = "active"
         prettyllog("manage", "netbox", "device", "new", "000",  "Getting device status is %s" % device_status)
 
 
         prettyllog("manage", "netbox", "device", "new", "000",  "Getting device comments")    
-        device_comments = os.environ.get("KALM_DEVICE_COMMENTS")
+        device_comments = os.environ.get("IGN8_DEVICE_COMMENTS")
         if device_comments == None:
             device_comments = ""
         prettyllog("manage", "netbox", "device", "new", "000",  "Getting device comments is %s" % device_comments)
@@ -991,74 +991,74 @@ def add_vm():
     else:
         is_virtual = False
     if not is_virtual:
-      servername = os.environ.get("KALM_SERVER_NAME")
+      servername = os.environ.get("IGN8_SERVER_NAME")
       if servername == None:
         servername = os.environ.get('HOSTNAME')
       
 
 
     if is_virtual:    
-      vmname = os.environ.get('KALM_VM_NAME')
+      vmname = os.environ.get('IGN8_VM_NAME')
       if vmname == None:
         vmname = os.environ.get('HOSTNAME')
       if vmname == None:  
-        raise Exception("No VM name provided (KALM_VM_NAME)")
-      vmcluster = os.environ.get('KALM_VM_CLUSTER')
+        raise Exception("No VM name provided (IGN8_VM_NAME)")
+      vmcluster = os.environ.get('IGN8_VM_CLUSTER')
       if vmcluster == None:
-        raise Exception("No VM cluster provided (KALM_VM_CLUSTER)")
+        raise Exception("No VM cluster provided (IGN8_VM_CLUSTER)")
       # Optional fields
-      vmsite = os.environ.get('KALM_VM_SITE')
+      vmsite = os.environ.get('IGN8_VM_SITE')
       if vmsite == None:
         vmsite = "default"
-      vmrole = os.environ.get('KALM_VM_ROLE')
+      vmrole = os.environ.get('IGN8_VM_ROLE')
       if vmrole == None:
         vmrole = "default"
-      vmtype = os.environ.get('KALM_VM_TYPE')
+      vmtype = os.environ.get('IGN8_VM_TYPE')
       if vmtype == None:
         vmtype = "default"
-      vmplatform = os.environ.get('KALM_VM_PLATFORM')
+      vmplatform = os.environ.get('IGN8_VM_PLATFORM')
       if vmplatform == None:
         vmplatform = "default"
-      vmtentant = os.environ.get('KALM_VM_TENANT')
+      vmtentant = os.environ.get('IGN8_VM_TENANT')
       if vmtentant == None:
         vmtentant = "default"
-      vmdevice = os.environ.get('KALM_VM_DEVICE')
+      vmdevice = os.environ.get('IGN8_VM_DEVICE')
       if vmdevice == None:
         vmdevice = "default"
-      vmstatus = os.environ.get('KALM_VM_STATUS')
+      vmstatus = os.environ.get('IGN8_VM_STATUS')
       if vmstatus == None:
         vmstatus = "active"
-      vmdisk = os.environ.get('KALM_VM_DISK')
+      vmdisk = os.environ.get('IGN8_VM_DISK')
       if vmdisk == None:
         vmdisk = 1
-      vmcpus = os.environ.get('KALM_VM_CPU')
+      vmcpus = os.environ.get('IGN8_VM_CPU')
       if vmcpus == None:
         vmcpus = 1
-      vmmemory = os.environ.get('KALM_VM_MEMORY')
+      vmmemory = os.environ.get('IGN8_VM_MEMORY')
       if vmmemory == None:
         vmmemory = 1
-      vmip = os.environ.get('KALM_VM_IP') 
+      vmip = os.environ.get('IGN8_VM_IP') 
       if vmip == None:
         vmip = ""
-      vmip6 = os.environ.get('KALM_VM_IP6') 
+      vmip6 = os.environ.get('IGN8_VM_IP6') 
       if vmip6 == None:
         vmip6 = ""
-      vmdescription = os.environ.get('KALM_VM_DESCRIPTION')
+      vmdescription = os.environ.get('IGN8_VM_DESCRIPTION')
       if vmdescription == None:
         vmdescription = ""
 
-      vmcomments = os.environ.get('KALM_VM_COMMENTS')
+      vmcomments = os.environ.get('IGN8_VM_COMMENTS')
       if vmcomments == None:
         vmcomments = ""
 
-      vmlocal_context_data = os.environ.get('KALM_VM_LOCAL_CONTEXT_DATA')
+      vmlocal_context_data = os.environ.get('IGN8_VM_LOCAL_CONTEXT_DATA')
       if vmlocal_context_data == None:
         vmlocal_context_data = {}
     
-      vmtags = os.environ.get('KALM_VM_TAGS')
+      vmtags = os.environ.get('IGN8_VM_TAGS')
       if vmtags == None:
         vmtags = []
-      vmcustom_fields = os.environ.get('KALM_VM_CUSTOM_FIELDS')
+      vmcustom_fields = os.environ.get('IGN8_VM_CUSTOM_FIELDS')
       if vmcustom_fields == None:
         vmcustom_fields = {}
 
@@ -1518,7 +1518,7 @@ def sshconfig(args):
     if not includeexists:
         open(configfilemaster, "w").write("Include ~/.ssh/conf.d/*\n")
     MYHOME = os.getenv("HOME")
-    configfile = os.path.expanduser(MYHOME + "/.ssh/conf.d/kalm.conf")
+    configfile = os.path.expanduser(MYHOME + "/.ssh/conf.d/ign8.conf")
     #create an empty file if its missing
     touch(configfile)
     touch(configfilemaster) 
@@ -1599,9 +1599,9 @@ def serve():
     if NETBOX_URL == None:
         prettyllog("manage", "netbox", "serve", "000", "No netbox url found")
         return False
-    prettyllog("manage", "netbox", "serve", "000", "Read the /etc/kalm/kalm_netbox.json file")
+    prettyllog("manage", "netbox", "serve", "000", "Read the /etc/ign8/ign8_netbox.json file")
     data = {}
-    with open('/etc/kalm/kalm_netbox.json') as json_file:
+    with open('/etc/ign8/ign8_netbox.json') as json_file:
         data = json.load(json_file)
         prettyllog("manage", "netbox", "serve", "000", "The data is %s" % data)
         prettyllog("manage", "netbox", "serve", "000", "The data is %s" % data["netbox"])
@@ -1614,7 +1614,7 @@ def serve():
 def inventory_upload():
     prettyllog("manage", "netbox", "inventory", "upload", "000", "Uploading inventory to netbox")
     prettyllog("manage", "netbox", "inventory", "upload", "000", "locating inventory file")
-    inventory_file = os.environ.get("KALM_INVENTORY_FILE")
+    inventory_file = os.environ.get("IGN8_INVENTORY_FILE")
     if inventory_file == None:
         inventory_file = "inventory"
     prettyllog("manage", "netbox", "inventory", "upload", "000", "inventory file is %s" % inventory_file)
@@ -1625,7 +1625,7 @@ def inventory_upload():
     items = get_unique_sorted_items(inventory_file)
     for item in items:
         prettyllog("manage", "netbox", "inventory", "upload", "000", "Adding %s to netbox" % item)
-        os.environ["KALM_DEVICE_NAME"] = item
+        os.environ["IGN8_DEVICE_NAME"] = item
         add_device()
 
 

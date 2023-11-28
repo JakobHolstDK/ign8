@@ -16,15 +16,15 @@ data = {}
 
 def connect(env):
     try:
-        if env['KALM_VMWARE_SSL'] == "disable":
-            service_instance = SmartConnect(host=env['KALM_VMWARE_URL'] ,
-                                            user=env['KALM_VMWARE_USERNAME'],
-                                            pwd=env['KALM_VMWARE_PASSWORD'],
+        if env['IGN8_VMWARE_SSL'] == "disable":
+            service_instance = SmartConnect(host=env['IGN8_VMWARE_URL'] ,
+                                            user=env['IGN8_VMWARE_USERNAME'],
+                                            pwd=env['IGN8_VMWARE_PASSWORD'],
                                             disableSslCertValidation=True)
         else:
-            service_instance = SmartConnect(host=env['KALM_VMWARE_URL'] ,
-                                            user=env['KALM_VMWARE_USERNAME'],
-                                            pwd=env['KALM_VMWARE_PASSWORD'])
+            service_instance = SmartConnect(host=env['IGN8_VMWARE_URL'] ,
+                                            user=env['IGN8_VMWARE_USERNAME'],
+                                            pwd=env['IGN8_VMWARE_PASSWORD'])
         #atexit.register(Disconnect, service_instance)
     except IOError as io_error:
         print(io_error)
@@ -35,10 +35,10 @@ def connect(env):
 
 def  get_env():
   myenv = {}
-  myenv['KALM_VMWARE_URL'] = os.getenv("KALM_VMWARE_URL")
-  myenv['KALM_VMWARE_USERNAME'] = os.getenv("KALM_VMWARE_USERNAME")
-  myenv['KALM_VMWARE_PASSWORD'] = os.getenv("KALM_VMWARE_PASSWORD")
-  myenv['KALM_VMWARE_SSL'] = os.getenv("KALM_VMWARE_SSL")
+  myenv['IGN8_VMWARE_URL'] = os.getenv("IGN8_VMWARE_URL")
+  myenv['IGN8_VMWARE_USERNAME'] = os.getenv("IGN8_VMWARE_USERNAME")
+  myenv['IGN8_VMWARE_PASSWORD'] = os.getenv("IGN8_VMWARE_PASSWORD")
+  myenv['IGN8_VMWARE_SSL'] = os.getenv("IGN8_VMWARE_SSL")
   return myenv
 
 
@@ -170,8 +170,8 @@ vm_list, vm_details = get_vm_list(content)
 
 for vm in vm_list:
     print(vm)
-    detailkey = "kalm:vmware:" + vm + ":details"
-    knownkey = "kalm:vmware:" + vm + ":known"
+    detailkey = "ign8:vmware:" + vm + ":details"
+    knownkey = "ign8:vmware:" + vm + ":known"
     timestamp = time.time()
     get = r.get(detailkey)
     if get is None:

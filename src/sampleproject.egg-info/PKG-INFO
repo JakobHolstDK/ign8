@@ -23,10 +23,10 @@ License: Copyright (c) 2016 The Python Packaging Authority (PyPA)
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.
         
-Project-URL: Homepage, https://github.com/JakobHolstDK/kalm
-Project-URL: Bug Reports, https://github.com/JakobHolstDK/kalm/issues
-Project-URL: Source, https://github.com/JakobHolstDK/kalm
-Keywords: kalm,awx,ansible,automation
+Project-URL: Homepage, https://github.com/JakobHolstDK/ign8
+Project-URL: Bug Reports, https://github.com/JakobHolstDK/ign8/issues
+Project-URL: Source, https://github.com/JakobHolstDK/ign8
+Keywords: ign8,awx,ansible,automation
 Classifier: Development Status :: 3 - Alpha
 Classifier: Intended Audience :: Sysadm
 Classifier: Topic :: Automation :: automationtools

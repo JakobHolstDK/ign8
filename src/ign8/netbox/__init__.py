@@ -2,7 +2,7 @@ from . import netbox
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate netbox", usage="kalm_netbox <action> \n\n \
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate netbox", usage="ign8_netbox <action> \n\n \
                \
                 version : 0.0.2 (netbox)\n\
                 actions:\n\

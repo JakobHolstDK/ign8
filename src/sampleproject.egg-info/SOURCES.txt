@@ -1,9 +1,9 @@
 LICENSE.txt
 README.md
 pyproject.toml
-src/kalm/__init__.py
-src/kalm/kalm.py
-src/kalm/package_data.dat
+src/ign8/__init__.py
+src/ign8/ign8.py
+src/ign8/package_data.dat
 src/sampleproject.egg-info/PKG-INFO
 src/sampleproject.egg-info/SOURCES.txt
 src/sampleproject.egg-info/dependency_links.txt

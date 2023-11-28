@@ -13,7 +13,7 @@ from . import setup
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate", usage="kalm_ui <action> \n\n\
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage="ign8_ui <action> \n\n\
 \
                 version : 0.0.1 \n\
                 actions:\n\
@@ -23,7 +23,7 @@ def main():
                 status                       Show the status of the systemd services\n\
                 selinux                      Ensure selinux is configured\n\
                 firewall                     Ensure Firewall is configured\n\
-                setup                        Setup server to host kalm_ui\n\
+                setup                        Setup server to host ign8_ui\n\
 \
                 2023 Knowit Miracle\n\
                 ")

@@ -3,7 +3,7 @@ import argparse
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate", usage="kalm_airflow <action> \n\n \
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage="ign8_airflow <action> \n\n \
                \
                version : 0.1.2 airflow  \n                                              \
                actions:\n                                                      \

@@ -1,2 +1,2 @@
 [console_scripts]
-kalm = kalm:main
+ign8 = ign8:main

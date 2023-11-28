@@ -1,14 +1,14 @@
 [console_scripts]
-kalm = kalm:main
-kalm_airflow = kalm.airflow:main
-kalm_bump = kalm.bump:main
-kalm_dns = kalm.dns:main
-kalm_gitea = kalm.gitea:main
-kalm_inabox = kalm.inabox:main
-kalm_jenkins = kalm.jenkins:main
-kalm_netbox = kalm.netbox:main
-kalm_pitv = kalm.pitv:main
-kalm_semaphore = kalm.semaphore:main
-kalm_traefik = kalm.traefik:main
-kalm_vault = kalm.vault:main
-kalm_zabbix = kalm.zabbix:main
+ign8 = ign8:main
+ign8_airflow = ign8.airflow:main
+ign8_bump = ign8.bump:main
+ign8_dns = ign8.dns:main
+ign8_gitea = ign8.gitea:main
+ign8_inabox = ign8.inabox:main
+ign8_jenkins = ign8.jenkins:main
+ign8_netbox = ign8.netbox:main
+ign8_pitv = ign8.pitv:main
+ign8_semaphore = ign8.semaphore:main
+ign8_traefik = ign8.traefik:main
+ign8_vault = ign8.vault:main
+ign8_zabbix = ign8.zabbix:main

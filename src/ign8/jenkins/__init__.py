@@ -2,7 +2,7 @@ from . import jenkins
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate", usage="kalm_jenkins <action> \n\n \
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage="ign8_jenkins <action> \n\n \
                \
                version : 0.1.2 jenkins  \n                                              \
                actions:\n                                                      \

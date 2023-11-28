@@ -5,42 +5,42 @@ import argparse
 import os
 
 def check_env():
-    if os.environ.get("KALM_DNS_TYPE") == None:
-        print("KALM_DNS_TYPE not set")
+    if os.environ.get("IGN8_DNS_TYPE") == None:
+        print("IGN8_DNS_TYPE not set")
         exit(1)
-    if os.environ.get("KALM_DNS_URL") == None:
-        print("KALM_DNS_URL not set")
+    if os.environ.get("IGN8_DNS_URL") == None:
+        print("IGN8_DNS_URL not set")
         exit(1)
-    if os.environ.get("KALM_DNS_TOKEN") == None:
-        print("KALM_DNS_TOKEN not set")
+    if os.environ.get("IGN8_DNS_TOKEN") == None:
+        print("IGN8_DNS_TOKEN not set")
         exit(1)
-    if os.environ.get("KALM_DNS_DOMAIN") == None:
-        print("KALM_DNS_DOMAIN not set")
+    if os.environ.get("IGN8_DNS_DOMAIN") == None:
+        print("IGN8_DNS_DOMAIN not set")
         exit(1)
-    if os.environ.get("KALM_DNS_PROVIDER") == None:
-        print("KALM_DNS_PROVIDER not set")
+    if os.environ.get("IGN8_DNS_PROVIDER") == None:
+        print("IGN8_DNS_PROVIDER not set")
         exit(1)
-    if os.environ.get("KALM_DNS_ZONEID") == None:
-        print("KALM_DNS_ZONEID not set")
+    if os.environ.get("IGN8_DNS_ZONEID") == None:
+        print("IGN8_DNS_ZONEID not set")
         exit(1)
-    if os.environ.get("KALM_DNS_RECORD_NAME") == None:
-        print("KALM_DNS_RECORD_NAME not set")
+    if os.environ.get("IGN8_DNS_RECORD_NAME") == None:
+        print("IGN8_DNS_RECORD_NAME not set")
         exit(1)
-    if os.environ.get("KALM_DNS_RECORD_CONTENT") == None:
-        print("KALM_DNS_RECORD_CONTENT not set")
+    if os.environ.get("IGN8_DNS_RECORD_CONTENT") == None:
+        print("IGN8_DNS_RECORD_CONTENT not set")
         exit(1)
-    if os.environ.get("KALM_DNS_RECORD_TTL") == None:
-        os.environ.setdefault("KALM_DNS_RECORD_TTL", "300")
-    if os.environ.get("KALM_DNS_RECORD_TYPE") == None:
-        os.environ.setdefault("KALM_DNS_RECORD_TYPE", "A")
-    if os.environ.get("KALM_DNS_RECORD_PROXIED") == None:
-        os.environ.setdefault("KALM_DNS_RECORD_PROXIED", False )
+    if os.environ.get("IGN8_DNS_RECORD_TTL") == None:
+        os.environ.setdefault("IGN8_DNS_RECORD_TTL", "300")
+    if os.environ.get("IGN8_DNS_RECORD_TYPE") == None:
+        os.environ.setdefault("IGN8_DNS_RECORD_TYPE", "A")
+    if os.environ.get("IGN8_DNS_RECORD_PROXIED") == None:
+        os.environ.setdefault("IGN8_DNS_RECORD_PROXIED", False )
     return True
 
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate", usage="kalm_dns <action> \n\n\
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage="ign8_dns <action> \n\n\
 \
                version : 0.9.15 \n\
                actions:\n\

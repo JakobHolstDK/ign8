@@ -6,7 +6,7 @@ from ..common import prettyllog
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate", usage="kalm_pitv <action> \n\n \
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage="ign8_pitv <action> \n\n \
                \
                version : 0.1.2 pitv  \n                                              \
                actions:\n                                                      \

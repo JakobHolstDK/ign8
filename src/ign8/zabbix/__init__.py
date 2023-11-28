@@ -2,7 +2,7 @@ from . import zabbix
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate zabbix", usage="kalm_zabbix <action> \n\n \
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate zabbix", usage="ign8_zabbix <action> \n\n \
                \
                 version : 0.0.2 (zabbix)\n\
                 actions:\n\

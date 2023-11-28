@@ -1,4 +1,4 @@
-from kalm import kalm
+from ign8 import ign8
 
 import os
 import sys
@@ -46,15 +46,15 @@ def runme(command):
   payload = {"returncode": result.returncode, "stdout": result.stdout.decode(), "stderr": result.stderr }
   return payload
 
-def setupkalm(force):
+def setupign8(force):
     if not force:
-        print("We need to setup kalm - Do you with to continue (y/N)? ")
+        print("We need to setup ign8 - Do you with to continue (y/N)? ")
         answer = input()
         if answer == "Y" or answer == "y" or answer == "Yes" or answer == "yes":
             force = True
     if force:
         print("Initializing")
-        runme("sudo mkdir /etc/kalm >/dev/null 2>&1")
+        runme("sudo mkdir /etc/ign8 >/dev/null 2>&1")
 
 def checktoken(host, token):
       headers = {"User-agent": "python-awx-client", "Content-Type": "application/json","Authorization": "Bearer {}".format(token)}
@@ -86,24 +86,24 @@ def connectiontest():
         NETBOX_TOKEN = { "set": True, "value": os.getenv("NETBOX_TOKEN")   , "status": "unknown"} 
 
     # We need to check if the config is there and a  valid  json    
-    KALM_CONFIG = { "set": False, "value": "", "status": "unknown"} 
-    if os.getenv("KALM_CONFIG") != None:
-        KALM_CONFIG = { "set": True, "value": os.getenv("KALM_CONFIG")  , "status": "unknown"} 
+    IGN8_CONFIG = { "set": False, "value": "", "status": "unknown"} 
+    if os.getenv("IGN8_CONFIG") != None:
+        IGN8_CONFIG = { "set": True, "value": os.getenv("IGN8_CONFIG")  , "status": "unknown"} 
     else:
         # fall back to default if not set
-        KALM_CONFIG = { "set": False, "value": "/etc/kalm/kalm.json"  , "status": "unknown"} 
+        IGN8_CONFIG = { "set": False, "value": "/etc/ign8/ign8.json"  , "status": "unknown"} 
 
-    KALM_SECRET = { "set": False, "value": "", "status": "unknown"} 
-    if os.getenv("KALM_SECRET") != None:
-        KALM_SECRET = { "set": True, "value": os.getenv("KALM_SECRET")  , "status": "unknown"} 
+    IGN8_SECRET = { "set": False, "value": "", "status": "unknown"} 
+    if os.getenv("IGN8_SECRET") != None:
+        IGN8_SECRET = { "set": True, "value": os.getenv("IGN8_SECRET")  , "status": "unknown"} 
     else:
         # fall back to default if not set
-        KALM_SECRET = { "set": False, "value": "/etc/kalm/secret.json"  , "status": "unknown"} 
+        IGN8_SECRET = { "set": False, "value": "/etc/ign8/secret.json"  , "status": "unknown"} 
 
 
 
-    if os.path.isfile(KALM_CONFIG['value']):
-      with open(KALM_CONFIG['value']) as user_file:
+    if os.path.isfile(IGN8_CONFIG['value']):
+      with open(IGN8_CONFIG['value']) as user_file:
         try:
           parsed_json = json.load(user_file)
         except:
@@ -116,8 +116,8 @@ def connectiontest():
         # BAIL OUT WHEN config is not existing
         return False
 
-    if os.path.isfile(KALM_SECRET['value']):
-      with open(KALM_SECRET['value']) as user_file:
+    if os.path.isfile(IGN8_SECRET['value']):
+      with open(IGN8_SECRET['value']) as user_file:
         try:
           parsed_json = json.load(user_file)
         except:
@@ -184,20 +184,20 @@ def connectiontest():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate", usage="kalm <action> \n\n \
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage="ign8 <action> \n\n \
                \
                version : 1.0.0\n\
                actions:\n\
-               core           Run kalm using the core/initial process to ensure the core environment is intact (/etc/kalm/kalm.json)\n  \
-               seeder         Run kalm using the config files in (/etc/kalm.d)\n  \
-               seed           Run kalm using the config specific configuration\n  \
+               core           Run ign8 using the core/initial process to ensure the core environment is intact (/etc/ign8/ign8.json)\n  \
+               seeder         Run ign8 using the config files in (/etc/ign8.d)\n  \
+               seed           Run ign8 using the config specific configuration\n  \
                check          check access to core services defined\n  \
                setup          setup access to core services defined\n  \
-               netbox         Run kalm to update netbox configured in /etc/kalm/netbox.json \n  \
-               service        Run kalm from systemd service \n  \
-               initservice    setup kalm systemd service \n  \
-               stopservice    disable and cleanup kalm systemd service \n  \
-               startservice   setup and enable kalm systemd service \n  \
+               netbox         Run ign8 to update netbox configured in /etc/ign8/netbox.json \n  \
+               service        Run ign8 from systemd service \n  \
+               initservice    setup ign8 systemd service \n  \
+               stopservice    disable and cleanup ign8 systemd service \n  \
+               startservice   setup and enable ign8 systemd service \n  \
                deploy         deploy an ansible tower, awx, awxrpm \n  \
                \
                2023 Knowit Miracle\
@@ -233,7 +233,7 @@ def main():
                 force = False
         except:
             force = False
-        setupkalm(force)
+        setupign8(force)
 
     if args.action[0] == "service":
         redis_host = os.getenv("REDIS_HOST", "localhost")
@@ -242,8 +242,8 @@ def main():
         redis_password = os.getenv("REDIS_PASSWORD", "")
         r = redis.Redis( host=redis_host, port=redis_port, db=redis_db, password=redis_password)
         r.flushdb()
-        servicefile = open("/etc/kalm/kalm.service.token", mode="r")
-        cfgfile="/etc/kalm/kalm.json"
+        servicefile = open("/etc/ign8/ign8.service.token", mode="r")
+        cfgfile="/etc/ign8/ign8.json"
         f = open(cfgfile)
         config = json.loads(f.read())
         f.close
@@ -253,9 +253,9 @@ def main():
             print("Daemon running")
             print("main loop")
             for org in (config['organization']):
-              kalm.kalm(token, r, org['project'], "main")
+              ign8.ign8(token, r, org['project'], "main")
               for subproject in org['subprojects']:
-                kalm.kalm(token, r, "subproject", subproject['name'])
+                ign8.ign8(token, r, "subproject", subproject['name'])
             print("Daemon sleeping")
             time.sleep(60)
             
@@ -268,12 +268,12 @@ def main():
         r.flushdb()
         result = runme("/usr/local/bin/awx --conf.color False tokens create |jq '{'id': .id, 'token': .token }")
         parsed_json = json.loads(result["stdout"])
-        runme("sudo touch /etc/kalm/kalm.service.token")
-        runme("sudo touch /etc/systemd/system/kalm.service")
-        runme("sudo chown knowit:knowit /etc/kalm/kalm.service.token")
-        runme("sudo chown knowit:knowit /etc/systemd/system/kalm.service")
-        mycofig = open("/etc/kalm/kalm.service.token", "w")
-        myservice = open("/etc/systemd/system/kalm.service", "w")
+        runme("sudo touch /etc/ign8/ign8.service.token")
+        runme("sudo touch /etc/systemd/system/ign8.service")
+        runme("sudo chown knowit:knowit /etc/ign8/ign8.service.token")
+        runme("sudo chown knowit:knowit /etc/systemd/system/ign8.service")
+        mycofig = open("/etc/ign8/ign8.service.token", "w")
+        myservice = open("/etc/systemd/system/ign8.service", "w")
         try:
           newtoken = parsed_json['token']
           mycofig.write(newtoken)
@@ -286,7 +286,7 @@ def main():
         myservice.write("Environment=\"TOWER_FORMAT=json\n\"")
         myservice.write("Environment=\"TOWER_PASSWORD=%s\"\n" % os.getenv("TOWER_PASSWORD"))
         myservice.write("Environment=\"TOWER_HOST=%s\"\n" % os.getenv("TOWER_HOST"))
-        myservice.write("ExecStart=/usr/local/bin/kalm service\n")
+        myservice.write("ExecStart=/usr/local/bin/ign8 service\n")
         myservice.write("User=knowit\n")
         myservice.write("Restart=always\n")
         myservice.write("[Install]\n")
@@ -298,21 +298,21 @@ def main():
 
     if ready and ( args.action[0] == "reset" or args.action[0] == "stopservice"):
         runme("sudo systemctl daemon-reload")
-        runme("sudo systemctl enable kalm.service")
-        runme("sudo systemctl start kalm.service")
+        runme("sudo systemctl enable ign8.service")
+        runme("sudo systemctl start ign8.service")
         ready  = False
 
     if ready and ( args.action[0] == "reset" or args.action[0] == "startservice"):
         runme("sudo systemctl daemon-reload")
-        runme("sudo systemctl enable kalm.service")
-        runme("sudo systemctl start kalm.service")
+        runme("sudo systemctl enable ign8.service")
+        runme("sudo systemctl start ign8.service")
         ready  = False
 
     if ready and ( args.action[0] == "reset" or args.action[0] == "init"):
         r = redis.Redis()
         r.flushdb()
         ansibletoken = os.getenv("ANSIBLE_TOKEN")
-        kalm.kalm(ansibletoken, r)
+        ign8.ign8(ansibletoken, r)
 
     
 
