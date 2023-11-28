@@ -2,7 +2,7 @@ from . import traefik
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate", usage="kalm_traefik <action> \n\n \
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage="ign8_traefik <action> \n\n \
                \
                version : 0.1.2 traefik  \n                                              \
                actions:\n                                                      \

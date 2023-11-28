@@ -202,7 +202,7 @@ and the secret.jsob
 
 ![Python Logo](https://www.python.org/static/community_logos/python-logo.png "Sample inline image")
 
-This is the README file for KALM
+This is the README file for IGN8
 you need this to access your ansible server
 
 export TOWER_PASSWORD="<ADMIN PAASSWORD>"

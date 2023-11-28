@@ -36,7 +36,7 @@ def list_host_group():
     print(json.dumps(r.json(), indent=4, sort_keys=True))
 
 def list_host_groups():
-    prettyllog("List host groups","info",   "zabbix", "list_host_groups", "zabbix.py", "kalm")
+    prettyllog("List host groups","info",   "zabbix", "list_host_groups", "zabbix.py", "ign8")
     r = requests.post(ZABBIX_API_URL,
     json= {     
           "jsonrpc": "2.0",     
@@ -215,29 +215,29 @@ def status():
 def register():
     print("register")
     try:
-        hostname = os.environ.get('KALM_ZABBIX_HOSTNAME')
+        hostname = os.environ.get('IGN8_ZABBIX_HOSTNAME')
     except:
         pass
     if hostname == None:
-        print("no hostname defined in env KALM_ZABBIX_HOSTNAME")
+        print("no hostname defined in env IGN8_ZABBIX_HOSTNAME")
         return 1
     print("hostname: " + hostname)
     try:
-        ipadress = os.environ.get('KALM_ZABBIX_HOSTIP')
+        ipadress = os.environ.get('IGN8_ZABBIX_HOSTIP')
     except:
         pass
     if ipadress == None:
-        print("no ipadress defined in env KALM_ZABBIX_HOSTIP")
+        print("no ipadress defined in env IGN8_ZABBIX_HOSTIP")
         return 1
     print("ipadress: " + ipadress)
 
 
     try:
-        hostgroup = os.environ.get('KALM_ZABBIX_HOSTGROUP')
+        hostgroup = os.environ.get('IGN8_ZABBIX_HOSTGROUP')
     except:
         pass
     if hostgroup == None:
-        print("no hostgroup defined in env KALM_ZABBIX_HOSTGROUP")
+        print("no hostgroup defined in env IGN8_ZABBIX_HOSTGROUP")
         return 1
     
     print("hostgroup: " + hostgroup)

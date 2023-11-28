@@ -12,13 +12,13 @@ import base64
 
 def getenv():
   myenv = {}
-  myenv["KALM_GIT_URL"] = os.getenv("KALM_GIT_URL")
-  myenv["KALM_GIT_USER"] = os.getenv("KALM_GIT_USER")
-  myenv["KALM_GIT_PASSWORD"] = os.getenv("KALM_GIT_PASSWORD")
-  myenv["KALM_GIT_TYPE"] = os.getenv("KALM_GIT_TYPE")
-  username = os.getenv("KALM_GIT_USER")
-  password = os.getenv("KALM_GIT_PASSWORD")
-  myenv["verifyssl"] = os.getenv("KALM_GIT_VERIFY_SSL", "False")
+  myenv["IGN8_GIT_URL"] = os.getenv("IGN8_GIT_URL")
+  myenv["IGN8_GIT_USER"] = os.getenv("IGN8_GIT_USER")
+  myenv["IGN8_GIT_PASSWORD"] = os.getenv("IGN8_GIT_PASSWORD")
+  myenv["IGN8_GIT_TYPE"] = os.getenv("IGN8_GIT_TYPE")
+  username = os.getenv("IGN8_GIT_USER")
+  password = os.getenv("IGN8_GIT_PASSWORD")
+  myenv["verifyssl"] = os.getenv("IGN8_GIT_VERIFY_SSL", "False")
 
   credentials = f"{username}:{password}"
   base64_credentials = base64.b64encode(credentials.encode("utf-8")).decode("utf-8")
@@ -29,7 +29,7 @@ def init():
   prettyllog("state", "Init", "git", "start", "000", "login initiated", severity="DEBUG")
   myenv = getenv()
   session = requests.Session()
-  url = os.getenv("KALM_GIT_URL") + "/api/v1/user"
+  url = os.getenv("IGN8_GIT_URL") + "/api/v1/user"
   headers = {
     "Content-Type": "application/json",
     "Authorization": "Basic " + myenv['base64_credentials']
@@ -45,7 +45,7 @@ def create_git_project(project):
   prettyllog("state", "Init", "git", "start", "000", "create project initiated", severity="DEBUG")
   myenv = getenv()
   session = init()
-  url = myenv['KALM_GIT_URL'] + "/api/v1/user/repos"
+  url = myenv['IGN8_GIT_URL'] + "/api/v1/user/repos"
   headers = {
     "Content-Type": "application/json",
     "Authorization": "Basic " + myenv['base64_credentials']
@@ -68,7 +68,7 @@ def create_git_project(project):
 def get_git_projects():
   myenv = getenv() 
   session = init()
-  url = myenv['KALM_GIT_URL'] + "/api/v1/user/repos"
+  url = myenv['IGN8_GIT_URL'] + "/api/v1/user/repos"
   headers = {
     "Content-Type": "application/json",
     "Authorization": "Basic " + myenv['base64_credentials']
@@ -86,13 +86,13 @@ def get_git_projects():
 def create_git_token():
   session = init()
   myenv = getenv()
-  url = myenv['KALM_GIT_URL'] + "/api/v1/users/" + myenv['KALM_GIT_USER'] + "/tokens?sudo=" + myenv['KALM_GIT_USER']
+  url = myenv['IGN8_GIT_URL'] + "/api/v1/users/" + myenv['IGN8_GIT_USER'] + "/tokens?sudo=" + myenv['IGN8_GIT_USER']
   headers = {
     "Content-Type": "application/json",
     "Authorization": "Basic " + myenv['base64_credentials']
     }
   data = {
-    "name": myenv['KALM_GIT_USER']
+    "name": myenv['IGN8_GIT_USER']
     }
   resp = session.post(url,headers=headers, json=data)
   if (resp.status_code == 201):
@@ -124,13 +124,13 @@ def delete_token():
   prettyllog("state", "Init", "git", "ok", "000", "token found", severity="INFO")
   session = init()
   myenv = getenv()
-  url = myenv['KALM_GIT_URL'] + "/api/v1/users/" + myenv['KALM_GIT_USER'] + "/tokens/"
+  url = myenv['IGN8_GIT_URL'] + "/api/v1/users/" + myenv['IGN8_GIT_USER'] + "/tokens/"
   headers = {
     "Content-Type": "application/json",
     "Authorization": "Basic " + myenv['base64_credentials']
     }
   data = {
-    "username": myenv['KALM_GIT_USER']
+    "username": myenv['IGN8_GIT_USER']
     }
   resp = session.delete(url,headers=headers)
   if (resp.status_code == 204):
@@ -144,13 +144,13 @@ def get_git_tokens():
 
   session = init()
   myenv = getenv()
-  url = myenv['KALM_GIT_URL'] + "/api/v1/users/" + myenv['KALM_GIT_USER'] + "/tokens?sudo=" + myenv['KALM_GIT_USER']
+  url = myenv['IGN8_GIT_URL'] + "/api/v1/users/" + myenv['IGN8_GIT_USER'] + "/tokens?sudo=" + myenv['IGN8_GIT_USER']
   headers = {
     "Content-Type": "application/json",
     "Authorization": "Basic " + myenv['base64_credentials']
     }
   data = {
-    "username": myenv['KALM_GIT_USER']
+    "username": myenv['IGN8_GIT_USER']
     }
   resp = session.get(url,headers=headers, json=data)
   if (resp.status_code == 200):

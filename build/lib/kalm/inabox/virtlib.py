@@ -1,9 +1,9 @@
 import os
 
 def check_netbox_environment_variables():
-    if os.getenv("KALM_NETBOX_URL") is None:
+    if os.getenv("IGN8_NETBOX_URL") is None:
         return False
-    if os.getenv("KALM_NETBOX_TOKEN") is None:
+    if os.getenv("IGN8_NETBOX_TOKEN") is None:
         return False
     return True
 

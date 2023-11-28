@@ -4,6 +4,6 @@ git pull
 git checkout staging
 pip install .
 
-kalm service
+ign8 service
 
 

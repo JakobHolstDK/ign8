@@ -8,28 +8,28 @@ from ..common import prettyllog
 
 def getenv():
     env = {}
-    env['KALM_DNS_TYPE'] = os.getenv('KALM_DNS_TYPE')
-    env['KALM_DNS_URL'] = os.getenv('KALM_DNS_URL')
-    env['KALM_DNS_TOKEN'] = os.getenv('KALM_DNS_TOKEN')
-    env['KALM_DNS_DOMAIN'] = os.getenv('KALM_DNS_DOMAIN')
-    env['KALM_DNS_PROVIDER'] = os.getenv('KALM_DNS_PROVIDER')
-    if env['KALM_DNS_TYPE'] != "cloudflare":
+    env['IGN8_DNS_TYPE'] = os.getenv('IGN8_DNS_TYPE')
+    env['IGN8_DNS_URL'] = os.getenv('IGN8_DNS_URL')
+    env['IGN8_DNS_TOKEN'] = os.getenv('IGN8_DNS_TOKEN')
+    env['IGN8_DNS_DOMAIN'] = os.getenv('IGN8_DNS_DOMAIN')
+    env['IGN8_DNS_PROVIDER'] = os.getenv('IGN8_DNS_PROVIDER')
+    if env['IGN8_DNS_TYPE'] != "cloudflare":
         print("DNS type not supported")
         exit(1)
-    if env['KALM_DNS_URL'] == None:
+    if env['IGN8_DNS_URL'] == None:
         print("DNS URL not set")
         exit(1)
     # if url ends with /, remove it
-    if env['KALM_DNS_URL'][-1] == "/":
-        env['KALM_DNS_URL'] = env['KALM_DNS_URL'][:-1]
+    if env['IGN8_DNS_URL'][-1] == "/":
+        env['IGN8_DNS_URL'] = env['IGN8_DNS_URL'][:-1]
 
-    if env['KALM_DNS_TOKEN'] == None:
+    if env['IGN8_DNS_TOKEN'] == None:
         print("DNS TOKEN not set")
         exit(1)
-    if env['KALM_DNS_DOMAIN'] == None:
+    if env['IGN8_DNS_DOMAIN'] == None:
         print("DNS DOMAIN not set")
         exit(1)
-    if env['KALM_DNS_PROVIDER'] == None:
+    if env['IGN8_DNS_PROVIDER'] == None:
         print("DNS PROVIDER not set")
         exit(1)
     return env
@@ -39,8 +39,8 @@ def getenv():
 
 def check_access():
     env = getenv()
-    url = env["KALM_DNS_URL"] + "/client/v4/user/tokens/verify"
-    bearer = "Bearer " + os.environ.get("KALM_DNS_TOKEN", "")
+    url = env["IGN8_DNS_URL"] + "/client/v4/user/tokens/verify"
+    bearer = "Bearer " + os.environ.get("IGN8_DNS_TOKEN", "")
     headers = {
     "Authorization": bearer,
     "Content-Type": "application/json"
@@ -53,11 +53,11 @@ def check_access():
         return False
 
 def list_dns():
-    domain = os.environ.get("KALM_DNS_DOMAIN")
+    domain = os.environ.get("IGN8_DNS_DOMAIN")
     myenv = getenv()
     #  --url https://api.cloudflare.com/client/v4/zones/zone_identifier/dns_records \
-    url = os.environ.get("KALM_DNS_URL") + "/client/v4/zones/" + os.environ.get("KALM_DNS_ZONEID") + "/dns_records"
-    bearer = "Bearer " + os.environ.get("KALM_DNS_TOKEN", "")
+    url = os.environ.get("IGN8_DNS_URL") + "/client/v4/zones/" + os.environ.get("IGN8_DNS_ZONEID") + "/dns_records"
+    bearer = "Bearer " + os.environ.get("IGN8_DNS_TOKEN", "")
     headers = {
     "Authorization": bearer,
     "Content-Type": "application/json"
@@ -74,8 +74,8 @@ def list_dns():
 
 def delete_record(id):
     myenv = getenv()
-    url = os.environ.get("KALM_DNS_URL") + "/client/v4/zones/" + os.environ.get("KALM_DNS_ZONEID") + "/dns_records/" + id 
-    bearer = "Bearer " + os.environ.get("KALM_DNS_TOKEN", "")
+    url = os.environ.get("IGN8_DNS_URL") + "/client/v4/zones/" + os.environ.get("IGN8_DNS_ZONEID") + "/dns_records/" + id 
+    bearer = "Bearer " + os.environ.get("IGN8_DNS_TOKEN", "")
     headers = {
     "Authorization": bearer,
     "Content-Type": "application/json"
@@ -98,30 +98,30 @@ def add_record(myitem = None):
     myenv = getenv()
     records = list_dns()
     prettyllog("manage", "network", "DNS", "new", "000", "list dns records : " + str(len(records))) 
-    if os.environ.get("KALM_DNS_RECORD_NAME") == None:
+    if os.environ.get("IGN8_DNS_RECORD_NAME") == None:
         recordname = myitem["name"]
     else:
-        recordname = os.environ.get("KALM_DNS_RECORD_NAME")
+        recordname = os.environ.get("IGN8_DNS_RECORD_NAME")
 
-    if os.environ.get("KALM_DNS_DOMAIN") == None:
+    if os.environ.get("IGN8_DNS_DOMAIN") == None:
         domain = myitem["domain"]
     else:
-        domain = os.environ.get("KALM_DNS_DOMAIN")
+        domain = os.environ.get("IGN8_DNS_DOMAIN")
     
-    if os.environ.get("KALM_DNS_RECORD_TYPE") == None:
+    if os.environ.get("IGN8_DNS_RECORD_TYPE") == None:
         recordtype = myitem["type"]
     else:
-        recordtype = os.environ.get("KALM_DNS_RECORD_TYPE")
+        recordtype = os.environ.get("IGN8_DNS_RECORD_TYPE")
 
-    if os.environ.get("KALM_DNS_RECORD_TTL") == None:
+    if os.environ.get("IGN8_DNS_RECORD_TTL") == None:
         recordttl = myitem["ttl"]
     else:
-        recordttl = os.environ.get("KALM_DNS_RECORD_TTL")
+        recordttl = os.environ.get("IGN8_DNS_RECORD_TTL")
 
-    if os.environ.get("KALM_DNS_RECORD_PROXIED") == None:
+    if os.environ.get("IGN8_DNS_RECORD_PROXIED") == None:
         recordproxied = myitem["proxied"]
     else:
-        recordproxied = os.environ.get("KALM_DNS_RECORD_PROXIED")
+        recordproxied = os.environ.get("IGN8_DNS_RECORD_PROXIED")
 
     
 
@@ -134,26 +134,26 @@ def add_record(myitem = None):
     if value != None:
         delete_record(records[key])
     prettyllog("manage", "network", "DNS", "new", "000", "adding : " + key)
-    url = os.environ.get("KALM_DNS_URL") + "/client/v4/zones/" + os.environ.get("KALM_DNS_ZONEID") + "/dns_records"
-    bearer = "Bearer " + os.environ.get("KALM_DNS_TOKEN", "")
+    url = os.environ.get("IGN8_DNS_URL") + "/client/v4/zones/" + os.environ.get("IGN8_DNS_ZONEID") + "/dns_records"
+    bearer = "Bearer " + os.environ.get("IGN8_DNS_TOKEN", "")
     headers = {
     "Authorization": bearer,
     "Content-Type": "application/json"
     }
     proxied = False
-    if os.environ.get("KALM_DNS_RECORD_PROXIED") == "true":
+    if os.environ.get("IGN8_DNS_RECORD_PROXIED") == "true":
         proxied = True
-    if os.environ.get("KALM_DNS_CONTENT") == None:
+    if os.environ.get("IGN8_DNS_CONTENT") == None:
         content = myitem["ipaddress"]
     else:
-        content = os.environ.get("KALM_DNS_CONTENT")
+        content = os.environ.get("IGN8_DNS_CONTENT")
 
     data = {
     "content": content, 
     "name": key,
     "proxied": proxied,
     "type": recordtype,
-    "comment": "DNS record created by KALM",
+    "comment": "DNS record created by IGN8",
     "ttl": recordttl
     }
     response = requests.post(url, headers=headers, data=json.dumps(data))

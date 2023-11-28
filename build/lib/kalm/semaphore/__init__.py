@@ -1,21 +1,21 @@
-# keep kalm and con5entrate on your semaphores
+# keep ign8 and con5entrate on your semaphores
 
 from . import serve
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and con5entrate on your semaphores", usage="kalm_semaphore <action> \n\n \
+    parser = argparse.ArgumentParser(description="Keep ign8 and con5entrate on your semaphores", usage="ign8_semaphore <action> \n\n \
 \
 version : 0.0.2 (semaphore)\n\
 actions:\n\
-serve      keep kalm and serve semaphore\n\
-init       keep kalm and init semaphore systemd service\n\
-start      keep kalm and start semaphore systemd service\n\
-stop       keep kalm and stop semaphore systemd service\n\
-restart    keep kalm and restart semaphore systemd service\n\
-setup      keep kalm and setup semaphore\n\
-test       keep kalm and test semaphore\n\
-audit      keep kalm and audit semaphore\n\
+serve      keep ign8 and serve semaphore\n\
+init       keep ign8 and init semaphore systemd service\n\
+start      keep ign8 and start semaphore systemd service\n\
+stop       keep ign8 and stop semaphore systemd service\n\
+restart    keep ign8 and restart semaphore systemd service\n\
+setup      keep ign8 and setup semaphore\n\
+test       keep ign8 and test semaphore\n\
+audit      keep ign8 and audit semaphore\n\
 \n\
 \
 2023 Knowit Miracle\

@@ -2,7 +2,7 @@ from . import wireguard
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate", usage="kalm_dns <action> \n\n \
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage="ign8_dns <action> \n\n \
                \
                version : 0.0.0 BETA \n                                              \
                actions:\n                                                      \

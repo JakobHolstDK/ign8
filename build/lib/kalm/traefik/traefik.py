@@ -39,7 +39,7 @@ def get_traefik_config():
     return jsonify(config_data)
 
 
-def serve_traefik(config="/etc/kalm/traefik.json", host="0.0.0.0", port="free"):
+def serve_traefik(config="/etc/ign8/traefik.json", host="0.0.0.0", port="free"):
   if port == "free":
      port  = get_next_free_port(host, port)
   print(port)

@@ -41,7 +41,7 @@ def get_file_content_lines(file_path):
 def prettyllog(function, action, item, organization, statuscode, text, severity="INFO"):
   silence = False
   try:
-    if os.getenv("KALM_SILENCE", "false").lower() == "true":
+    if os.getenv("IGN8_SILENCE", "false").lower() == "true":
       silence = True
   except:
     silence = False

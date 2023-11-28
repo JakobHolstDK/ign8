@@ -2,7 +2,7 @@ from . import inabox
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate", usage="kalm <action> \n\n \
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage="ign8 <action> \n\n \
                \
                version : 0.1.2 BETA \n                                              \
                actions:\n                                                      \

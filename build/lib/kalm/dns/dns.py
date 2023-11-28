@@ -168,53 +168,53 @@ def init_redis():
 
 
 def env_check():
-  domain = os.getenv('KALM_DNS_DOMAIN')
-  url=os.getenv('KALM_DNS_URL')
-  dns_type=os.getenv('KALM_DNS_TYPE')
-  token=os.getenv('KALM_DNS_TOKEN')
+  domain = os.getenv('IGN8_DNS_DOMAIN')
+  url=os.getenv('IGN8_DNS_URL')
+  dns_type=os.getenv('IGN8_DNS_TYPE')
+  token=os.getenv('IGN8_DNS_TOKEN')
   if domain is None:
-    print("Error: KALM_DNS_DOMAIN is not set")
+    print("Error: IGN8_DNS_DOMAIN is not set")
     exit(1)
   if url is None:
-    print("Error: KALM_DNS_URL is not set")
+    print("Error: IGN8_DNS_URL is not set")
     exit(1)
   if dns_type is None:
-    print("Error: KALM_DNS_TYPE is not set")
+    print("Error: IGN8_DNS_TYPE is not set")
     exit(1)
   if token is None:
-    print("Error: KALM_DNS_TOKEN is not set")
+    print("Error: IGN8_DNS_TOKEN is not set")
     exit(1)
 
 def set_env():
-  domain = os.getenv('KALM_DNS_DOMAIN')
-  url=os.getenv('KALM_DNS_URL')
-  dns_type=os.getenv('KALM_DNS_TYPE')
-  token=os.getenv('KALM_DNS_TOKEN')
+  domain = os.getenv('IGN8_DNS_DOMAIN')
+  url=os.getenv('IGN8_DNS_URL')
+  dns_type=os.getenv('IGN8_DNS_TYPE')
+  token=os.getenv('IGN8_DNS_TOKEN')
 
   if domain is None:
-    print("Error: KALM_DNS_DOMAIN is not set")
+    print("Error: IGN8_DNS_DOMAIN is not set")
     exit(1)
   if url is None:
-    print("Error: KALM_DNS_URL is not set")
+    print("Error: IGN8_DNS_URL is not set")
     exit(1)
   if dns_type is None:
-    print("Error: KALM_DNS_TYPE is not set")
+    print("Error: IGN8_DNS_TYPE is not set")
     exit(1)
   if token is None:
-    print("Error: KALM_DNS_TOKEN is not set")
+    print("Error: IGN8_DNS_TOKEN is not set")
     exit(1)
-  os.environ['KALM_DNS_DOMAIN'] = domain
-  os.environ['KALM_DNS_URL'] = url
-  os.environ['KALM_DNS_TYPE'] = dns_type
-  os.environ['KALM_DNS_TOKEN'] = token
+  os.environ['IGN8_DNS_DOMAIN'] = domain
+  os.environ['IGN8_DNS_URL'] = url
+  os.environ['IGN8_DNS_TYPE'] = dns_type
+  os.environ['IGN8_DNS_TOKEN'] = token
   return True
 
 def get_zone_id():
   set_env()
-  domain = os.getenv('KALM_DNS_DOMAIN')
-  url=os.getenv('KALM_DNS_URL')
-  dns_type=os.getenv('KALM_DNS_TYPE')
-  token=os.getenv('KALM_DNS_TOKEN')
+  domain = os.getenv('IGN8_DNS_DOMAIN')
+  url=os.getenv('IGN8_DNS_URL')
+  dns_type=os.getenv('IGN8_DNS_TYPE')
+  token=os.getenv('IGN8_DNS_TOKEN')
   if url.endswith("/"):
     url = url[:-1]
   zoneurl = url + "/zones" 
@@ -238,10 +238,10 @@ def get_zone_id():
    
 def get_records():
   set_env()
-  domain = os.getenv('KALM_DNS_DOMAIN')
-  url=os.getenv('KALM_DNS_URL')
-  dns_type=os.getenv('KALM_DNS_TYPE')
-  token=os.getenv('KALM_DNS_TOKEN')
+  domain = os.getenv('IGN8_DNS_DOMAIN')
+  url=os.getenv('IGN8_DNS_URL')
+  dns_type=os.getenv('IGN8_DNS_TYPE')
+  token=os.getenv('IGN8_DNS_TOKEN')
   headers = {
     "Content-Type": "application/json",
     "Auth-API-Token": token
@@ -313,11 +313,11 @@ def get_my_ethernet_interfaces():
    
 def sync_my_system():
   set_env()
-  domain = os.getenv('KALM_DNS_DOMAIN')
-  url=os.getenv('KALM_DNS_URL')
+  domain = os.getenv('IGN8_DNS_DOMAIN')
+  url=os.getenv('IGN8_DNS_URL')
   prettyllog("manage", "dns", domain, "new", "000", "sync my system")
-  dns_type=os.getenv('KALM_DNS_TYPE')
-  token=os.getenv('KALM_DNS_TOKEN')
+  dns_type=os.getenv('IGN8_DNS_TYPE')
+  token=os.getenv('IGN8_DNS_TOKEN')
   myip = get_my_ip()
   if myip is None:
     print("Error: can't get my ip")
@@ -327,27 +327,27 @@ def sync_my_system():
   zoneurl = url + "/api/v1/zones"
 
 def get_dns_record(record):
-  domain = os.getenv('KALM_DNS_DOMAIN')
-  url=os.getenv('KALM_DNS_URL')
+  domain = os.getenv('IGN8_DNS_DOMAIN')
+  url=os.getenv('IGN8_DNS_URL')
   prettyllog("manage", "dns", record, "new", "000", "add dns record %s" % (record))
-  dns_type=os.getenv('KALM_DNS_TYPE')
+  dns_type=os.getenv('IGN8_DNS_TYPE')
 
-  token=os.getenv('KALM_DNS_TOKEN')
+  token=os.getenv('IGN8_DNS_TOKEN')
   if token == None:
-    print("You need to setup KALM_DNS_TOKEN")  
+    print("You need to setup IGN8_DNS_TOKEN")  
   
   
 
 
 def add_dns_record(record, record_type="A", record_value="", ttl=600, update=True):
-  domain = os.getenv('KALM_DNS_DOMAIN')
-  url=os.getenv('KALM_DNS_URL')
+  domain = os.getenv('IGN8_DNS_DOMAIN')
+  url=os.getenv('IGN8_DNS_URL')
   prettyllog("manage", "dns", record, "new", "000", "add dns record %s" % (record))
-  dns_type=os.getenv('KALM_DNS_TYPE')
+  dns_type=os.getenv('IGN8_DNS_TYPE')
 
-  token=os.getenv('KALM_DNS_TOKEN')
+  token=os.getenv('IGN8_DNS_TOKEN')
   if token == None:
-    print("You need to setup KALM_DNS_TOKEN")  
+    print("You need to setup IGN8_DNS_TOKEN")  
 
   zoneurl = url + "/zones"
   headers = {
@@ -393,13 +393,13 @@ def get_dns_record(hostname):
 
 def delete_dns_record(hostname):
   set_env()
-  domain = os.getenv('KALM_DNS_DOMAIN')
-  url=os.getenv('KALM_DNS_URL')
+  domain = os.getenv('IGN8_DNS_DOMAIN')
+  url=os.getenv('IGN8_DNS_URL')
   prettyllog("manage", "dns", hostname, "new", "000", "delete dns record %s" % (hostname))
-  dns_type=os.getenv('KALM_DNS_TYPE')
-  token=os.getenv('KALM_DNS_TOKEN')
+  dns_type=os.getenv('IGN8_DNS_TYPE')
+  token=os.getenv('IGN8_DNS_TOKEN')
   if token == None:
-    print("You need to setup KALM_DNS_TOKEN")  
+    print("You need to setup IGN8_DNS_TOKEN")  
 
 
 def libvirt_leases():
@@ -418,7 +418,7 @@ def register():
   network = "default"
   ipaddress = get_my_ip()
   myitem = { "name" : domain_name, "type": "A", "proxied": "False", "ttl": 300, "network" : network, "ipaddress" : ipaddress }
-  if os.environ.get("KALM_DNS_TYPE") == "cloudflare":
+  if os.environ.get("IGN8_DNS_TYPE") == "cloudflare":
     if(cloudflare.check_access()):
       prettyllog("manage", "dns", domain_name, "new", "000", "add dns record %s" % (domain_name + "." + network + ".openknowit.com"))
       result = cloudflare.add_record(myitem)
@@ -428,13 +428,13 @@ def register():
 def virtlightning():
   prettyllog("manage", "dns", "virtlightning", "new", "000", "virtlightning")  
   set_env()
-  vlfile = os.getenv('KALM_VIRT_LIGHTNING_FILE')
+  vlfile = os.getenv('IGN8_VIRT_LIGHTNING_FILE')
   if vlfile == None:
-    print("You need to setup KALM_VIRT_LIGHTNING_FILE")  
+    print("You need to setup IGN8_VIRT_LIGHTNING_FILE")  
     exit(1)
-  vldir = os.getenv('KALM_VIRT_LIGHTNING_DIR')
+  vldir = os.getenv('IGN8_VIRT_LIGHTNING_DIR')
   if vldir == None:
-    print("You need to setup KALM_VIRT_LIGHTNING_DIR")  
+    print("You need to setup IGN8_VIRT_LIGHTNING_DIR")  
     exit(1)
   vlfullpath = vldir + "/" + vlfile
   if not os.path.isfile(vlfullpath):
@@ -454,7 +454,7 @@ def virtlightning():
     mynetwork = "default"
     print(myname + " " + myip + " " + myos)
     myitem = { "name" : myname, "type": "A", "proxied": "False", "ttl": 300, "network" : mynetwork, "ipaddress" : myip }
-    if os.environ.get("KALM_DNS_TYPE") == "cloudflare":
+    if os.environ.get("IGN8_DNS_TYPE") == "cloudflare":
       if(cloudflare.check_access()):
         prettyllog("manage", "dns", myname, "new", "000", "add dns record %s" % (myname +  ".openknowit.com"))
         result = cloudflare.add_record(myitem)
@@ -515,7 +515,7 @@ def libvirt(args):
       netid = "None"
     prettyllog("manage", "ipadress", domain_name, "new", "000", "Network id :  %s" % (netid))
     myitem = { "name" : domain_name, "type": "A", "proxied": "False", "ttl": 300, "network" : network, "ipaddress" : ipaddress }
-    if os.environ.get("KALM_DNS_TYPE") == "cloudflare":
+    if os.environ.get("IGN8_DNS_TYPE") == "cloudflare":
       if(cloudflare.check_access()):
         prettyllog("manage", "dns", domain_name, "new", "000", "add dns record %s" % (domain_name + "." + network + ".openknowit.com"))
         result = cloudflare.add_record(myitem)

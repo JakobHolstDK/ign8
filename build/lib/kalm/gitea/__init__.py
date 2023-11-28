@@ -2,7 +2,7 @@ from . import git
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate", usage="kalm_gitea <action> \n\n \
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage="ign8_gitea <action> \n\n \
                \
                version : 0.1.2 gitea  \n                                              \
                actions:\n                                                      \

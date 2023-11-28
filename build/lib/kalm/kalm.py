@@ -150,8 +150,8 @@ def awx_purge_orphans(token, r):
     awx_delete(mykey[1],mykey[3])
 
 def verify_gitkey(project):
-  if os.path.exists("/etc/kalm/keys/%s.json" % project):
-    with open("/etc/kalm/keys/%s" % project) as f:
+  if os.path.exists("/etc/ign8/keys/%s.json" % project):
+    with open("/etc/ign8/keys/%s" % project) as f:
       #check if keys us a valid ssh key
       return True
   else:
@@ -161,7 +161,7 @@ def verify_gitkey(project):
       return False
   
 def create_gitkey(project):
-  if os.path.exists("/etc/kalm/keys/%s.json" % project):
+  if os.path.exists("/etc/ign8/keys/%s.json" % project):
     print("Key exists")
   else:
     print("Key does not exist")
@@ -198,21 +198,21 @@ def awx_create_subproject(org, project, subproject, mytoken, r):
     "scm_update_on_launch": "false",
     "scm_update_cache_timeout": 0
   }
-  # check if subproject etc file exists in /etc/kalm/kalm.d/subproject.json
+  # check if subproject etc file exists in /etc/ign8/ign8.d/subproject.json
   # if it exists, read it and update data
   # if it does not exist, create it
-  # if it exists, but is not the same as the one in /etc/kalm/kalm.d/subproject.json, update it
+  # if it exists, but is not the same as the one in /etc/ign8/ign8.d/subproject.json, update it
   
   
 
 
-  if os.path.exists("/etc/kalm/kalm.d/%s.json" % subproject):
-    with open("/etc/kalm.d/subproject.json") as f:
+  if os.path.exists("/etc/ign8/ign8.d/%s.json" % subproject):
+    with open("/etc/ign8.d/subproject.json") as f:
       data = json.load(f)
 
   else:
-      open("/etc/kalm/kalm.d/%s.json" % subproject, 'w').close()
-      with open("/etc/kalm/kalm.d/%s.json" % subproject, 'w') as f:
+      open("/etc/ign8/ign8.d/%s.json" % subproject, 'w').close()
+      with open("/etc/ign8/ign8.d/%s.json" % subproject, 'w') as f:
         json.dump(data, f)
 
     
@@ -613,16 +613,16 @@ def refresh_awx_data(mytoken,r ):
 def get_subproject(subproject, project, organisation, mytoken, r):
   print("get subproject data")
 
-  #check if file exists in /etc/kalm/kalm.d/subproject.json
+  #check if file exists in /etc/ign8/ign8.d/subproject.json
   # if it exists, read it and update data
-  if os.path.exists("/etc/kalm/kalm.d/%s.json" % subproject):
-    with open("/etc/kalm/kalm.d/%s.json" % subproject) as f:
+  if os.path.exists("/etc/ign8/ign8.d/%s.json" % subproject):
+    with open("/etc/ign8/ign8.d/%s.json" % subproject) as f:
       data = json.load(f)
   else:
     print("Subproject file does not exist")
     if create_subproject_file(subproject, project, organisation, mytoken, r):
-      if os.path.exists("/etc/kalm/kalm.d/%s.json" % subproject):
-        with open("/etc/kalm/kalm.d/%s.json" % subproject) as f:
+      if os.path.exists("/etc/ign8/ign8.d/%s.json" % subproject):
+        with open("/etc/ign8/ign8.d/%s.json" % subproject) as f:
           data = json.load(f)
       else:
         print("Subproject file does not exist")
@@ -633,13 +633,13 @@ def get_subproject(subproject, project, organisation, mytoken, r):
   return data
 
 def create_master_project_file(project, organisation, token, r):
-  if os.path.exists("/etc/kalm.json"):
-    with open("/etc/kalm.json") as f:
+  if os.path.exists("/etc/ign8.json"):
+    with open("/etc/ign8.json") as f:
       data = json.load(f)
   else:
     data = {  }
-    open("/etc/kalm.json", 'w').close()
-    with open("/etc/kalm.json", 'w') as f:
+    open("/etc/ign8.json", 'w').close()
+    with open("/etc/ign8.json", 'w') as f:
       json.dump(data, f)
     return True
   
@@ -744,8 +744,8 @@ def create_subproject_file(subproject, project, organisation, token, r):
 
    
 
-  open("/etc/kalm/kalm.d/%s.json" % subproject, 'w').close()
-  with open("/etc/kalm/kalm.d/%s.json" % subproject, 'w') as f:
+  open("/etc/ign8/ign8.d/%s.json" % subproject, 'w').close()
+  with open("/etc/ign8/ign8.d/%s.json" % subproject, 'w') as f:
     json.dump(data, f)
   return True
 
@@ -768,12 +768,12 @@ def create_subproject_file(subproject, project, organisation, token, r):
 
 
 
-def kalm(mytoken, r, realm="standalone", subproject=None):
+def ign8(mytoken, r, realm="standalone", subproject=None):
   ########################################################################################################################
   # Load and set ansible secrets in ansible vault
   ########################################################################################################################
   prettyllog("init", "runtime", "config", "init", "001", "loadning secrets")
-  ansiblevaultfile = "/etc/kalm/secret.json"
+  ansiblevaultfile = "/etc/ign8/secret.json"
   f = open(ansiblevaultfile)
   ansiblevault = json.loads(f.read())
   f.close
@@ -811,21 +811,21 @@ def kalm(mytoken, r, realm="standalone", subproject=None):
   ########################################################################################################################
 
 
-  cfgfile = "/etc/kalm/kalm.json"
-  # checkout git repo in kalm.json main project
+  cfgfile = "/etc/ign8/ign8.json"
+  # checkout git repo in ign8.json main project
 
 
 
 
 
   if (realm == "standalone" or realm == "main"):
-          cfgfile = "/etc/kalm/kalm.json"
+          cfgfile = "/etc/ign8/ign8.json"
           realm="main"
           prettyllog("init", "runtime", "config", "master", "002",  "Running Running as daemon")
    
   if (realm == "subproject" ):
           prettyllog("init", "runtime", "config", subproject, "003" , "running cusom config file")
-          cfgfile = "/etc/kalm/kalm.d/%s" % subproject + ".json"
+          cfgfile = "/etc/ign8/ign8.d/%s" % subproject + ".json"
   prettyllog("init", "runtime", "config", "master", "001", "loading config file %s" % cfgfile)
   
 

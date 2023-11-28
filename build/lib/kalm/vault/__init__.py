@@ -4,7 +4,7 @@ import os
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Keep kalm and automate", usage="kalm_vault <action> \n\n\
+    parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage="ign8_vault <action> \n\n\
  \
                version : 1.0.0 vault  \n\
                actions:\n\
