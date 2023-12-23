@@ -1,5 +1,3 @@
-from ign8 import ign8
-
 import os
 import sys
 import redis
