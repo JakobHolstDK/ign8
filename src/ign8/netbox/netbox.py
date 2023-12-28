@@ -8,11 +8,11 @@ import yaml
 from ..common import prettyllog
 
 
-netbox_url = os.environ.get('NETBOX_URL')
-netbox_token = os.environ.get('NETBOX_TOKEN')
+#netbox_url = os.environ.get('NETBOX_URL')
+#netbox_token = os.environ.get('NETBOX_TOKEN')
 
-NETBOX_URL = os.getenv("NETBOX_API_URL")
-NETBOX_TOKEN = os.getenv("NETBOX_API_TOKEN")
+NETBOX_URL = os.getenv("IGN8_NETBOX_URL")
+NETBOX_TOKEN = os.getenv("IGN8_NETBOX_TOKEN")
 
 ssh_config_template = """
 Host {hostname}
@@ -23,6 +23,23 @@ Host {hostname}
     Port 22
     {proxy_jump}
 """
+
+
+def check_netbox():
+    prettyllog("manage", "netbox", "check", "all", "000", "Checking NetBox")
+    try:
+        response = requests.get(NETBOX_URL, verify=False)
+        if response.status_code == 200:
+            prettyllog("manage", "netbox", "check", "all", "200", "Success")
+            return True
+        else:
+            prettyllog("manage", "netbox", "check", "all", "500", "Failed")
+            return False
+    except:
+        prettyllog("manage", "netbox", "check", "all", "500", "Failed")
+        return False
+    
+    
 def vizulize(args):
     cluseters = get_clusters()
     vms = get_virtual_machines()

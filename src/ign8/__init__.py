@@ -8,6 +8,8 @@ import argparse
 import requests
 from .common import prettyllog
 from .main import main
+from .setup import setupign8
+
 
 
 
@@ -64,13 +66,13 @@ def main():
     usage =  "Usage:"
     usage += " ign8 <action> \n\n"
     usage += "Actions:\n"
-    usage += "           check"
-    usage += "           setup"
-    usage += "           reset"
-    usage += "           startservice"
-    usage += "           stopservice"
-    usage += "           initservice"
-    usage += "           service"
+    usage += "           check\n"
+    usage += "           setup\n"
+    usage += "           reset\n"
+    usage += "           startservice\n"
+    usage += "           stopservice\n"
+    usage += "           initservice\n"
+    usage += "           service\n\n"
     usage += "           2024 ign8.it "
     parser = argparse.ArgumentParser(description="Keep ign8 and automate", usage=usage)
     parser.add_argument('action', metavar='<action>', type=str, nargs='+', help='setup netbox')
