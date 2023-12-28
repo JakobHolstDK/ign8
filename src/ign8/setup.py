@@ -25,12 +25,12 @@ def getenvironment():
 
 
 def setupign8():
-    prettyllog("setupign8", "check", "access", "all", "200", "Success")
+    prettyllog("setup", "check", "access", "all", "200", "Success")
     myenv = getenvironment()
     if myenv:
-        prettyllog("setupign8", "check", "access", "all", "200", "Success")
+        prettyllog("setup", "check", "access", "all", "200", "Success")
         return True
     else:
-        prettyllog("setupign8", "check", "setupign8", "all", "500", "Failed", "ERROR")
+        prettyllog("setup", "check", "setupign8", "all", "500", "Failed", "ERROR")
         return False    
 

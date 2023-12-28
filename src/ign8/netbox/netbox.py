@@ -33,13 +33,13 @@ def check_netbox():
     try:
         response = requests.get(NETBOX_URL, verify=False)
         if response.status_code == 200:
-            prettyllog("manage", "netbox", "check", "all", "200", "Success")
+            prettyllog("check", "netbox", "access", "all", "200", "Success", "INFO")
             return True
         else:
-            prettyllog("manage", "netbox", "check", "all", "500", "Failed")
+            prettyllog("check", "netbox", "access", "all", "500", "Failed", "ERROR")
             return False
     except:
-        prettyllog("manage", "netbox", "check", "all", "500", "Failed")
+        prettyllog("manage", "netbox", "check", "all", "500", "Failed", "ERROR")
         return False
     
 
