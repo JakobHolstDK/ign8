@@ -81,7 +81,7 @@ def main():
     ready  = connectiontest()
 
     if args.action[0] == "setup":
-        setupign8(False)
+        setupign8()
     elif args.action[0] == "check":
         print("Checking")
     elif args.action[0] == "reset":
