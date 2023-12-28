@@ -2,7 +2,7 @@ import os
 import requests
 import datetime
 from .common import prettyllog
-from .netbox.netbox import checknetbox
+from .netbox.netbox import check_netbox
 
 
 def main():
@@ -18,7 +18,7 @@ def getenvironment():
     environment["IGN8_NETBOX_URL"] = getenvironmentvalue("IGN8_NETBOX_URL")
     environment["IGN8_NETBOX_TOKEN"] = getenvironmentvalue("IGN8_NETBOX_TOKEN")
     environment["IGN8_NETBOX_VERIFY_SSL"] = getenvironmentvalue("IGN8_NETBOX_VERIFY_SSL")
-    if checknetbox():
+    if check_netbox():
         prettyllog("getenvironment", "check", "getenvironment", "all", "200", "Success")
         return environment
     else:
