@@ -7,6 +7,9 @@ import platform
 import yaml
 from ..common import prettyllog
 
+# we need to suppress ssl warnings
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 #netbox_url = os.environ.get('NETBOX_URL')
 #netbox_token = os.environ.get('NETBOX_TOKEN')
@@ -39,7 +42,7 @@ def check_netbox():
         prettyllog("manage", "netbox", "check", "all", "500", "Failed")
         return False
     
-    
+
 def vizulize(args):
     cluseters = get_clusters()
     vms = get_virtual_machines()
