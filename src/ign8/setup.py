@@ -19,18 +19,16 @@ def getenvironment():
     environment["IGN8_NETBOX_TOKEN"] = getenvironmentvalue("IGN8_NETBOX_TOKEN")
     environment["IGN8_NETBOX_VERIFY_SSL"] = getenvironmentvalue("IGN8_NETBOX_VERIFY_SSL")
     if check_netbox():
-        prettyllog("getenvironment", "check", "getenvironment", "all", "200", "Success")
         return environment
     else:
-        prettyllog("getenvironment", "check", "getenvironment", "all", "500", "Failed", "ERROR")
         return False
 
 
 def setupign8():
-    prettyllog("setupign8", "check", "setupign8", "all", "200", "Success")
+    prettyllog("setupign8", "check", "access", "all", "200", "Success")
     myenv = getenvironment()
     if myenv:
-        prettyllog("setupign8", "check", "setupign8", "all", "200", "Success")
+        prettyllog("setupign8", "check", "access", "all", "200", "Success")
         return True
     else:
         prettyllog("setupign8", "check", "setupign8", "all", "500", "Failed", "ERROR")
