@@ -29,6 +29,7 @@ def main():
                 add_vm                    add virtual server to netbox\n\
                 add_device                add device to netbox\n\
                 refresh                   refresh core netbox content\n\
+                get_config                get config\n\
                 serve                     \n\
                \
                2023 Knowit Miracle\
@@ -147,6 +148,11 @@ def main():
         print("add_device")
         return netbox.add_device()    
     return 0
+
+    if args.action[0] == "get_config":
+        print(netbox.get_config())
+        return 0
+    
 
     
 
