@@ -1648,5 +1648,18 @@ def inventory_upload():
         os.environ["IGN8_DEVICE_NAME"] = item
         add_device()
 
+def get_config():
+    vmname = os.environ.get('HOSTNAME')
+    if vmname == "localhost":
+        return False
+    # stript the name from the domain
+    vmname = vmname.split(".")[0]
+    prettyllog("manage", "netbox", "config", "get", "000", "Getting config for %s" % vmname)
+    vmdata = get_virtual_machine(vmname)
+    return vmdata
+
+    
+
+
 
 
