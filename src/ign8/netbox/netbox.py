@@ -1654,7 +1654,7 @@ def get_config():
         return False
     # stript the name from the domain
     vmname = vmname.split(".")[0]
-    prettyllog("manage", "netbox", "config", "get", "000", "Getting config for %s" % vmname)
+    prettyllog("manage", "netbox", "config", "get", "000", "Getting config for %s" % vmname, "INFO")
     vmdata = get_virtual_machine(vmname)
     return vmdata
 
