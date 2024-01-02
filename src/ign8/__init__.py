@@ -94,6 +94,9 @@ def main():
         print("Initializing Service")
     elif args.action[0] == "service":
         print("Service")
+        main()
+        
+
 
     
 
