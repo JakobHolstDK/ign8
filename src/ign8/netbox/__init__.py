@@ -147,11 +147,22 @@ def main():
     if args.action[0] == "add_device":
         print("add_device")
         return netbox.add_device()    
-    return 0
 
     if args.action[0] == "get_config":
         print(netbox.get_config())
         return 0
+    
+
+
+
+
+
+
+
+
+
+    
+    return 0
     
 
     
