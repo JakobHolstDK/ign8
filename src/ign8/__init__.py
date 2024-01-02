@@ -7,7 +7,8 @@ import json
 import argparse
 import requests
 from .common import prettyllog
-from .main import main
+from .main import main, serve
+
 from .setup import setupign8
 
 
@@ -94,8 +95,8 @@ def main():
         print("Initializing Service")
     elif args.action[0] == "service":
         print("Service")
-        main()
-        
+        serve()
+
 
 
     
