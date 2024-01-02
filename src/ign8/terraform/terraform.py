@@ -20,8 +20,8 @@ def pluging_install():
     # execute go version to check if go is installed
     # if go is not installed, install go
     gotest = runme("go version")
-    print(gotest)
-    
+    print(gotest.returncode)
+
 
   
 
