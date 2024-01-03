@@ -30,7 +30,8 @@ def serve():
     print(sys.prefix)
 
     os.system("pip install --upgrade ign8 >/dev/null 2>&1")
-    os.chdir("/usr/local/lib/python3.9/site-packages/ign8/ui/project/ignite/")
+    mydir = sys.prefix + "/lib/python3.9/site-packages/ign8/ui/project/ignite/"
+    os.chdir(mydir)
     os.system("python manage.py makemigrations")
     os.system("python manage.py migrate")
     #p = Popen(['espeak', '-b', '1'], stdin=PIPE, stdout=DEVNULL, stderr=STDOUT)
