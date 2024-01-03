@@ -21,6 +21,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("main.urls")),
     path('selinux/', include('selinux.urls')),
-    path('ansible/', include('ansible.urls')),
-    path('cmdb/', include('cmdb.urls')),
 ]
