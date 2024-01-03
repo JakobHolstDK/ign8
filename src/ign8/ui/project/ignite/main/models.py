@@ -5,19 +5,18 @@ from django.db import models
 class maindata(models.Model):
     name = models.CharField(max_length=100)
 
-class services(models.Model)
+class services(models.Model):
     name = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
 
-class users(models.Model)
+class users(models.Model):
     name = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
 
-class groups(models.Model)
+class groups(models.Model):
     name = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
 
-    
