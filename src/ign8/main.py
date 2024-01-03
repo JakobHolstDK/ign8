@@ -1,13 +1,34 @@
 from .common import prettyllog
 import os
 import subprocess
+import sys
+
+def getenv(key, default):
+    if key in os.environ:
+        return os.environ[key]
+    else:
+        return default
 
 def main():
     prettyllog("main", "check", "main", "all", "200", "Success")
     return True
 
+def in_venv():
+    return sys.prefix != sys.base_prefix
+
+
 def serve():
-    prettyllog("main", "check", "main", "all", "200", "Success")
+    prettyllog("main", "check", "main", "all", "200", "Success", "info")
+    if not in_venv():
+        prettyllog("main", "check", "Not a virtual env", "all", "200", "Success")
+        os.system("python3 -m venv /tmp/ign8_venv")
+        os.system("source /tmp/ign8_venv/bin/activate")
+        os.system("pip install --upgrade ign8 >/dev/null 2>&1")
+        os.system("pip install --upgrade pip >/dev/null 2>&1")
+
+    print("Starting Ign8 UI")
+    print(sys.prefix)
+
     os.system("pip install --upgrade ign8 >/dev/null 2>&1")
     os.chdir("/usr/local/lib/python3.9/site-packages/ign8/ui/project/ignite/")
     os.system("python manage.py makemigrations")
