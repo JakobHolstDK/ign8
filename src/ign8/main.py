@@ -8,7 +8,7 @@ def main():
 
 def serve():
     prettyllog("main", "check", "main", "all", "200", "Success")
-    os.system("pip install --uprade ign8")
+    os.system("pip install --upgrade ign8")
     os.chdir("/usr/local/lib/python3.9/site-packages/ign8/ui/project/ignite/")
     gunicorn = subprocess.Popen(["gunicorn", "ignite.wsgi", "-c", "gunicorn.conf"])
     prettyllog("main", "check", "main", "all", "200", "Success", "info")
