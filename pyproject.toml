@@ -1,6 +1,6 @@
 [project]
 name = "ign8"
-version = "3.7.27"
+version = "3.7.28"
 description = "Knowit automation lifecycle management"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -48,10 +48,11 @@ ign8_terraform = "ign8.terraform:main"
 ign8_dns = "ign8.dns:main"
 ign8_file = "ign8.file:main"
 ign8_semaphore = "ign8.semaphore:main"
+ign8_ui = "ign8.ui:main"
 
 [tool.poetry]
 name = "ign8"
-version = "3.7.27"
+version = "3.7.28"
 description = "Knowit Automation lifecycle management"
 authors = [ "Jakob Holst <jakob.holst@knowit.dk>",]
 license = "MIT"
@@ -75,6 +76,7 @@ ign8_vault = "ign8.vault:main"
 ign8_dns = "ign8.dns:main"
 ign8_file = "ign8.file:main"
 ign8_semaphore = "ign8.semaphore:main"
+ign8_ui = "ign8.ui:main"
 
 [tool.poetry.dependencies]
 python = "^3.9"
