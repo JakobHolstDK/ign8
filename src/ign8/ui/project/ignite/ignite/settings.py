@@ -1,3 +1,4 @@
+import os
 """
 Django settings for ignite project.
 
@@ -75,13 +76,24 @@ WSGI_APPLICATION = 'ignite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+dbhost = os.environ.get("IGN8_DB_HOST", "localhost")
+dbport = os.environ.get("IGN8_DB_PORT", "5432")
+dbuser = os.environ.get("IGN8_DB_USER", "ign8")
+dbname = os.environ.get("IGN8_DB_NAME", "ign8")
+dbpass = os.environ.get("IGN8_DB_PASS", "ign8")
+
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'pgcat',
+        'NAME': dbname,
+        'USER': dbuser,
+        'PASSWORD': dbpass,
+        'HOST': dbhost,
+        'PORT': dbport,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
