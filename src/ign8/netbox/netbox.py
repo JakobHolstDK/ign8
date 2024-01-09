@@ -14,8 +14,19 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 #netbox_url = os.environ.get('NETBOX_URL')
 #netbox_token = os.environ.get('NETBOX_TOKEN')
 
-NETBOX_URL = os.getenv("IGN8_NETBOX_URL")
-NETBOX_TOKEN = os.getenv("IGN8_NETBOX_TOKEN")
+
+try:
+    NETBOX_URL = os.getenv("IGN8_NETBOX_URL")
+except:
+    prettyllog("manage", "netbox", "url", "all", "000", "No NetBox URL found", "ERROR")
+    exit (1)
+
+try:
+    NETBOX_TOKEN = os.getenv("IGN8_NETBOX_TOKEN")
+except:
+    prettyllog("manage", "netbox", "token", "all", "000", "No NetBox token found", "ERROR")
+    exit (1)
+    
 
 ssh_config_template = """
 Host {hostname}

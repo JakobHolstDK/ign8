@@ -1,6 +1,6 @@
 [project]
 name = "ign8"
-version = "3.7.26"
+version = "3.7.27"
 description = "Knowit automation lifecycle management"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -51,7 +51,7 @@ ign8_semaphore = "ign8.semaphore:main"
 
 [tool.poetry]
 name = "ign8"
-version = "3.7.26"
+version = "3.7.27"
 description = "Knowit Automation lifecycle management"
 authors = [ "Jakob Holst <jakob.holst@knowit.dk>",]
 license = "MIT"
@@ -87,7 +87,6 @@ hvac = "^1.1.0"
 netbox = "^0.0.2"
 python-jenkins = "^1.7.0"
 xmltodict = "^0.13.0"
-netifaces = "^0.11.0"
 PyYAML = "^6.0.1"
 cryptography = "^41.0.2"
 paramiko = "^3.3.1"
