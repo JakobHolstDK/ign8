@@ -1,4 +1,5 @@
 import requests
+import os
 import json
 
 def upload_selinux_data(selinux_api, inventory_hostname, values):
@@ -31,13 +32,12 @@ def upload_selinux_data(selinux_api, inventory_hostname, values):
         print(f"Error: {e}")
 
 if __name__ == "__main__":
-    # Example values
-    selinux_api = "https://example.com/api"
-    inventory_hostname = "example-host"
+    selinux_api = os.getenv("SELINUX_API", "https://selinux.openknowit.com")
+    myhostname = os.getenv("HOSTNAME", "localhost") 
+
     values = {
         "status": "enabled",
         "mount": "/mnt/data",
-        # Add other values as needed
     }
 
-    upload_selinux_data(selinux_api, inventory_hostname, values)
+    upload_selinux_data(selinux_api, myhostname, values)
