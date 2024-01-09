@@ -4,12 +4,6 @@ import os
 
 from ..common import prettyllog
 from . import serve
-from . import stop
-from . import start
-from . import status
-from . import selinux
-from . import firewall
-from . import setup
 
 
 def main():
