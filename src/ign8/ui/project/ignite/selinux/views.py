@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from .models import Selinux, SElinuxEvent, SetroubleshootEntry
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from .models import SElinuxEvent
-from .serializers import SElinuxEventSerializer, SelinuxDataSerializer
+from .serializers import SElinuxEventSerializer, SelinuxDataSerializer, SetroubleshootEntrySerializer
 
 
 from django.http import JsonResponse
@@ -28,6 +28,9 @@ def SetroubleshootEntry_host(request, hostname):
     context = {'entries': entries, 'hostname': hostname}
     return render(request, 'SetroubleshootEntry_list.html', context)
 
+class SetroubleshootEntryAPIview(generics.createdAPIView):
+    queryset = SetroubleshootEntry.objects.all()
+    serializer_class = SetroubleshootEntrySerializer
 
 @method_decorator(csrf_exempt, name='dispatch')
 class UploadSelinuxDataView(View):
