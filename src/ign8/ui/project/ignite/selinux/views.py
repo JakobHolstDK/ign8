@@ -28,7 +28,7 @@ def SetroubleshootEntry_host(request, hostname):
     context = {'entries': entries, 'hostname': hostname}
     return render(request, 'SetroubleshootEntry_list.html', context)
 
-class SetroubleshootEntryAPIview(generics.createdAPIView):
+class SetroubleshootEntryAPIview(generics.CreateAPIView):
     queryset = SetroubleshootEntry.objects.all()
     serializer_class = SetroubleshootEntrySerializer
 

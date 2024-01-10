@@ -1,6 +1,6 @@
 [project]
 name = "ign8"
-version = "3.7.45"
+version = "3.7.46"
 description = "Knowit automation lifecycle management"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -52,7 +52,7 @@ ign8_ui = "ign8.ui:main"
 
 [tool.poetry]
 name = "ign8"
-version = "3.7.45"
+version = "3.7.46"
 description = "Knowit Automation lifecycle management"
 authors = [ "Jakob Holst <jakob.holst@knowit.dk>",]
 license = "MIT"
