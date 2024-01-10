@@ -1,7 +1,7 @@
 # selinux/serializers.py
 
 from rest_framework import serializers
-from .models import Selinux, SElinuxEvent
+from .models import Selinux, SElinuxEvent, SetroubleshootEntry
 
 
 class SElinuxEventSerializer(serializers.ModelSerializer):
@@ -15,3 +15,7 @@ class SelinuxDataSerializer(serializers.ModelSerializer):
         fields = ['hostname', 'status', 'mount', 'rootdir', 'policyname', 'current_mode', 'configured_mode', 'mslstatus', 'memprotect', 'maxkernel', 'total', 'success', 'failed', 'sealerts']
 
 
+class SetroubleshootEntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SetroubleshootEntry
+        fields = '__all__'
