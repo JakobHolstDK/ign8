@@ -86,7 +86,7 @@ dbpass = os.environ.get("IGN8_DB_PASS", "ign8")
 
 DATABASES = {
     'default': {
-        'ENGINE': 'pgcat',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': dbname,
         'USER': dbuser,
         'PASSWORD': dbpass,
@@ -130,6 +130,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
