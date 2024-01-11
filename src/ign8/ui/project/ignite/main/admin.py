@@ -1,16 +1,16 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import projects
-from .models import services
+from .models import project
+from .models import service
 from .models import maindata
-from .models import users
-from .models import groups
+from .models import user
+from .models import group
 
 
-admin.site.register(projects)
-admin.site.register(services)
+admin.site.register(project)
+admin.site.register(service)
 admin.site.register(maindata)
-admin.site.register(users)
-admin.site.register(groups)
+admin.site.register(user)
+admin.site.register(group)
 
