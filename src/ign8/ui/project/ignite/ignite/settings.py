@@ -28,8 +28,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"  # BASE_DIR is the base directory of your Django project
 
-# Application definition
+CSFR_COOKIE_SECURE = False
+CSFR_TRUSTED_ORIGINS = [
+    "https://ignite.openknowit.com/",
+    "/selinux/*",
+    "/selinux_event_list/*",
+    "/upload_selinux_data/*",
+    "/upload_selinux_event/*",
+    "/api/setroubleshoot/upload/*",
+    "/SetroubleshootEntry/*",
+    "/admin/*"
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
