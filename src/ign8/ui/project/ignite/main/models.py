@@ -5,23 +5,22 @@ from django.db import models
 class maindata(models.Model):
     name = models.CharField(max_length=100)
 
-class services(models.Model):
+class service(models.Model):
     name = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
 
-class users(models.Model):
+class user(models.Model):
     name = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
 
-class groups(models.Model):
+class group(models.Model):
     name = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
 
-class projects(models.Model):
+class project(models.Model):
     name = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
-    
