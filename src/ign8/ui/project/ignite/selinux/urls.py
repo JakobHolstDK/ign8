@@ -14,6 +14,7 @@ urlpatterns = [
     path('upload_selinux_event/', UploadSElinuxEventView.as_view(), name='upload_selinux_event'),
     path('api/setroubleshoot/upload/', SetroubleshootEntryAPIview.as_view(), name='upload_setroubleshoot_entry'),
     path('SetroubleshootEntry/<str:hostname>/', SetroubleshootEntry_host, name='SetroubleshootEntry_host'),
-    path('SetroubleshootEntry/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
+    path('SetroubleshootEntry_list/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
+    path('SetroubleshootEntry_list_full/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
 ]
 
