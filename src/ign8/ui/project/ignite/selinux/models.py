@@ -60,7 +60,7 @@ class SetroubleshootEntry(models.Model):
     CURSOR = models.CharField(max_length=255, primary_key=True)
     REALTIMETIMESTAMP = models.BigIntegerField()
     MONOTONICTIMESTAMP = models.BigIntegerField()
-    BOOT_ID = models.CharField(max_length=255)
+    BOOTID = models.CharField(max_length=255)
     PRIORITY = models.IntegerField()
     SYSLOGFACILITY = models.IntegerField()
     SYSLOGIDENTIFIER = models.CharField(max_length=255)
