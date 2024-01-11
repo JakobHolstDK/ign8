@@ -39,35 +39,35 @@
         <tbody>
             {% for event in events %}
                 <tr>
-                    <td>{{ event.cursor }}</td>
-                    <td>{{ event.realtime_timestamp }}</td>
-                    <td>{{ event.monotonic_timestamp }}</td>
-                    <td>{{ event.boot_id }}</td>
-                    <td>{{ event.priority }}</td>
-                    <td>{{ event.syslog_facility }}</td>
-                    <td>{{ event.syslog_identifier }}</td>
-                    <td>{{ event.transport }}</td>
-                    <td>{{ event.pid }}</td>
-                    <td>{{ event.uid }}</td>
-                    <td>{{ event.gid }}</td>
-                    <td>{{ event.comm }}</td>
-                    <td>{{ event.exe }}</td>
-                    <td>{{ event.cmdline }}</td>
-                    <td>{{ event.cap_effective }}</td>
-                    <td>{{ event.selinux_context }}</td>
-                    <td>{{ event.systemd_cgroup }}</td>
-                    <td>{{ event.systemd_unit }}</td>
-                    <td>{{ event.systemd_slice }}</td>
-                    <td>{{ event.machine_id }}</td>
-                    <td>{{ event.hostname }}</td>
-                    <td>{{ event.code_file }}</td>
-                    <td>{{ event.code_line }}</td>
-                    <td>{{ event.code_func }}</td>
-                    <td>{{ event.message_id }}</td>
-                    <td>{{ event.unit }}</td>
-                    <td>{{ event.message }}</td>
-                    <td>{{ event.invocation_id }}</td>
-                    <td>{{ event.source_realtime_timestamp }}</td>
+                    <td>{{ event.CURSOR }}</td>
+                    <td>{{ event.REALTIMETIMESTAMP}}</td>
+                    <td>{{ event.MONOTONICTIMESTAMP}}</td>
+                    <td>{{ event.BOOTID }}</td>
+                    <td>{{ event.PRIORITY }}</td>
+                    <td>{{ event.SYSLOGFACILITY }}</td>
+                    <td>{{ event.SYSLOGIDENTIFIER }}</td>
+                    <td>{{ event.TRANSPORT }}</td>
+                    <td>{{ event.PID }}</td>
+                    <td>{{ event.UID }}</td>
+                    <td>{{ event.GID }}</td>
+                    <td>{{ event.COMM }}</td>
+                    <td>{{ event.EXE }}</td>
+                    <td>{{ event.CMDLINE }}</td>
+                    <td>{{ event.CAPEFFECTIVE }}</td>
+                    <td>{{ event.SELINUXCONTEXT }}</td>
+                    <td>{{ event.SYSTEMDCGROUP }}</td>
+                    <td>{{ event.SYSTEMDUNIT }}</td>
+                    <td>{{ event.SYSTEMDSLICE }}</td>
+                    <td>{{ event.MACHINEID }}</td>
+                    <td>{{ event.HOSTNAME }}</td>
+                    <td>{{ event.CODEFILE }}</td>
+                    <td>{{ event.CODELINE }}</td>
+                    <td>{{ event.CODEFUNC }}</td>
+                    <td>{{ event.MESSAGEID }}</td>
+                    <td>{{ event.UNIT }}</td>
+                    <td>{{ event.MESSAGE }}</td>
+                    <td>{{ event.INVOCATIONID }}</td>
+                    <td>{{ event.SOURCEREALTIMETIMESTAMP }}</td>
                 </tr>
             {% endfor %}
         </tbody>
