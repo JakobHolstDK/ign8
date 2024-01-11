@@ -79,7 +79,7 @@ class SetroubleshootEntry(models.Model):
     MACHINEID = models.CharField(max_length=255)
     HOSTNAME = models.CharField(max_length=255)
     CODEFILE = models.CharField(max_length=255)
-    CODELINE = models.IntegerField()
+    CODELINE = models.CharField(max_length=255)
     CODEFUNC = models.CharField(max_length=255)
     MESSAGEID = models.CharField(max_length=255)
     UNIT = models.CharField(max_length=255)
