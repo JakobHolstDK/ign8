@@ -6,6 +6,7 @@
         <thead>
             <tr>
                 <th>Hostname</th>
+                <th>Digest</th>
                 <th>Realtime Timestamp</th>
                 <th>Priority</th>
                 <th>Message ID</th>
@@ -16,6 +17,7 @@
             {% for event in events %}
                 <tr>
                     <td>{{ event.HOSTNAME }}</td>
+                    <td>{{ event.digest }}</td>
                     <td>{{ event.REALTIMETIMESTAMP}}</td>
                     <td>{{ event.PRIORITY }}</td>
                     <td>{{ event.MESSAGEID }}</td>
