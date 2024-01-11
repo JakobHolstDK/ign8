@@ -20,11 +20,11 @@ def selinux_list(request):
 
 
 def SetroubleshootEntry_list(request):
-    events = SetroubleshootEntry.objects
+    events = SetroubleshootEntry.objects.all()
     return render(request, 'SetroubleshootEntry_list.html', {'events': events})
 
 def SetroubleshootEntry_host(request, hostname):
-    entries = SetroubleshootEntry.objects.filter(hostname=hostname).order_by('realtime_timestamp')
+    entries = SetroubleshootEntry.objects.filter(HOSTNAME=hostname).order_by('realtime_timestamp')
     context = {'entries': entries, 'hostname': hostname}
     return render(request, 'SetroubleshootEntry_list.html', context)
 
