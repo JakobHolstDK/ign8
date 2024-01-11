@@ -88,7 +88,7 @@ class SetroubleshootEntry(models.Model):
     SOURCEREALTIMETIMESTAMP = models.BigIntegerField()
 
     def __str__(self):
-        return f"SetroubleshootEntry - {self.SOURCEREALTIMETIMESTAMP, self.HOSTNAME, self, self.MESSAGE}"
+        return f"SetroubleshootEntry - {self.CURSOR}"
 
     class Meta:
         verbose_name = 'Setroubleshoot Entry'
