@@ -86,6 +86,7 @@ class SetroubleshootEntry(models.Model):
     MESSAGE = models.TextField()
     INVOCATIONID = models.CharField(max_length=255)
     SOURCEREALTIMETIMESTAMP = models.BigIntegerField()
+    digest = models.CharField(max_length=256, blank=True, null=True)
 
     def __str__(self):
         return f"SetroubleshootEntry - {self.CURSOR}"
