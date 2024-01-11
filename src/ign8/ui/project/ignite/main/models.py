@@ -20,3 +20,8 @@ class groups(models.Model):
     status = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
 
+class projects(models.Model):
+    name = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
+    
