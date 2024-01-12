@@ -14,7 +14,7 @@
         <div class="col-md-12">
             <h2>Projects</h2>
             <ul>
-                {% for project in projects %}
+                {% for project in maindata_projects %}
                 <li><a href="{% url 'project:detail' project.id %}">{{ project.name }}</a></li>
                 {% endfor %}
             </ul>
