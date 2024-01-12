@@ -4,9 +4,10 @@ from django.db import models
 
 class maindata(models.Model):
     name = models.CharField(max_length=100)
+    about = models.CharField(max_length=1024)
     status = models.CharField(max_length=100)
     organization = models.CharField(max_length=100)
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=1024)
     def __str__(self):
         return self.name
     
