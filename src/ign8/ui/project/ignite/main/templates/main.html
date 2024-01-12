@@ -5,7 +5,13 @@
 <h1><center>Ignite it all</center></h1>
 <hr>
 <h2>About</h2>
-<p></p>
+{% for entry in maindata_entries %}
+    <p>{{ entry.about }}</p>
+{% endfor %}
+
+<p>
+
+</p>
 
 <div class="container">
     <div class="row">
