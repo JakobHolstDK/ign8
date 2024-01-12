@@ -15,7 +15,7 @@
             <h2>Projects</h2>
             <ul>
                 {% for project in maindata_projects %}
-                <li><table><tr>{{ project.name }}</tr><tr>{{ project.description }}</tr></table> </li>
+                <li><table><tbody><tr>{{ project.name }}</tr><tr>|</tr><tr>{{ project.description }}</tr></tbody></table> </li>
                 {% endfor %}
             </ul>
         </div>
