@@ -14,3 +14,8 @@ def projectsview(request):
     myprojects = project.objects.all()
     return render(request, 'projects.html', {'maindata_entries': myprojects, 'title': 'Projects'})
 
+def projectdetail(request, id):
+    myproject = project.objects.get(pk=id)
+    return render(request, 'projectdetail.html', {'maindata_entries': myproject, 'title': 'Project Detail'})    
+
+
