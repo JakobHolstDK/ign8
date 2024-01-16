@@ -17,6 +17,10 @@ def main():
     VIR_ENV = os.environ.get("VIRTUAL_ENV", "/opt/ign8")
     os.chdir(VIR_ENV + "/lib/python3.9/site-packages/ign8/ui/project/ignite")
 
+    print(os.getcwd())
+    print(os.listdir())
+    
+
     # run the server
     # python manage.py runserver
 
