@@ -18,7 +18,9 @@ def main():
     os.chdir(VIR_ENV + "/lib/python3.9/site-packages/ign8/ui/project/ignite")
 
     # run the server
-    myserver = subprocess.run(["gunicon", "--bind", ign8_ui_host + ":" + ign8_ui_port, "--workers", "3", "ignite.wsgi -c gunicorn.conf.py --log-level=debug"])
+    # python manage.py runserver
+
+    myserver = subprocess.run(["gunicorn", "--bind", ign8_ui_host + ":" + ign8_ui_port, "--workers", "3", "ignite.wsgi -c gunicorn.conf.py --log-level=debug"])
     myserver.wait()
     return 0
 
