@@ -42,7 +42,7 @@ CSFR_TRUSTED_ORIGINS = [
     "/api/setroubleshoot/upload/*",
     "/SetroubleshootEntry/*",
     "/admin/*",
-    "/admin/login/*"
+    "/admin/login/"
 ]
 
 INSTALLED_APPS = [
