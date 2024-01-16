@@ -1,5 +1,6 @@
 import os
 import sys
+import pprint
 from ..common import prettyllog
 import subprocess
 
@@ -19,13 +20,15 @@ def main():
 
     print(os.getcwd())
     print(os.listdir())
-    
+
 
     # run the server
     # python manage.py runserver
 
     myserver = subprocess.run(["gunicorn", "--bind", ign8_ui_host + ":" + ign8_ui_port, "--workers", "3", "ignite.wsgi -c gunicorn.conf.py --log-level=debug"])
-    myserver.wait()
+
+    pprint.pprint(myserver) 
+
     return 0
 
 
