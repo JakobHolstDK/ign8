@@ -15,7 +15,11 @@
             <h2>Projects</h2>
             <ul>
                 {% for project in maindata_projects %}
-                <li><table><tbody><tr>{{ project.name }}</tr><tr>|</tr><tr>{{ project.description }}</tr></tbody></table> </li>
+                <li>
+                    <a href="{% url 'project_detail' pk=project.pk %}">
+                        {{ project.name }} | {{ project.description }}
+                    </a>
+                </li>
                 {% endfor %}
             </ul>
         </div>
