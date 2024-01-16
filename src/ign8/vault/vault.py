@@ -1,5 +1,7 @@
 import os
 import requests
+import pprint
+
 
 def getenv(myenv):
     myenv['VAULT_URL'] = os.environ.get("IGN_VAULT_URL", None)
@@ -8,6 +10,7 @@ def getenv(myenv):
 
 def checkaccess():
     myenv = getenv({})
+    pprint.pprint(myenv)
     if myenv['VAULT_URL'] is None:
         print("No vault URL set")
         return None
