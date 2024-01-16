@@ -33,6 +33,7 @@ MEDIA_ROOT = BASE_DIR / "media"  # BASE_DIR is the base directory of your Django
 
 CSFR_COOKIE_SECURE = False
 CSFR_TRUSTED_ORIGINS = [
+    "/admin/login/",
     "https://ignite.openknowit.com/*",
     "https://ignite.openknowit.com",
     "/selinux/*",
