@@ -6,6 +6,8 @@ import pprint
 def getenv(myenv):
     myenv['VAULT_URL'] = os.environ.get("IGN_VAULT_URL", None)
     myenv['VAULT_TOKEN'] = os.environ.get("IGN_VAULT_TOKEN", None)
+    return myenv
+
 
 
 def checkaccess():
