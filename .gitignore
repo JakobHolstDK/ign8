@@ -1,3 +1,4 @@
 /venv
 /build
 src/ign8/ui/project/ignite/db.sqlite3
+src/ign8/selinux/venv/

@@ -55,7 +55,22 @@ class SElinuxEvent(models.Model):
         ordering = ['date', 'time', 'hostname']
 
 
+class Setroubleshoot(models.Model):
+    digest = models.CharField(max_length=256, primary_key=True)
+    sealert = models.CharField(max_length=1024)
+    firstseen = models.DateField()
+    lastseen = models.DateField()
+    count = models.IntegerField()
 
+
+    def __str__(self):
+        return self.digest
+    
+    class Meta:
+        db_table = 'setroubleshoot'
+        verbose_name = 'Setroubleshoot'
+        verbose_name_plural = 'Setroubleshoot'
+        ordering = ['date', 'time', 'hostname']
 class SetroubleshootEntry(models.Model):
     CURSOR = models.CharField(max_length=255, primary_key=True)
     REALTIMETIMESTAMP = models.BigIntegerField()
