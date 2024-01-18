@@ -61,8 +61,6 @@ class Setroubleshoot(models.Model):
     firstseen = models.DateField()
     lastseen = models.DateField()
     count = models.IntegerField()
-
-
     def __str__(self):
         return self.digest
     
@@ -70,7 +68,8 @@ class Setroubleshoot(models.Model):
         db_table = 'setroubleshoot'
         verbose_name = 'Setroubleshoot'
         verbose_name_plural = 'Setroubleshoot'
-        ordering = ['date', 'time', 'hostname']
+        ordering = ['lastseen', 'sealert']
+
 class SetroubleshootEntry(models.Model):
     CURSOR = models.CharField(max_length=255, primary_key=True)
     REALTIMETIMESTAMP = models.BigIntegerField()
