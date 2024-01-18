@@ -20,7 +20,7 @@ def selinux_list(request):
 
 def message_list(request, pk=None):
     if pk:
-        messages = message.objects.filter(HOSTNAME=pk)
+        messages = message.objects.filter(hostname=pk)
     else:
         messages = message.objects.all()
     return render(request, 'message_list.html', {'messages': messages})
