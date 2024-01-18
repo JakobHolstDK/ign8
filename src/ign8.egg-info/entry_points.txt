@@ -10,6 +10,7 @@ ign8_inabox = ign8.inabox:main
 ign8_jenkins = ign8.jenkins:main
 ign8_netbox = ign8.netbox:main
 ign8_pitv = ign8.pitv:main
+ign8_selinux = ign8.selinux:main
 ign8_semaphore = ign8.semaphore:main
 ign8_terraform = ign8.terraform:main
 ign8_traefik = ign8.traefik:main

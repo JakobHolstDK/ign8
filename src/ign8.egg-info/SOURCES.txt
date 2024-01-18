@@ -44,8 +44,17 @@ src/ign8/netbox/__init__.py
 src/ign8/netbox/netbox.py
 src/ign8/pitv/__init__.py
 src/ign8/pitv/pitv.py
+src/ign8/podman/__init__.py
+src/ign8/podman/podman.py
+src/ign8/podman/serve.py
 src/ign8/pypi/__init__.py
 src/ign8/pypi/pypi.py
+src/ign8/selinux/__init__.py
+src/ign8/selinux/parse.py
+src/ign8/selinux/test.setrouble.py
+src/ign8/selinux/testevent.py
+src/ign8/selinux/files/testevent.py
+src/ign8/selinux/files/testsetrouble.py
 src/ign8/semaphore/__init__.py
 src/ign8/semaphore/git.py
 src/ign8/semaphore/semaphore.py
@@ -57,6 +66,7 @@ src/ign8/traefik/traefik.py
 src/ign8/ui/__init__.py
 src/ign8/ui/serve.py
 src/ign8/ui/ui.py
+src/ign8/ui/project/testupload.py
 src/ign8/ui/project/ignite/manage.py
 src/ign8/ui/project/ignite/ansible/__init__.py
 src/ign8/ui/project/ignite/ansible/admin.py
@@ -95,6 +105,8 @@ src/ign8/ui/project/ignite/selinux/urls.py
 src/ign8/ui/project/ignite/selinux/views.py
 src/ign8/ui/project/ignite/selinux/migrations/0001_initial.py
 src/ign8/ui/project/ignite/selinux/migrations/__init__.py
+src/ign8/vault/__init__.py
+src/ign8/vault/vault.py
 src/ign8/vmware/getvmsbycluster.py
 src/ign8/vmware/helloworld.py
 src/ign8/vmware/vmware.py

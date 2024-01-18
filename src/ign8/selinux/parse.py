@@ -1,5 +1,7 @@
 import requests
 import pprint
+import shutil
+
 import os
 import hashlib
 import time
@@ -10,31 +12,32 @@ import json
 # ignore ssl warnings
 requests.packages.urllib3.disable_warnings()
 
-
+terminal_width, _ = shutil.get_terminal_size()
+print(terminal_width)
 
 
 def getsetrouble():
+    json_data = []
     command = [
         "journalctl",
         "-u", "setroubleshootd.service",
         "--output", "json",
-        "--since", "1 month ago"
+        "--since", "1 day ago"
     ]
 
 # Run the command and capture the output
     result = subprocess.run(command, capture_output=True, text=True)
-
-# Check if the command was successful
     if result.returncode == 0:
-        # Parse the JSON data
-        try:
-            json_data = json.loads(result.stdout)
-            # Now 'json_data' contains the parsed JSON content
-            print(json_data)
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON: {e}")
-    else:
-        print(f"Error running command. Return code: {result.returncode}")
+        for line in result.stdout.splitlines():
+            mytmpdata = json.loads(line)
+            mydata = {}
+            for key in mytmpdata.keys():
+                newkey = key.replace("_", "")
+                mydata[newkey] = mytmpdata[key]
+            json_data.append(mydata)
+        return json_data
+    
+
 
 
 def digest(mystring):
@@ -81,124 +84,102 @@ def create_setrouble(entry):
     url = 'https://ignite.openknowit.com:/selinux/api/setroubleshoot/upload/'  # Replace with your API endpoint URL
     #test json string is in a file called testsetrouble.json
     response = requests.post(url, json=entry, verify = False)
-    print(response.status_code)
-    print(response.text)
-    print(response.reason)
     if response.status_code == 201:
-        print("Test event uploaded successfully.")
+        return True
     else:
         if response.status_code == 200:
-            print("Test event updated")
+            return True
         else:
-            print(f"Failed to upload test event. Status code: {response.status_code}")
-            print(response.text)
+            if response.status_code == 400:
+                return True
+            else:
+                print(f"Failed to upload test event. Status code: {response.status_code}")
+                print(response.status_code)
+                print(response.text)
+                print(response.reason)
 
 def parse():
+    # ensure the directory exists
+    if not os.path.exists("/tmp/ign8/selinux"):
+        os.makedirs("/tmp/ign8/selinux")
+
     setroubles = getsetrouble()
-    for setrouble in setroubles:
-        print(setrouble)
-        
+    for myjson in setroubles:
+        mandatotyfields = [
+                            "BOOTID",
+                            "CAPEFFECTIVE",
+                            "CMDLINE",
+                            "CODEFILE",
+                            "CODEFUNC",
+                            "CODELINE",
+                            "COMM",
+                            "CURSOR",
+                            "EXE",
+                            "GID",
+                            "HOSTNAME",
+                            "INVOCATIONID",
+                            "JOBRESULT",
+                            "JOBTYPE",
+                            "MACHINEID",
+                            "MESSAGE",
+                            "MESSAGEID",
+                            "MONOTONICTIMESTAMP",
+                            "OBJECTPID",
+                            "PID",
+                            "PRIORITY",
+                            "REALTIMETIMESTAMP",
+                            "SELINUXCONTEXT",
+                            "SOURCEREALTIMETIMESTAMP",
+                            "SYSLOGFACILITY",
+                            "SYSLOGIDENTIFIER",
+                            "SYSTEMDCGROUP",
+                            "SYSTEMDINVOCATIONID",
+                            "SYSTEMDSLICE",
+                            "SYSTEMDUNIT",
+                            "TRANSPORT",
+                            "UID",
+                            "UNIT"
+            ]  
+        for field in mandatotyfields:
+            try:
+                test = myjson[field] 
+            except:
+                myjson[field] = 0
 
-    for file in os.listdir("/tmp/selinux/"):
-        if "setroubleshoot" in file:
-            #"open file and read it"
-            openfile = open("/tmp/selinux/%s" % file, "r")
-            jsonstring = openfile.read()
-            openfile.close()
-            #traverse file line by line
-            jsonlines = jsonstring.splitlines()
-            for line in jsonlines:
-                line = line.replace("__CURSOR", "CURSOR")
-                line = line.replace("__REALTIME_TIMESTAMP", "REALTIMETIMESTAMP")
-                line = line.replace("__MONOTONIC_TIMESTAMP", "MONOTONICTIMESTAMP")
-                line = line.replace("CODE_FILE", "CODEFILE")
-                line = line.replace("CODE_FUNC", "CODEFUNC")
-                line = line.replace("CODE_LINE", "CODELINE")
-                line = line.replace("OBJECT_PID", "OBJECTPID")
-                line = line.replace("SYSLOG_FACILITY", "SYSLOGFACILITY")
-                line = line.replace("SYSLOG_IDENTIFIER", "SYSLOGIDENTIFIER")
-                line = line.replace("_BOOT_ID", "BOOTID")
-                line = line.replace("_CAP_EFFECTIVE", "CAPEFFECTIVE")
-                line = line.replace("_CMDLINE", "CMDLINE")
-                line = line.replace("_COMM", "COMM")
-                line = line.replace("_EXE", "EXE")
-                line = line.replace("_GID", "GID")
-                line = line.replace("_MACHINE_ID", "MACHINEID")
-                line = line.replace("_PID", "PID")
-                line = line.replace("_SELINUX_CONTEXT", "SELINUXCONTEXT")
-                line = line.replace("_SOURCE_REALTIME_TIMESTAMP", "SOURCEREALTIMESTAMP")
-                line = line.replace("_SYSTEMD_CGROUP", "SYSTEMDCGROUP")
-                line = line.replace("_SYSTEMD_INVOCATION_ID", "SYSTEMDINVOCATIONID")
-                line = line.replace("_SYSTEMD_SLICE", "SYSTEMDSLICE")
-                line = line.replace("_SYSTEMD_UNIT", "SYSTEMDUNIT")
-                line = line.replace("_TRANSPORT", "TRANSPORT")
-                line = line.replace("_UID", "UID")
-                line = line.replace("_HOSTNAME", "HOSTNAME")
-                line = line.replace("MESSAGE_ID", "MESSAGEID")
+        if myjson["MESSAGE"] is not None:
+            if "SELinux is preventing" in myjson["MESSAGE"]:
+                mydigest = digest(myjson["MESSAGE"])
+                myjson["digest"] = mydigest
+                # if the file exists, the event has been uploaded
+                if not os.path.exists("/tmp/ign8/selinux/%s" % mydigest):
+                    if create_setrouble(myjson):
+                        # print the fisrt 100 characters of the message
+                        print("OK    : %s....." % str(myjson["MESSAGE"])[:120])
+                        #create a file in /tmp/ign8/selinux with the digest as filename
+                        # this is used to keep track of what has been uploaded
+                        # if the file exists, the event has been uploaded
+                        # if the file does not exist, the event has not been uploaded
+                        # this is needed for the checksum
+                        myfilename = "/tmp/ign8/selinux/%s" % mydigest
+                        if not os.path.exists(myfilename):
+                            with open(myfilename, 'w') as outfile:
+                                json.dump(myjson, outfile)
 
-                
 
-                myjson = json.loads(line)
-                try: 
-                    if myjson["CODEFILE"] is not None:
-                        pass
-                except:
-                    myjson["CODEFILE"] = "unknown"
-                try:
-                    if myjson["CODEFUNC"] is not None:
-                        pass
-                except:
-                    myjson["CODEFUNC"] = "unknown"
-                try:
-                    if myjson["CODELINE"] is not None:
-                        pass
-                except:
-                    myjson["CODELINE"] = "unknown"
-                try:
-                    if myjson["UNIT"] is not None:
-                        pass
-                except:
-                    myjson["UNIT"] = "unknown"
-                try:
-                    if myjson["INVOCATIONID"] is not None:
-                        pass
-                except:
-                    myjson["INVOCATIONID"] = "unknown"
-                try:
-                    if myjson["SOURCEREALTIMETIMESTAMP"] is not None:
-                        pass
-                except:
-                    myjson["SOURCEREALTIMETIMESTAMP"] = 0
-                try:
-                    if myjson["MEESSAGEID"] is not None:
-                        pass
-                except:
-                    myjson["MESSAGEID"] = "unknown"
-                try:
-                    if myjson["SYSLOGFACILITY"] is not None:
-                        pass
-                except:
-                    myjson["SYSLOGFACILITY"] = 0 
-                try:
-                    if myjson["PRIORITY"] is not None:
-                        pass
-                except:
-                    myjson["PRIORITY"] = 0
+                    else:
+                        
+                        print("ERROR : %s....." % str(myjson["MESSAGE"])[:120])
+                else:
+                    print("IGNORE: %s....." % str(myjson["MESSAGE"])[:120])
+                    
+
 
                 
 
 
 
-
-                if myjson["MESSAGE"] is not None:
-                    if "SELinux is preventing" in myjson["MESSAGE"]:
-                        mydigest = digest(myjson["MESSAGE"])
-                        myjson["digest"] = mydigest
-                        create_setrouble(myjson)
-
-                
-
-
+def main():
+    print("Ignite SELinux parser")
 
 
 
