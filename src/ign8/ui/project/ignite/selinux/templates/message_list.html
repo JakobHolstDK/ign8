@@ -15,20 +15,12 @@
         <tbody>
             {% for entry in messages %}
                 <tr>
+                    <td>{{ entry.message }}</td>
                     <td>{{ entry.hostname }}</td>
-                    <td>{{ entry.status }}</td>
-                    <td>{{ entry.mount }}</td>
-                    <td>{{ entry.rootdir }}</td>
-                    <td>{{ entry.policyname }}</td>
-                    <td>{{ entry.current_mode }}</td>
-                    <td>{{ entry.configured_mode }}</td>
-                    <td>{{ entry.mslstatus }}</td>
-                    <td>{{ entry.memprotect }}</td>
-                    <td>{{ entry.maxkernel }}</td>
-                    <td>{{ entry.total }}</td>
-                    <td>{{ entry.success }}</td>
-                    <td>{{ entry.failed }}</td>
-                    <td>{{ entry.sealerts }}</td>
+                    <td>{{ entry.count }}</td>
+                    <td>{{ entry.lastseen }}</td>
+                    <td>{{ entry.machineid }}</td>
+                    <td>suggestions</td>
                 </tr>
             {% endfor %}
         </tbody>
