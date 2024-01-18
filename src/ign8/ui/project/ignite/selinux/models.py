@@ -111,7 +111,7 @@ class SetroubleshootEntry(models.Model):
         verbose_name_plural = 'Setroubleshoot Entries'
 # Hostname is foreign key
         
-class messages(models.Model):
+class message(models.Model):
     digest = models.CharField(max_length=128, primary_key=True)  
     lastseen = models.DateField(None, blank=True, null=True)
     count = models.IntegerField(null=True)
@@ -122,10 +122,9 @@ class messages(models.Model):
     def __str__(self):
         return self.message
     class Meta:
-        db_table = 'messages'
-        verbose_name = 'messages'
+        db_table = 'message'
+        verbose_name = 'message'
         verbose_name_plural = 'messages'
-        ordering = ['lastseen', 'hostname', 'count']
 
 class suggesting(models.Model):
     digest = models.CharField(max_length=128)
@@ -153,9 +152,8 @@ class suggesting(models.Model):
     class Meta:
         db_table = 'suggesting'
         verbose_name = 'suggesting'
-        verbose_name_plural = 'suggesting'
-        ordering = ['lastseen', 'hostname', 'count']
-        
+        verbose_name_plural = 'suggestings'
+
 
 
 
