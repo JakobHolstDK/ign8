@@ -20,7 +20,7 @@ def selinux_list(request):
 
 def message_list(request):
     messages = message.objects.all()
-    return render(request, 'message_list.html', {'message_entries': messages})
+    return render(request, 'message_list.html', {'messages': messages})
 
 def SetroubleshootEntry_list_full(request):
     events = SetroubleshootEntry.objects.all()
