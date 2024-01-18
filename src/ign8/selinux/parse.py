@@ -4,9 +4,38 @@ import os
 import hashlib
 import time
 import json
+import subprocess
+import json
 
 # ignore ssl warnings
 requests.packages.urllib3.disable_warnings()
+
+
+
+
+def getsetrouble():
+    command = [
+        "journalctl",
+        "-u", "setroubleshootd.service",
+        "--output", "json",
+        "--since", "1 month ago"
+    ]
+
+# Run the command and capture the output
+    result = subprocess.run(command, capture_output=True, text=True)
+
+# Check if the command was successful
+    if result.returncode == 0:
+        # Parse the JSON data
+        try:
+            json_data = json.loads(result.stdout)
+            # Now 'json_data' contains the parsed JSON content
+            print(json_data)
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+    else:
+        print(f"Error running command. Return code: {result.returncode}")
+
 
 def digest(mystring):
     # Create a SHA-256 hash object
@@ -65,6 +94,11 @@ def create_setrouble(entry):
             print(response.text)
 
 def parse():
+    setroubles = getsetrouble()
+    for setrouble in setroubles:
+        print(setrouble)
+        
+
     for file in os.listdir("/tmp/selinux/"):
         if "setroubleshoot" in file:
             #"open file and read it"
