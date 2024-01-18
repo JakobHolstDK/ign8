@@ -18,6 +18,10 @@ def selinux_list(request):
     selinux_entries = Selinux.objects.all()
     return render(request, 'selinux_list.html', {'selinux_entries': selinux_entries})
 
+def message_list(request):
+    messages = message.objects.all()
+    return render(request, 'message_list.html', {'message_entries': messages})
+
 def SetroubleshootEntry_list_full(request):
     events = SetroubleshootEntry.objects.all()
     return render(request, 'SetroubleshootEntry_list_full.html', {'events': events})
