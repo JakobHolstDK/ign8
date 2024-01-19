@@ -123,7 +123,8 @@ def create_setrouble(entry):
 def examinemessage(myjson):
     # we need to find sugestions in the message
     for line in myjson['MESSAGE'].splitlines():
-        print(line)
+        if "suggests" in line:
+            print("SUGGESTION: %s" % line)
 
 
 
