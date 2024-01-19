@@ -157,9 +157,9 @@ class suggestion(models.Model):
     def __str__(self):
         return self.digest
     class Meta:
-        db_table = 'suggesting'
-        verbose_name = 'suggesting'
-        verbose_name_plural = 'suggestings'
+        db_table = 'suggestion'
+        verbose_name = 'suggestion'
+        verbose_name_plural = 'suggestions'
 
 
 
