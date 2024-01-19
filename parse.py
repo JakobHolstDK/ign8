@@ -13,10 +13,13 @@ import json
 requests.packages.urllib3.disable_warnings()
 
 terminal_width, _ = shutil.get_terminal_size()
-
 def getenv():
     myenv = {}
     myenv["IGN8_SELINUX_URL"] = os.getenv("IGNITE_URL") , "https://ignite.openknowit.com/selinux"
+
+
+
+
 
 def getsetrouble():
     json_data = []
@@ -97,14 +100,11 @@ def create_message(mymessage):
                 print(response.text)
                 print(response.reason)
 
-    
-
 
 
 def create_setrouble(entry):
-    #url = 'https://selinuxapp01fl.unicph.domain/selinux/api/setroubleshoot/upload/'  # Replace with your API endpoint URL
-    url = 'https://ignite.openknowit.com:/selinux/api/setroubleshoot/upload/'  # Replace with your API endpoint URL
-    #test json string is in a file called testsetrouble.json
+    myenv = getenv()
+    url = myenv['IGN8_SELINUX_URL'] + '/api/setroubleshoot/upload/'  # Replace with your API endpoint URL
     response = requests.post(url, json=entry, verify = False)
     if response.status_code == 201:
         return True
@@ -119,7 +119,6 @@ def create_setrouble(entry):
                 print(response.status_code)
                 print(response.text)
                 print(response.reason)
-
 def examinemessage(myjson):
     # we need to find sugestions in the message
     for line in myjson['MESSAGE']:
@@ -176,14 +175,12 @@ def parse():
                 myjson[field] = 0
 
         if myjson["MESSAGE"] is not None:
-            mycut = terminal_width  - 15
-
-            if len(myjson['MESSAGE'].replace("\n",";")) > terminal_width - 15:
-                cutmessage = myjson['MESSAGE'].replace("\n", ";")[:mycut] + "..."
-            else:
-                cutmessage = myjson['MESSAGE'].replace("\n", ";")
             if "SELinux is preventing" in myjson["MESSAGE"]:
                 examinemessage(myjson)
+
+
+
+
 
                 mydigest = digest(myjson["MESSAGE"])
                 myjson["digest"] = mydigest
@@ -191,7 +188,7 @@ def parse():
                 if not os.path.exists("/tmp/ign8/selinux/%s" % mydigest):
                     if create_setrouble(myjson):
                         # print the fisrt 100 characters of the message
-                        print("OK    : %s" % cutmessage) 
+                        print("OK    : %s....." % str(myjson["MESSAGE"])[:120])
                         #create a file in /tmp/ign8/selinux with the digest as filename
                         # this is used to keep track of what has been uploaded
                         # if the file exists, the event has been uploaded
@@ -205,9 +202,9 @@ def parse():
 
                     else:
                         
-                        print("ERROR : %s" % cutmessage)
+                        print("ERROR : %s....." % str(myjson["MESSAGE"])[:120])
                 else:
-                    print("IGNORE: %s" % cutmessage)
+                    print("IGNORE: %s....." % str(myjson["MESSAGE"])[:120])
                     
 
 
