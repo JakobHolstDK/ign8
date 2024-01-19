@@ -3,8 +3,8 @@ from django.db import models
 class Selinux(models.Model):
     hostname = models.CharField(max_length=128, primary_key=True)
     detected = models.DateField()
-    updated = models.DateField( Blank=True, null=True)
-    status = models.CharField(max_length=50, default='enabled')
+    updated = models.DateField()
+    status = models.CharField(max_length=50, default='active')
     mount = models.CharField(max_length=50, Blank=True, null=True)
     rootdir = models.CharField(max_length=50, Blank=True, null=True)
     policyname = models.CharField(max_length=50, Blank=True, null=True)
