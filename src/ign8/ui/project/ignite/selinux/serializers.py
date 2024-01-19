@@ -1,7 +1,7 @@
 # selinux/serializers.py
 
 from rest_framework import serializers
-from .models import Selinux, SElinuxEvent, SetroubleshootEntry, message
+from .models import Selinux, SElinuxEvent, SetroubleshootEntry, message, suggestion
 
 
 class SElinuxEventSerializer(serializers.ModelSerializer):
@@ -23,4 +23,8 @@ class SetroubleshootEntrySerializer(serializers.ModelSerializer):
 class messageSerializer(serializers.ModelSerializer):
     class Meta:
         model = message
+        fields = '__all__'
+class suggestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = suggestion
         fields = '__all__'

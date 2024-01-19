@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from .models import Selinux, SElinuxEvent, SetroubleshootEntry
 from rest_framework import viewsets, generics
-from .models import SElinuxEvent, message
-from .serializers import SElinuxEventSerializer, SelinuxDataSerializer, SetroubleshootEntrySerializer, messageSerializer
+from .models import SElinuxEvent, message, suggestion, SetroubleshootEntry
+from .serializers import SElinuxEventSerializer, SelinuxDataSerializer, SetroubleshootEntrySerializer, messageSerializer, suggestionSerializer
 
 
 from django.http import JsonResponse
@@ -25,6 +25,11 @@ def message_list(request, pk=None):
         messages = message.objects.all()
     return render(request, 'message_list.html', {'messages': messages})
 
+def suggestion_list(request):
+    suggestions = suggestion.objects.all()
+    return render(request, 'suggestion_list.html', {'suggestions': suggestions})
+
+
 
 def SetroubleshootEntry_list_full(request):
     events = SetroubleshootEntry.objects.all()
@@ -46,6 +51,10 @@ class SetroubleshootEntryAPIview(generics.CreateAPIView):
 class messageAPIview(generics.CreateAPIView):
     queryset = message.objects.all()
     serializer_class = messageSerializer
+
+class suggestionAPIview(generics.CreateAPIView):
+    queryset = suggestion.objects.all()
+    serializer_class =suggestionSerializer
 
 @method_decorator(csrf_exempt, name='dispatch')
 class UploadSelinuxDataView(View):

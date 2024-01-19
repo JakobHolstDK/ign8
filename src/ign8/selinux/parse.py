@@ -79,6 +79,26 @@ def alligndateformat(date):
 
     return date
 
+def create_suggestion(suggestion):
+    myenv = getenv()
+    url = myenv['IGN8_SELINUX_URL'] + '/api/suggestion/upload/'  # Replace with your API endpoint URL
+    response = requests.post(url, json=suggestion, verify = False)
+    if response.status_code == 201:
+        return True
+    else:
+        if response.status_code == 200:
+            return True
+        else:
+            if response.status_code == 400:
+                return True
+            else:
+                print(f"Failed to upload test event. Status code: {response.status_code}")
+                print(response.status_code)
+                print(response.text)
+                print(response.reason)
+
+                
+
 def create_message(mymessage):
     myenv = getenv()
     url = myenv['IGN8_SELINUX_URL'] + '/api/message/upload/'  # Replace with your API endpoint URL

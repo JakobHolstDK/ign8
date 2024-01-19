@@ -125,8 +125,16 @@ class message(models.Model):
         verbose_name = 'message'
         verbose_name_plural = 'messages'
 
-class suggesting(models.Model):
+class suggestion(models.Model):
+    status_choices = [
+        ('initial', 'Initial'),
+        ('snooze', 'Snooze'),
+        ('reject', 'Reject'),
+        ('accept', 'Accept'),
+        ('fixed', 'Fixed')
+    ]
     digest = models.CharField(max_length=128)
+    status = models.CharField(max_length=128, choices=status_choices, default='initial')
     solution = models.CharField(max_length=1024)
     sourcecontext = models.CharField(max_length=128)
     targetcontext = models.CharField(max_length=128)
