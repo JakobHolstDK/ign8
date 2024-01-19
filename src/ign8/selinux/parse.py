@@ -119,11 +119,14 @@ def create_message(mymessage):
                 print(response.reason)
 
 def create_selinux(hostdata):
+    print("create_selinux")
     myenv = getenv()
     url = myenv['IGN8_SELINUX_URL'] + '/api/selinux/upload/'  # Replace with your API endpoint URL
-    pprint.pprint(url)
-
     response = requests.post(url, json=hostdata, verify = False)
+    print(response.status_code)
+    print(response.reason)
+    print("-------------------------")
+
     if response.status_code == 201:
         return True
     else:
@@ -179,38 +182,39 @@ def examinemessage(myjson):
     pprint.pprint(suggetsmessages)
 
 def create_metadata():
-    # Run the command and capture the output
-    #    hostname = models.CharField(max_length=128, primary_key=True)
-    #status = models.CharField(max_length=50)
-    #mount = models.CharField(max_length=50)
-    #rootdir = models.CharField(max_length=50)
-    #policyname = models.CharField(max_length=50)
-    #current_mode = models.CharField(max_length=50)
-    #configured_mode = models.CharField(max_length=50)
-    #mslstatus = models.CharField(max_length=50)
-    #memprotect = models.CharField(max_length=50)
-    #maxkernel = models.CharField(max_length=50)
-
     sestatus_output = subprocess.check_output(['sestatus'], text=True)
-    pprint.pprint(sestatus_output)
-
-
     # Parse the output to extract required information
     mymetadata = {}
+#    hostname = models.CharField(max_length=128, primary_key=True)
+#    detected = models.DateField()
+#  updated = models.DateField()
+#    status = models.CharField(max_length=50, default='active')
+#    mount = models.CharField(max_length=50, blank=True, null=True)
+#    rootdir = models.CharField(max_length=50, blank=True, null=True)
+#    policyname = models.CharField(max_length=50, blank=True, null=True)
+#    current_mode = models.CharField(max_length=50, blank=True, null=True)
+#    configured_mode = models.CharField(max_length=50, blank=True, null=True)
+#    mslstatus = models.CharField(max_length=50, blank=True, null=True)
+#    memprotect = models.CharField(max_length=50, blank=True, null=True)
+#    maxkernel = models.CharField(max_length=50,  blank=True, null=True)
+#    total = models.CharField(max_length=50, blank=True, null=True)
+#   preventions = models.CharField(max_length=50, blank=True, null=True)
+#    messages = models.CharField(max_length=50, blank=True, null=True)
     mymetadata["hostname"] = os.getenv("HOSTNAME")
-
-
-
-    mymetadata["status"] = sestatus_output.split("SELinux status:")[1].split()[0].replace("\n","")
-    mymetadata["mount"] = sestatus_output.split("SELinuxfs mount:")[1].split()[0].replace
-    mymetadata["rootdir"] = sestatus_output.split("SELinux root directory:")[1].split()[0].replace("\n","")
-    mymetadata["policyname"] = sestatus_output.split("Loaded policy name:")[1].split()[0].replace("\n","")
-    mymetadata["current_mode"] = sestatus_output.split("Current mode:")[1].split()[0].replace("\n","")  
-    mymetadata["configured_mode"] = sestatus_output.split("Mode from config file:")[1].split()[0].replace("\n","")  
-    mymetadata["mslstatus"] = sestatus_output.split("Policy MLS status:")[1].split()[0].replace("\n","")    
-    mymetadata["memprotect"] = sestatus_output.split("Memory protection checking:")[1].split()[0].replace("\n","")  
-    mymetadata["maxkernel"] = sestatus_output.split("Max kernel policy version:")[1].split()[0].replace("\n","")
-    #total = models.CharField(max_length=50)
+    mymetadata["detected"] = time.strftime("%Y-%m-%d")
+    mymetadata["updated"] = time.strftime("%Y-%m-%d")
+    mymetadata["status"] = sestatus_output.split("SELinux status:")[1].split()[0].strip('\n')
+    mymetadata["mount"] = sestatus_output.split("SELinuxfs mount:")[1].split()[0].strip('\n')
+    mymetadata["rootdir"] = sestatus_output.split("SELinux root directory:")[1].split()[0].strip('\n')
+    mymetadata["policyname"] = sestatus_output.split("Loaded policy name:")[1].split()[0].strip('\n')
+    mymetadata["current_mode"] = sestatus_output.split("Current mode:")[1].split()[0].strip('\n')
+    mymetadata["configured_mode"] = sestatus_output.split("Mode from config file:")[1].split()[0].strip('\n')
+    mymetadata["mslstatus"] = sestatus_output.split("Policy MLS status:")[1].split()[0].strip('\n')
+    mymetadata["memprotect"] = sestatus_output.split("Memory protection checking:")[1].split()[0].strip('\n')
+    mymetadata["maxkernel"] = sestatus_output.split("Max kernel policy version:")[1].split()[0].strip('\n')
+    mymetadata["total"] = 0
+    mymetadata["preventions"] = 0
+    mymetadata["messages"] = 0
     create_selinux(mymetadata)
 
 
