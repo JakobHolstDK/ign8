@@ -2,19 +2,20 @@ from django.db import models
 
 class Selinux(models.Model):
     hostname = models.CharField(max_length=128, primary_key=True)
-    status = models.CharField(max_length=50)
-    mount = models.CharField(max_length=50)
-    rootdir = models.CharField(max_length=50)
-    policyname = models.CharField(max_length=50)
-    current_mode = models.CharField(max_length=50)
-    configured_mode = models.CharField(max_length=50)
-    mslstatus = models.CharField(max_length=50)
-    memprotect = models.CharField(max_length=50)
-    maxkernel = models.CharField(max_length=50)
-    total = models.CharField(max_length=50)
-    success = models.CharField(max_length=50)
-    failed = models.CharField(max_length=50)
-    sealerts = models.CharField(max_length=50)
+    detected = models.DateField()
+    updated = models.DateField( Blank=True, null=True)
+    status = models.CharField(max_length=50, default='enabled')
+    mount = models.CharField(max_length=50, Blank=True, null=True)
+    rootdir = models.CharField(max_length=50, Blank=True, null=True)
+    policyname = models.CharField(max_length=50, Blank=True, null=True)
+    current_mode = models.CharField(max_length=50, Blank=True, null=True)
+    configured_mode = models.CharField(max_length=50, Blank=True, null=True)
+    mslstatus = models.CharField(max_length=50, Blank=True, null=True)
+    memprotect = models.CharField(max_length=50, Blank=True, null=True)
+    maxkernel = models.CharField(max_length=50,  Blank=True, null=True)
+    total = models.CharField(max_length=50, Blank=True, null=True)
+    preventions = models.CharField(max_length=50, Blank=True, null=True)
+    messages = models.CharField(max_length=50, Blank=True, null=True)
     def __str__(self):
         return self.hostname
     

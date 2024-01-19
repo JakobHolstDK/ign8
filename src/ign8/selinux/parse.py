@@ -97,7 +97,7 @@ def create_suggestion(suggestion):
                 print(response.text)
                 print(response.reason)
 
-                
+
 
 def create_message(mymessage):
     myenv = getenv()
@@ -157,10 +157,55 @@ def examinemessage(myjson):
 
     pprint.pprint(suggetsmessages)
 
+def create_metadata():
+    # Run the command and capture the output
+    #    hostname = models.CharField(max_length=128, primary_key=True)
+    #status = models.CharField(max_length=50)
+    #mount = models.CharField(max_length=50)
+    #rootdir = models.CharField(max_length=50)
+    #policyname = models.CharField(max_length=50)
+    #current_mode = models.CharField(max_length=50)
+    #configured_mode = models.CharField(max_length=50)
+    #mslstatus = models.CharField(max_length=50)
+    #memprotect = models.CharField(max_length=50)
+    #maxkernel = models.CharField(max_length=50)
+
+    sestatus_output = subprocess.check_output(['sestatus'], text=True)
+
+    # Parse the output to extract required information
+    mymetadata = {}
+    mymetadata["hostname"] = sestatus_output.split("Hostname:")[1].split()[0]
+    mymetadata["status"] = sestatus_output.split("SELinux status:")[1].split()[0]
+    mymetadata["mount"] = sestatus_output.split("SELinuxfs mount:")[1].split()[0]
+    mymetadata["rootdir"] = sestatus_output.split("SELinux root directory:")[1].split()[0]
+    mymetadata["policyname"] = sestatus_output.split("Loaded policy name:")[1].split()[0]
+    mymetadata["current_mode"] = sestatus_output.split("Current mode:")[1].split()[0]
+    mymetadata["configured_mode"] = sestatus_output.split("Mode from config file:")[1].split()[0]
+    mymetadata["mslstatus"] = sestatus_output.split("Policy MLS status:")[1].split()[0]
+    mymetadata["memprotect"] = sestatus_output.split("Memory protection checking:")[1].split()[0]
+    mymetadata["maxkernel"] = sestatus_output.split("Max kernel policy version:")[1].split()[0]
+    #total = models.CharField(max_length=50)
+
+
+    status = sestatus_output.split("SELinux status:")[1].split()[0]
+    mount = sestatus_output.split("SELinuxfs mount:")[1].split()[0]
+    root_dir = sestatus_output.split("SELinux root directory:")[1].split()[0]
+    policy_name = sestatus_output.split("Loaded policy name:")[1].split()[0]
+    current_mode = sestatus_output.split("Current mode:")[1].split()[0]
+    mode_from_file = sestatus_output.split("Mode from config file:")[1].split()[0]
+    mls_status = sestatus_output.split("Policy MLS status:")[1].split()[0]
+    policy_deny_unknown = sestatus_output.split("Policy deny_unknown status:")[1].split()[0]
+    mem_protect = sestatus_output.split("Memory protection checking:")[1].split()[0]
+    max_kernel = sestatus_output.split("Max kernel policy version:")[1].split()[0]
+
+
+
+
 
 
 
 def parse():
+    create_metadata()
     # ensure the directory exists
     if not os.path.exists("/tmp/ign8/selinux"):
         os.makedirs("/tmp/ign8/selinux")

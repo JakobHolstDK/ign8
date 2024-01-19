@@ -45,11 +45,6 @@ MAXKERNEL=$(echo $SESTATUS | awk -F"Max kernel policy version:" '{ print $2 }' |
 
 
 
-
-TOTAL=$(cat $SEALERTFILE | wc -l)
-SUCCESS=$(cat $SEALERTFILE | awk -F';' '{ print $6 }' |grep -c "success")
-FAILED=$(cat $SEALERTFILE | awk -F';' '{ print $6 }' |grep -c "failed")
-
 printf "[\n"  > $SESTATUSFILE
 printf "  {\n" >> $SESTATUSFILE
 printf "    \"status\": \"%s\"," $STATUS >> $SESTATUSFILE
