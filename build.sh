@@ -2,6 +2,7 @@ ign8_bump patch
 MYMESSAGE=$(git status)
 git commit -a -m  "$MYMESSAGE"
 git push 
+rm poetry.lock
 rm -r dist || echo
 poetry update
 poetry build
