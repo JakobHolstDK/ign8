@@ -129,12 +129,14 @@ def examinemessage(myjson):
         if "suggests" in line:
             suggestfound = True
             suggestnumber += 1
+            suggestkey = "suggestion%-02d" % suggestnumber
+            suggetsmessages[suggestkey]  = line
         if suggestfound:
             suggestkey = "suggestion%-02d" % suggestnumber
             suggetsmessages[suggestkey] += line
 
     pprint.pprint(suggetsmessages)
-    
+
 
 
 
