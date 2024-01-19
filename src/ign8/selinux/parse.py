@@ -201,15 +201,15 @@ def create_metadata():
 
 
 
-    mymetadata["status"] = sestatus_output.split("SELinux status:")[1].split()[0]
-    mymetadata["mount"] = sestatus_output.split("SELinuxfs mount:")[1].split()[0]
-    mymetadata["rootdir"] = sestatus_output.split("SELinux root directory:")[1].split()[0]
-    mymetadata["policyname"] = sestatus_output.split("Loaded policy name:")[1].split()[0]
-    mymetadata["current_mode"] = sestatus_output.split("Current mode:")[1].split()[0]
-    mymetadata["configured_mode"] = sestatus_output.split("Mode from config file:")[1].split()[0]
-    mymetadata["mslstatus"] = sestatus_output.split("Policy MLS status:")[1].split()[0]
-    mymetadata["memprotect"] = sestatus_output.split("Memory protection checking:")[1].split()[0]
-    mymetadata["maxkernel"] = sestatus_output.split("Max kernel policy version:")[1].split()[0]
+    mymetadata["status"] = sestatus_output.split("SELinux status:")[1].split()[0].replace("\n","")
+    mymetadata["mount"] = sestatus_output.split("SELinuxfs mount:")[1].split()[0].replace
+    mymetadata["rootdir"] = sestatus_output.split("SELinux root directory:")[1].split()[0].replace("\n","")
+    mymetadata["policyname"] = sestatus_output.split("Loaded policy name:")[1].split()[0].replace("\n","")
+    mymetadata["current_mode"] = sestatus_output.split("Current mode:")[1].split()[0].replace("\n","")  
+    mymetadata["configured_mode"] = sestatus_output.split("Mode from config file:")[1].split()[0].replace("\n","")  
+    mymetadata["mslstatus"] = sestatus_output.split("Policy MLS status:")[1].split()[0].replace("\n","")    
+    mymetadata["memprotect"] = sestatus_output.split("Memory protection checking:")[1].split()[0].replace("\n","")  
+    mymetadata["maxkernel"] = sestatus_output.split("Max kernel policy version:")[1].split()[0].replace("\n","")
     #total = models.CharField(max_length=50)
     create_selinux(mymetadata)
 
