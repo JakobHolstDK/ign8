@@ -53,8 +53,10 @@ ign8_zabbix = "ign8.zabbix:main"
 
 [tool.poetry]
 name = "ign8"
-version = "4.4.24"
-description = "Knowit Automation lifecycle management"
+version = "4.4.22"
+description = """
+    Ignite it all.
+    more to come
 authors = [ "Jakob Holst <jakob.holst@knowit.dk>",]
 license = "MIT"
 homepage = "https://ign8.openknowit.com"
