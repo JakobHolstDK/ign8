@@ -171,10 +171,15 @@ def create_metadata():
     #maxkernel = models.CharField(max_length=50)
 
     sestatus_output = subprocess.check_output(['sestatus'], text=True)
+    pprint.pprint(sestatus_output)
+
 
     # Parse the output to extract required information
     mymetadata = {}
-    mymetadata["hostname"] = sestatus_output.split("Hostname:")[1].split()[0]
+    mymetadata["hostname"] = os.getenv("HOSTNAME")
+
+
+    
     mymetadata["status"] = sestatus_output.split("SELinux status:")[1].split()[0]
     mymetadata["mount"] = sestatus_output.split("SELinuxfs mount:")[1].split()[0]
     mymetadata["rootdir"] = sestatus_output.split("SELinux root directory:")[1].split()[0]
