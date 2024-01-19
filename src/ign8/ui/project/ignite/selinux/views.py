@@ -15,7 +15,10 @@ from .models import Selinux, SElinuxEvent
 
 
 def selinux_list(request):
-    selinux_entries = Selinux.objects.all()
+    try:
+        selinux_entries = Selinux.objects.all()
+    except Selinux.DoesNotExist:
+        selinux_entries = {}
     return render(request, 'selinux_list.html', {'selinux_entries': selinux_entries})
 
 def message_list(request, pk=None):
