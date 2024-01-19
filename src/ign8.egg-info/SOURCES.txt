@@ -5,7 +5,6 @@ src/ign8/__init__.py
 src/ign8/common.py
 src/ign8/main.py
 src/ign8/package_data.dat
-src/ign8/setup.py
 src/ign8.egg-info/PKG-INFO
 src/ign8.egg-info/SOURCES.txt
 src/ign8.egg-info/dependency_links.txt
@@ -51,6 +50,7 @@ src/ign8/pypi/__init__.py
 src/ign8/pypi/pypi.py
 src/ign8/selinux/__init__.py
 src/ign8/selinux/parse.py
+src/ign8/selinux/setup.py
 src/ign8/selinux/test.setrouble.py
 src/ign8/selinux/testevent.py
 src/ign8/selinux/files/testevent.py

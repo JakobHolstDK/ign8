@@ -47,7 +47,7 @@ def SetroubleshootEntry_host(request, hostname):
     context = {'entries': entries, 'hostname': hostname}
     return render(request, 'SetroubleshootEntry_list.html', context)
 
-class selinuxAPIview(generics.ListAPIView):
+class selinuxAPIview(generics.CreateAPIView):
     queryset = Selinux.objects.all()
     serializer_class = SelinuxDataSerializer
 

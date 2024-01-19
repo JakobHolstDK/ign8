@@ -16,7 +16,8 @@ terminal_width, _ = shutil.get_terminal_size()
 
 def getenv():
     myenv = {}
-    myenv["IGN8_SELINUX_URL"] = os.getenv("IGNITE_URL") , "https://ignite.openknowit.com/selinux"
+    myenv["IGN8_SELINUX_URL"] = os.getenv("IGN8_SELINUX_URL")
+    return myenv
 
 def getsetrouble():
     json_data = []
@@ -117,6 +118,26 @@ def create_message(mymessage):
                 print(response.text)
                 print(response.reason)
 
+def create_selinux(hostdata):
+    myenv = getenv()
+    url = myenv['IGN8_SELINUX_URL'] + '/api/selinux/upload/'  # Replace with your API endpoint URL
+    pprint.pprint(url)
+
+    response = requests.post(url, json=hostdata, verify = False)
+    if response.status_code == 201:
+        return True
+    else:
+        if response.status_code == 200:
+            return True
+        else:
+            if response.status_code == 400:
+                return True
+            else:
+                print(f"Failed to upload host. Status code: {response.status_code}")
+                print(response.status_code)
+                print(response.text)
+                print(response.reason)
+
     
 
 
@@ -179,7 +200,7 @@ def create_metadata():
     mymetadata["hostname"] = os.getenv("HOSTNAME")
 
 
-    
+
     mymetadata["status"] = sestatus_output.split("SELinux status:")[1].split()[0]
     mymetadata["mount"] = sestatus_output.split("SELinuxfs mount:")[1].split()[0]
     mymetadata["rootdir"] = sestatus_output.split("SELinux root directory:")[1].split()[0]
@@ -190,18 +211,9 @@ def create_metadata():
     mymetadata["memprotect"] = sestatus_output.split("Memory protection checking:")[1].split()[0]
     mymetadata["maxkernel"] = sestatus_output.split("Max kernel policy version:")[1].split()[0]
     #total = models.CharField(max_length=50)
+    create_selinux(mymetadata)
 
 
-    status = sestatus_output.split("SELinux status:")[1].split()[0]
-    mount = sestatus_output.split("SELinuxfs mount:")[1].split()[0]
-    root_dir = sestatus_output.split("SELinux root directory:")[1].split()[0]
-    policy_name = sestatus_output.split("Loaded policy name:")[1].split()[0]
-    current_mode = sestatus_output.split("Current mode:")[1].split()[0]
-    mode_from_file = sestatus_output.split("Mode from config file:")[1].split()[0]
-    mls_status = sestatus_output.split("Policy MLS status:")[1].split()[0]
-    policy_deny_unknown = sestatus_output.split("Policy deny_unknown status:")[1].split()[0]
-    mem_protect = sestatus_output.split("Memory protection checking:")[1].split()[0]
-    max_kernel = sestatus_output.split("Max kernel policy version:")[1].split()[0]
 
 
 
