@@ -13,7 +13,6 @@ import json
 requests.packages.urllib3.disable_warnings()
 
 terminal_width, _ = shutil.get_terminal_size()
-print(terminal_width)
 
 
 def getsetrouble():
@@ -147,6 +146,12 @@ def parse():
                 myjson[field] = 0
 
         if myjson["MESSAGE"] is not None:
+            mycut = terminal_width  - 15
+
+            if len(myjson['MESSAGE'].replace("\n",";")) > terminal_width - 15:
+                cutmessage = myjson['MESSAGE'].replace("\n", ";")[:mycut] + "..."
+            else:
+                cutmessage = myjson['MESSAGE'].replace("\n", ";")
             if "SELinux is preventing" in myjson["MESSAGE"]:
                 mydigest = digest(myjson["MESSAGE"])
                 myjson["digest"] = mydigest
@@ -154,7 +159,7 @@ def parse():
                 if not os.path.exists("/tmp/ign8/selinux/%s" % mydigest):
                     if create_setrouble(myjson):
                         # print the fisrt 100 characters of the message
-                        print("OK    : %s....." % str(myjson["MESSAGE"])[:120])
+                        print("OK    : %s" % cutmessage) 
                         #create a file in /tmp/ign8/selinux with the digest as filename
                         # this is used to keep track of what has been uploaded
                         # if the file exists, the event has been uploaded
@@ -168,9 +173,9 @@ def parse():
 
                     else:
                         
-                        print("ERROR : %s....." % str(myjson["MESSAGE"])[:120])
+                        print("ERROR : %s" % cutmessage)
                 else:
-                    print("IGNORE: %s....." % str(myjson["MESSAGE"])[:120])
+                    print("IGNORE: %s" % cutmessage)
                     
 
 
