@@ -114,7 +114,7 @@ class SetroubleshootEntry(models.Model):
 class message(models.Model):
     digest = models.CharField(max_length=128, primary_key=True)  
     lastseen = models.DateField(None, blank=True, null=True)
-    count = models.IntegerField(null=True)
+    count = models.IntegerField(null=True, blank=True)
     message = models.CharField(max_length=1024)
     hostname = models.CharField(max_length=128)
     machineid = models.CharField(max_length=128)

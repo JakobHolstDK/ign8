@@ -100,10 +100,31 @@ def create_suggestion(suggestion):
 
 
 
-def create_message(mymessage):
+def create_message(myrawmessage):
+    try:
+        mydigest = digest(myrawmessage['MESSAGE'])  
+    except: 
+        print("Failed to create message error in digest")
+    
+    try:
+        lastseen = myrawmessage['REALTIMETIMESTAMP']
+    except:
+        lastseen = 0
+    count = 0
+    message = myrawmessage['MESSAGE']
+    hostname = myrawmessage['HOSTNAME']
+    machineid = myrawmessage['MACHINEID']
+    mymessage = {}
+    mymessage["digest"] = mydigest
+    mymessage["message"] = message
+    mymessage["hostname"] = hostname
+    mymessage["machineid"] = machineid
     myenv = getenv()
     url = myenv['IGN8_SELINUX_URL'] + '/api/message/upload/'  # Replace with your API endpoint URL
     response = requests.post(url, json=mymessage, verify = False)
+    pprint.pprint(response.status_code)
+    pprint.pprint(response.reason)
+
     if response.status_code == 201:
         return True
     else:
@@ -169,6 +190,8 @@ def examinemessage(myjson):
     suggestfound = False
     suggetsmessages = {}
     suggestnumber = 0
+    myjson['digest'] = digest(myjson['MESSAGE'])
+    create_message(myjson)
     for line in myjson['MESSAGE'].splitlines():
         if "suggests" in line:
             suggestfound = True
@@ -179,7 +202,6 @@ def examinemessage(myjson):
             suggestkey = "suggestion%-02d" % suggestnumber
             suggetsmessages[suggestkey] += line
 
-#    pprint.pprint(suggetsmessages)
 #    digest = models.CharField(max_length=128)
 #    status = models.CharField(max_length=128, choices=status_choices, default='initial')
 #    solution = models.CharField(max_length=1024)
@@ -204,9 +226,8 @@ def examinemessage(myjson):
     for key in suggetsmessages.keys():
         print("key: %s" % key)
         mysuggestion = {}
-        for line in suggetsmessages[key].splitlines():  
-            print("line: %s" % line)
-        mysuggestion["digest"] = myjson["digest"]
+        #for line in suggetsmessages[key].splitlines():  
+        #    print("line: %s" % line)
 
 def create_metadata():
     sestatus_output = subprocess.check_output(['sestatus'], text=True)
