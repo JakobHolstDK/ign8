@@ -122,8 +122,6 @@ def create_message(myrawmessage):
     myenv = getenv()
     url = myenv['IGN8_SELINUX_URL'] + '/api/message/upload/'  # Replace with your API endpoint URL
     response = requests.post(url, json=mymessage, verify = False)
-    pprint.pprint(response.status_code)
-    pprint.pprint(response.reason)
 
     if response.status_code == 201:
         return True
@@ -224,8 +222,22 @@ def examinemessage(myjson):
 #    rawauditmessages = models.CharField(max_length=1024)
 #
     for key in suggetsmessages.keys():
+        mysuggestion 
+        #    suggestionnumber = models.IntegerField(primary_key=True)
+    #digest = models.CharField(max_length=128)
+    #status = models.CharField(max_length=128, choices=status_choices, default='initial')
+    #solution = models.CharField(max_length=1024)
+    #hostname = models.CharField(max_length=128)
+    #lastseen = models.DateField(None, blank=True, null=True)
         print("key: %s" % key)
         mysuggestion = {}
+        mysuggestion["digest"] = digest(suggetsmessages[key])
+        mysuggestion["messagedigest"] = myjson["digest"]
+        mysuggestion["solution"] = suggetsmessages[key]
+        mysuggestion["hostname"] = myjson["HOSTNAME"]
+        mysuggestion["lastseen"] = time.strftime("%Y-%m-%d")
+        create_suggestion(mysuggestion)
+
         #for line in suggetsmessages[key].splitlines():  
         #    print("line: %s" % line)
 

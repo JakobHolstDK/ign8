@@ -116,7 +116,7 @@ class message(models.Model):
     lastseen = models.DateField(None, blank=True, null=True)
     count = models.IntegerField(null=True, blank=True)
     message = models.CharField(max_length=1024)
-    hostname = models.CharField(max_length=128)
+    hostname = models.CharField(max_length=128) 
     machineid = models.CharField(max_length=128)
 
     def __str__(self):
@@ -134,26 +134,12 @@ class suggestion(models.Model):
         ('accept', 'Accept'),
         ('fixed', 'Fixed')
     ]
-    digest = models.CharField(max_length=128)
+    digest = models.CharField(max_length=128, primary_key=True)
+    messagedigest = models.CharField(max_length=128)
     status = models.CharField(max_length=128, choices=status_choices, default='initial')
     solution = models.CharField(max_length=1024)
-    sourcecontext = models.CharField(max_length=128)
-    targetcontext = models.CharField(max_length=128)
-    targetobjecs = models.CharField(max_length=1024)
-    source = models.CharField(max_length=128)
-    sourcepath = models.CharField(max_length=128)
-    port = models.CharField(max_length=128)
-    host = models.CharField(max_length=128)
-    sourcerpmpackages = models.CharField(max_length=128)
-    targetrpmpackages = models.CharField(max_length=128)
-    selinuxpolicyrpm = models.CharField(max_length=128)
-    policytype = models.CharField(max_length=128)
-    enforcingmode = models.CharField(max_length=128)
     hostname = models.CharField(max_length=128)
-    platform = models.CharField(max_length=512) 
     lastseen = models.DateField(None, blank=True, null=True)
-    localid = models.CharField(max_length=128)
-    rawauditmessages = models.CharField(max_length=1024)
 
     def __str__(self):
         return self.digest
