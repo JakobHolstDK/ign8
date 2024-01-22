@@ -191,7 +191,7 @@ def examinemessage(myjson):
     myjson['digest'] = digest(myjson['MESSAGE'])
     create_message(myjson)
     create_complete_message(myjson['MESSAGE'])
-    
+
     for line in myjson['MESSAGE'].splitlines():
         if "suggests" in line:
             suggestfound = True
@@ -239,7 +239,13 @@ def examinemessage(myjson):
 def create_complete_message(message):
     if "For complete SELinux messages run:" in message:
         print("complete message")
-        print(message)
+        mycommand = message.split("For complete SELinux messages run:")[1].split()[0].strip('\n')
+        print(mycommand)
+        myoutput = subprocess.check_output([mycommand], text=True)
+        print(myoutput)
+        
+
+
 
 
 
