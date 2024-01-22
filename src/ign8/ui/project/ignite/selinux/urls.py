@@ -22,7 +22,7 @@ urlpatterns = [
     path('SetroubleshootEntry/<str:hostname>/', SetroubleshootEntry_host, name='SetroubleshootEntry_host'),
     path('SetroubleshootEntry_list/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
     path('SetroubleshootEntry_list_full/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
-    path('host/<str:hostname>/', host_message, name='host_message'),
+    path('message/<str:digest>/', host_message, name='host_message'),
 
 ]
 
