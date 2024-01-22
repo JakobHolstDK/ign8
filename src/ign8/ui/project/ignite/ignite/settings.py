@@ -44,7 +44,8 @@ CSFR_TRUSTED_ORIGINS = [
     "/SetroubleshootEntry/*",
     "/admin/*",
     "/admin/login/",
-    "/selinux/message/*"
+    "/selinux/message/*",
+    "/selinux/message/*/"
 ]
 
 INSTALLED_APPS = [
