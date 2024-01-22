@@ -112,11 +112,13 @@ def create_message(myrawmessage):
         lastseen = 0
     count = 0
     message = myrawmessage['MESSAGE']
+    completemessage = myrawmessage['completemessage']
     hostname = myrawmessage['HOSTNAME']
     machineid = myrawmessage['MACHINEID']
     mymessage = {}
     mymessage["digest"] = mydigest
     mymessage["message"] = message
+    mymessage["completemessage"] = completemessage
     mymessage["hostname"] = hostname
     mymessage["machineid"] = machineid
     myenv = getenv()
