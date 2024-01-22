@@ -112,7 +112,7 @@ def create_message(myrawmessage):
         lastseen = 0
     count = 0
     message = myrawmessage['MESSAGE']
-    completemessage = myrawmessage['completemessage']
+    completemessage = create_complete_message(message)
     hostname = myrawmessage['HOSTNAME']
     machineid = myrawmessage['MACHINEID']
     mymessage = {}
