@@ -15,6 +15,16 @@ def host_message(request, hostname):
 
     return render(request, 'host_message_template.html', context)
 
+def host_message_sugestion(request, hostname, message):
+    # Get the message for the specified host
+    host_message = get_object_or_404(suggestion, hostname=hostname, message=message)
+
+    context = {
+        'host_message': host_message,
+    }
+
+    return render(request, 'host_message_suggestion_template.html', context)
+
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
