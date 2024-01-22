@@ -156,7 +156,7 @@ class SetroubleshootEntryView(View):
 def host_message(request, pk=None):
     # Get the message for the specified host
     host_message = get_object_or_404(message, digest=pk)
-    suggestions = get_object_or_404(suggestion, messagedigest=pk)
+    suggestions = suggestion.objects.filter(messagedigest=pk)
     print(suggestions)
 
     context = {
