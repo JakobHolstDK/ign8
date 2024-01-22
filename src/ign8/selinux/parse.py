@@ -16,7 +16,7 @@ terminal_width, _ = shutil.get_terminal_size()
 
 def getenv():
     myenv = {}
-    myenv["IGN8_SELINUX_URL"] = os.getenv("IGN8_SELINUX_URL", "https://ignite.openknowit.com")
+    myenv["IGN8_SELINUX_URL"] = os.getenv("IGN8_SELINUX_URL", "https://ignite.openknowit.com/selinux")
     return myenv
 
 def getsetrouble():
