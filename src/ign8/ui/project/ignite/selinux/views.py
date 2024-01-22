@@ -159,6 +159,7 @@ def host_message(request, pk=None):
 
     context = {
         'host_message': host_message,
+        'suggestions:': suggestion.objects.filter(messagedigest=pk)
     }
 
     return render(request, 'host_message_template.html', context)
