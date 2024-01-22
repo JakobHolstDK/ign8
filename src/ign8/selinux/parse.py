@@ -243,6 +243,7 @@ def create_complete_message(message):
         mycommand = message.split("For complete SELinux messages run: ")[1]
         mycmdarray = mycommand.split()
         myoutput = subprocess.check_output(mycmdarray, text=True)
+        print(myoutput)
         return myoutput
 
 
