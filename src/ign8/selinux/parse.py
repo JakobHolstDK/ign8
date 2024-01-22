@@ -189,8 +189,8 @@ def examinemessage(myjson):
     suggetsmessages = {}
     suggestnumber = 0
     myjson['digest'] = digest(myjson['MESSAGE'])
+    myjson['completemessage'] = create_complete_message(myjson['MESSAGE'])
     create_message(myjson)
-    create_complete_message(myjson['MESSAGE'])
 
     for line in myjson['MESSAGE'].splitlines():
         if "suggests" in line:

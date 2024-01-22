@@ -15,11 +15,15 @@
     {{ suggestions }}
     <hr>
 
+
     <h2>Suggestions</h2>
     <ul>
         {% for suggestion in suggestions %}
             <li>{{ suggestion }}</li>
         {% endfor %}
     </ul>
+
+    <h2>Complete Message</h2>
+    <p>{{ host_message.completemessage }}</p>
 
 {% endblock %}
