@@ -143,7 +143,7 @@ class SetroubleshootEntryView(View):
             return JsonResponse({'error': 'Invalid JSON data.'}, status=400)
         
 # views.py
-def host_message(request, digest):
+def host_message(request, pk=None):
     # Get the message for the specified host
     host_message = get_object_or_404(message, digest=digest)
 
