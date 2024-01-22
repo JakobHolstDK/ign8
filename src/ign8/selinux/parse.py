@@ -222,13 +222,6 @@ def examinemessage(myjson):
 #    rawauditmessages = models.CharField(max_length=1024)
 #
     for key in suggetsmessages.keys():
-        mysuggestion 
-        #    suggestionnumber = models.IntegerField(primary_key=True)
-    #digest = models.CharField(max_length=128)
-    #status = models.CharField(max_length=128, choices=status_choices, default='initial')
-    #solution = models.CharField(max_length=1024)
-    #hostname = models.CharField(max_length=128)
-    #lastseen = models.DateField(None, blank=True, null=True)
         print("key: %s" % key)
         mysuggestion = {}
         mysuggestion["digest"] = digest(suggetsmessages[key])
