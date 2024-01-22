@@ -157,7 +157,6 @@ def host_message(request, pk=None):
     # Get the message for the specified host
     host_message = get_object_or_404(message, digest=pk)
     suggestions = suggestion.objects.filter(messagedigest=pk)
-    print(suggestions)
 
     context = {
         'host_message': host_message,

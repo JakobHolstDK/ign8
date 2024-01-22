@@ -12,18 +12,31 @@
     <p>Message: {{ host_message.message }}</p>
     <p>Machine ID: {{ host_message.machineid }}</p>
     <hr>
-    {{ suggestions }}
-    <hr>
-
-
     <h2>Suggestions</h2>
-    <ul>
         {% for suggestion in suggestions %}
-            <li>{{ suggestion }}</li>
-        {% endfor %}
-    </ul>
-
+        <table>
+        <thead>
+            <tr>
+                <th>Message</th>
+                <th>Hostname</th>
+                <th>Count</th>
+                <th>Last Seen</th>
+                <th>Machine ID</th>
+                <th>Suggestions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for suggestion in suggestions %}
+                <tr>
+                    <td>{{ suggestion.status }}</td>
+                    <td>{{ suggestion.hostname }}</td>
+                    <td>{{ suggestion.solution }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
     <h2>Complete Message</h2>
     <pre>{{ host_message.completemessage }}</pre>
-
+    <hr>
 {% endblock %}
