@@ -13,7 +13,6 @@
     <p>Machine ID: {{ host_message.machineid }}</p>
     <hr>
     <h2>Suggestions</h2>
-        {% for suggestion in suggestions %}
         <table>
         <thead>
             <tr>
@@ -39,4 +38,5 @@
     <h2>Complete Message</h2>
     <pre>{{ host_message.completemessage }}</pre>
     <hr>
+
 {% endblock %}
