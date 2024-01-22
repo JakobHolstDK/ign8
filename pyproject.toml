@@ -1,6 +1,6 @@
 [project]
 name = "ign8"
-version = "4.4.42"
+version = "4.4.43"
 description = "Knowit automation lifecycle management"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -53,7 +53,7 @@ ign8_zabbix = "ign8.zabbix:main"
 
 [tool.poetry]
 name = "ign8"
-version = "4.4.40"
+version = "4.4.41"
 description = "    Ignite it all.\n    "
 readme = "README.md"
 authors = [ "Jakob Holst <jakob.holst@knowit.dk>",]
