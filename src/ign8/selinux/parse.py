@@ -241,8 +241,8 @@ def create_complete_message(message):
         print("complete message")
         mycommand = message.split("For complete SELinux messages run:")[1]
         print(mycommand)
-        #myoutput = subprocess.check_output([mycommand], text=True)
-        #print(myoutput)
+        myoutput = subprocess.check_output([mycommand], text=True)
+        print(myoutput)
 
 
 

@@ -116,6 +116,7 @@ class message(models.Model):
     lastseen = models.DateField(None, blank=True, null=True)
     count = models.IntegerField(null=True, blank=True)
     message = models.CharField(max_length=1024)
+    completemessage = models.CharField(max_length=4096, null=True, blank=True)
     hostname = models.CharField(max_length=128) 
     machineid = models.CharField(max_length=128)
 
