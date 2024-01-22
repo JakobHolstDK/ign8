@@ -5,15 +5,9 @@ from .models import SElinuxEvent, message, suggestion, SetroubleshootEntry
 from .serializers import SElinuxEventSerializer, SelinuxDataSerializer, SetroubleshootEntrySerializer, messageSerializer, suggestionSerializer
 from django.shortcuts import render, get_object_or_404
 
-def host_message(request, hostname):
-    # Get the message for the specified host
-    host_message = get_object_or_404(message, hostname=hostname)
+from .forms import suggestionForm
 
-    context = {
-        'host_message': host_message,
-    }
 
-    return render(request, 'host_message_template.html', context)
 
 def host_message_sugestion(request, hostname, message):
     # Get the message for the specified host
@@ -157,10 +151,17 @@ def host_message(request, pk=None):
     # Get the message for the specified host
     host_message = get_object_or_404(message, digest=pk)
     suggestions = suggestion.objects.filter(messagedigest=pk)
+    if request.method == 'POST':
+        form = suggestionForm (request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = suggestionForm()
 
     context = {
         'host_message': host_message,
-        'suggestions': suggestions
+        'suggestions': suggestions,
+        'form': form,
     }
 
     return render(request, 'host_message_template.html', context)

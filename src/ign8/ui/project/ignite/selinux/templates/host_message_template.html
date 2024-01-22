@@ -27,7 +27,12 @@
         <tbody>
             {% for suggestion in suggestions %}
                 <tr>
-                    <td>{{ suggestion.status }}</td>
+                    <td>    <form method="post" action="">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" value="Submit">
+                            </form>
+                    {{ suggestion.status }}</td>
                     <td>{{ suggestion.hostname }}</td>
                     <td>{{ suggestion.solution }}</td>
                 </tr>

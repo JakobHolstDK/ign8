@@ -191,7 +191,6 @@ def examinemessage(myjson):
     suggetsmessages = {}
     suggestnumber = 0
     myjson['digest'] = digest(myjson['MESSAGE'])
-    myjson['completemessage'] = create_complete_message(myjson['MESSAGE'])
     create_message(myjson)
 
     for line in myjson['MESSAGE'].splitlines():
