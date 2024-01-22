@@ -49,7 +49,9 @@ def message_list(request, pk=None):
         messages = message.objects.all()
     return render(request, 'message_list.html', {'messages': messages})
 
-def suggestion_list(request):
+def suggestion_list(request, pk=None, message=None):
+    if pk and message:
+        suggestions = suggestion.objects.filter(hostname=pk, message=message)
     suggestions = suggestion.objects.all()
     return render(request, 'suggestion_list.html', {'suggestions': suggestions})
 
