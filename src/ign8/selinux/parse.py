@@ -239,7 +239,9 @@ def examinemessage(myjson):
         #    print("line: %s" % line)
 
 def create_complete_message(message):
+    print("create_complete_message")
     if "For complete SELinux messages run:" in message:
+        print("found")
         mycommand = message.split("For complete SELinux messages run: ")[1]
         mycmdarray = mycommand.split()
         myoutput = subprocess.check_output(mycmdarray, text=True)
