@@ -19,11 +19,6 @@
                 <tr>
                     <td>{{ entry.message }}</td>
                     <td>{{ entry.hostname }}</td>
-                    <td>{{ entry.count }}</td>
-                    <td>{{ entry.lastseen }}</td>
-                    <td>{{ entry.machineid }}</td>
-                    <td> <a href="{% url 'host_message' pk=entry.digest %}">Go to Messages</a></td>
-
                 </tr>
             {% endfor %}
         </tbody>
