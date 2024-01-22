@@ -4,8 +4,14 @@ from rest_framework import viewsets, generics
 from .models import SElinuxEvent, message, suggestion, SetroubleshootEntry
 from .serializers import SElinuxEventSerializer, SelinuxDataSerializer, SetroubleshootEntrySerializer, messageSerializer, suggestionSerializer
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+
 
 from .forms import suggestionForm
+
+@csrf_exempt
+
+
 
 
 
@@ -147,6 +153,7 @@ class SetroubleshootEntryView(View):
             return JsonResponse({'error': 'Invalid JSON data.'}, status=400)
         
 # views.py
+@csrf_exempt
 def host_message(request, pk=None):
     # Get the message for the specified host
     host_message = get_object_or_404(message, digest=pk)
