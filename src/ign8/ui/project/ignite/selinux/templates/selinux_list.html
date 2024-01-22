@@ -41,7 +41,7 @@
                     <td>{{ entry.total }}</td>
                     <td>{{ entry.success }}</td>
                     <td>{{ entry.failed }}</td>
-                    <td> <a href="{% url 'selinux_messages_by_host_list' pk=entry.digest %}">Go to Messages</a></td>
+                    <td>{{ entry.digest }}</td>
 
                 </tr>
             {% endfor %}

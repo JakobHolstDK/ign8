@@ -34,12 +34,7 @@ def selinux_list(request):
 
 def message_list(request, pk=None):
     if pk:
-        try:
-            messages = message.objects.filter(hostname=pk)
-        except message.DoesNotExist:
-            messages = {}
-            messages['digest'] = 'No messages for this host'
-
+        messages = message.objects.filter(hostname=pk)
     else:
         messages = message.objects.all()
     return render(request, 'message_list.html', {'messages': messages})
