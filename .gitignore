@@ -4,3 +4,4 @@ src/ign8/ui/project/ignite/db.sqlite3
 src/ign8/selinux/venv/
 poetry.lock
 dist/
+src/ign8.egg-info/
