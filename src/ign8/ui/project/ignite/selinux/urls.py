@@ -14,6 +14,7 @@ urlpatterns = [
     path('', selinux_list, name='selinux_list'),
     path('messages/', message_list, name='selinux_messages_list'),
     path('messages/<pk>', message_list, name='selinux_messages_by_host_list'),
+    path('suggestions/', suggestion_list, name='selinux_messages_by_host_list'),
     path('suggestions/<pk>', suggestion_list, name='selinux_messages_by_host_list'),
     path('selinux_event_list/', selinux_event_list, name='selinux_event_list'),
     path('upload_selinux_data/', UploadSelinuxDataView.as_view(), name='upload_selinux_data'),
