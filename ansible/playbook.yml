@@ -1,0 +1,44 @@
+---
+- name: Ensure Python 3.9 or higher is installed on RHEL
+  hosts: all
+  become: yes  # Run tasks with elevated privileges (sudo)
+
+  tasks:
+    - name: Ensure Python 3.9 or higher is installed
+      yum:
+        name: python39  # Replace with the actual package name for Python 3.9 on your system
+        state: present
+
+    - name: Create Python virtual environment
+      command: python3.9 -m venv /var/local/ignitevenv
+      args:
+        creates: /var/local/ignitevenv
+
+    - name: Upgrade pip in the virtual environment
+      pip:
+        name: pip
+        state: latest
+        virtualenv: /var/local/ignitevenv
+
+    - name: Install or upgrade ign8 in the virtual environment
+      pip:
+        name: ign8
+        state: latest
+        virtualenv: /var/local/ignitevenv
+
+    - name: Packages setroubleshoot
+      yum:
+         name: jq
+         present: True
+
+    - name: Packages setroubleshoot-server
+      yum:
+        name: setroubleshoot-server
+        present: True
+
+    - name: ansible_role_SElinux_agent | Run seinfo.sh
+      become: True
+      command: /var/local/ignitevenv/bin/ign8_seinfo parse
+  
+
+
