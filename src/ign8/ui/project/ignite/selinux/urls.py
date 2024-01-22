@@ -2,7 +2,7 @@
 from django.urls import path, include
 from .views import selinux_list, selinux_event_list , UploadSelinuxDataView, UploadSElinuxEventView, message_list
 from .views import SetroubleshootEntry_list, SetroubleshootEntry_host, SetroubleshootEntryAPIview, messageAPIview, suggestionAPIview
-from .views import selinuxAPIview, SetroubleshootEntry_list_full
+from .views import selinuxAPIview, SetroubleshootEntry_list_full, host_message
 
 from rest_framework.routers import DefaultRouter
 
@@ -22,5 +22,7 @@ urlpatterns = [
     path('SetroubleshootEntry/<str:hostname>/', SetroubleshootEntry_host, name='SetroubleshootEntry_host'),
     path('SetroubleshootEntry_list/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
     path('SetroubleshootEntry_list_full/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
+    path('host/<str:hostname>/', host_message, name='host_message'),
+
 ]
 
