@@ -9,6 +9,7 @@ from rest_framework.routers import DefaultRouter
 
 
 urlpatterns = [
+    urlpatterns = [
     path('', selinux_list, name='selinux_list'),
     path('messages/', message_list, name='selinux_messages_list'),
     path('messages/<pk>', message_list, name='selinux_messages_by_host_list'),
@@ -17,12 +18,8 @@ urlpatterns = [
     path('upload_selinux_event/', UploadSElinuxEventView.as_view(), name='upload_selinux_event'),
     path('api/setroubleshoot/upload/', SetroubleshootEntryAPIview.as_view(), name='upload_setroubleshoot_entry'),
     path('api/message/upload/', messageAPIview.as_view(), name='upload_message'),
-    path('api/suggestion/upload/',suggestionAPIview.as_view(), name='upload_suggestion'),
-    path('api/selinux/upload/',selinuxAPIview.as_view(), name='upload_selinux_host'),
     path('SetroubleshootEntry/<str:hostname>/', SetroubleshootEntry_host, name='SetroubleshootEntry_host'),
     path('SetroubleshootEntry_list/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
     path('SetroubleshootEntry_list_full/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
-    path('host/<str:hostname>/', host_message, name='host_message'),
-
 ]
 
