@@ -27,11 +27,6 @@
         <tbody>
             {% for suggestion in suggestions %}
                 <tr>
-                    <td>    <form method="post" action="">
-                            {{ form.as_p }}
-                            <input type="submit" value="Submit">
-                            </form>
-                    {{ suggestion.status }}</td>
                     <td>{{ suggestion.hostname }}</td>
                     <td>{{ suggestion.solution }}</td>
                 </tr>
