@@ -243,8 +243,11 @@ def create_complete_message(message):
         print("found")
         mycommand = message.split("For complete SELinux messages run: ")[1]
         mycmdarray = mycommand.split()
-        myoutput = subprocess.check_output(mycmdarray, text=True)
-        print(myoutput)
+        try:
+            myoutput = subprocess.check_output(mycmdarray, text=True)
+        except:
+            myoutput = "%s has most possible been mitigated" % mycommand
+
         return myoutput
 
 
