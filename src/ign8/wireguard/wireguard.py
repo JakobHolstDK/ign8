@@ -95,9 +95,21 @@ def ansible_inventory(args):
 
     print(yaml.dump(data))
 
+def genkey(args):
+    # wg genkey | tee /etc/wireguard/$HOSTNAME.private.key | wg pubkey > /etc/wireguard/$HOSTNAME.public.key
+    command = "wg genkey | tee /etc/wireguard/" + os.environ.get("HOSTNAME") + ".private.key | wg pubkey > /etc/wireguard/" + os.environ.get("HOSTNAME") + ".public.key"
+    print(command)
+    os.system(command)
+
+
+
+def savekeys(args):
+
 
 
 def refresh(args):
- print(get_local_context_data)
+    print(get_local_context_data)
+
+
 
  
