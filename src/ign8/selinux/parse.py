@@ -112,6 +112,9 @@ def create_message(myrawmessage):
         mydigest = digest(myrawmessage['MESSAGE'])  
     except: 
         print("Failed to create message error in digest")
+    if os.path.exists("/tmp/ign8/selinux/%s" % mydigest):
+        return True
+    
     
 
     
