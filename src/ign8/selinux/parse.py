@@ -113,6 +113,8 @@ def create_message(myrawmessage):
     except: 
         print("Failed to create message error in digest")
     
+
+    
     try:
         lastseen = myrawmessage['REALTIMETIMESTAMP']
     except:
@@ -133,12 +135,15 @@ def create_message(myrawmessage):
     response = requests.post(url, json=mymessage, verify = False)
 
     if response.status_code == 201:
+        open("/tmp/ign8/selinux/%s" % mydigest, 'w').close()
         return True
     else:
         if response.status_code == 200:
+            open("/tmp/ign8/selinux/%s" % mydigest, 'w').close()
             return True
         else:
             if response.status_code == 400:
+                open("/tmp/ign8/selinux/%s" % mydigest, 'w').close()
                 return True
             else:
                 print(f"Failed to upload test event. Status code: {response.status_code}")
