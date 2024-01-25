@@ -81,10 +81,17 @@ def alligndateformat(date):
     return date
 
 def create_suggestion(suggestion):
+    mydigestedsuggestion = digest(suggestion['solution'])
+    suggestion['digest'] = mydigestedsuggestion
+    suggestion['lastseen'] = time.strftime("%Y-%m-%d")
+    if os.path.exists("/tmp/ign8/selinux/%s" % mydigestedsuggestion):
+        return True
+
     myenv = getenv()
     url = myenv['IGN8_SELINUX_URL'] + '/api/suggestion/upload/'  # Replace with your API endpoint URL
     response = requests.post(url, json=suggestion, verify = False)
     if response.status_code == 201:
+        open("/tmp/ign8/selinux/%s" % mydigestedsuggestion, 'w').close()
         return True
     else:
         if response.status_code == 200:
