@@ -10,6 +10,10 @@
         <div class="col-md-12">
             <h2>Projects</h2>
             <ul class="project-list">
+                <table>
+                    <td><a href="https://ignite.openknowit.com/{{ project.name }}">{{ project.name }}</a></td>
+                    <td>{{ project.description }}</td>
+                </table>
                 {% for project in projects %}
                 <li><a href="https://ignite.openknowit.com/{{ project.name }}">{{ project.name }}</a>&emsp;{{ project.description }}</li>
                 {% endfor %}
