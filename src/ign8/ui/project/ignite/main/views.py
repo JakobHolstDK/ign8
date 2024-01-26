@@ -13,11 +13,6 @@ def mainview(request):
     return render(request, 'main.html', {'maindata_entries': maindata_entries, 'title': 'IGN8', 'maindata_services': maindata_services , 'maindata_projects': maindata_projects})
 
 @csrf_exempt
-def projectsview(request):
-    myprojects = project.objects.all()
-    return render(request, 'projects.html', {'maindata_entries': myprojects, 'title': 'Projects'})
-
-@csrf_exempt
 def projectdetail(request, name=None):
     if name:
         myproject = project.objects.get(name=name)
