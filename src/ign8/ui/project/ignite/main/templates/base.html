@@ -8,6 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}IGN8{% endblock %}</title>
     <style>
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Adjust this based on your alignment preference */
+        }
+
+        .project-list li {
+            margin-bottom: 10px; /* Adjust the margin as needed */
+        }
+        
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f8f9fa;
