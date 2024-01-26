@@ -1,10 +1,17 @@
 from django.db import models
 
 class Selinux(models.Model):
+    healthball_choices = [
+        ('green', 'https://img.shields.io/badge/ok-green.svg'),
+        ('yellow', 'https://img.shields.io/badge/warning-yellow.svg'),
+        ('red', 'https://img.shields.io/badge/error-red.svg'),
+        ('blue', 'https://img.shields.io/badge/info-blue.svg'),
+
     hostname = models.CharField(max_length=128, primary_key=True)
     detected = models.DateField()
     updated = models.DateField()
     status = models.CharField(max_length=50, default='active')
+    healthball = models.URLField(max_length=200, blank=True, null=True, default='https://img.shields.io/badge/ok-green.svg')
     mount = models.CharField(max_length=50, blank=True, null=True)
     rootdir = models.CharField(max_length=50, blank=True, null=True)
     policyname = models.CharField(max_length=50, blank=True, null=True)

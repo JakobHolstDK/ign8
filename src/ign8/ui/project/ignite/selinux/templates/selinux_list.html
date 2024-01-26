@@ -28,8 +28,10 @@
         <tbody>
             {% for entry in selinux_entries %}
                 <tr>
+                    <td>{{ entry.healthball }}</td>
                     <td>{{ entry.hostname }}</td>
                     <td>{{ entry.status }}</td>
+                    <td bgcolor="{{ entry.detectedcolor }}">{{ entry.detected }}</td>
                     <td>{{ entry.mount }}</td>
                     <td>{{ entry.rootdir }}</td>
                     <td>{{ entry.policyname }}</td>
