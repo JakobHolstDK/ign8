@@ -14,9 +14,10 @@ def mainview(request):
 
 @csrf_exempt
 def projectdetail(request, name=None):
+
     if name:
         myproject = project.objects.get(name=name)
+        return render(request, 'projectdetail.html', {'projects': myproject, 'title': 'Project Detail'})    
     else:
-        myproject = project.objects.all()
-    return render(request, 'projectdetail.html', {'projects': myproject, 'title': 'Project Detail'})    
-
+        myprojects = project.objects.all()
+        return render(request, 'projects.html', {'projects': myprojects, 'title': 'Project list'})    
