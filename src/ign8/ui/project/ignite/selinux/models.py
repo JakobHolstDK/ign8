@@ -5,7 +5,8 @@ class Selinux(models.Model):
         ('green', 'https://img.shields.io/badge/ok-green.svg'),
         ('yellow', 'https://img.shields.io/badge/warning-yellow.svg'),
         ('red', 'https://img.shields.io/badge/error-red.svg'),
-        ('blue', 'https://img.shields.io/badge/info-blue.svg'),
+        ('blue', 'https://img.shields.io/badge/info-blue.svg')
+    ]
 
     hostname = models.CharField(max_length=128, primary_key=True)
     detected = models.DateField()
