@@ -23,5 +23,5 @@ def projectdetail(request, name=None):
         myproject = project.objects.get(name=name)
     else:
         myproject = project.objects.all()
-    return render(request, 'projectdetail.html', {'maindata_entries': myproject, 'title': 'Project Detail'})    
+    return render(request, 'projectdetail.html', {'projects': myproject, 'title': 'Project Detail'})    
 

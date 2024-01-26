@@ -6,6 +6,9 @@
 <hr>
 <h2>About</h2>
 
-{% maindata_entries %}
+{% for project in projects %}
+    <p>{{ project.name }}</p>
+{% endfor %}
+
 {% endblock %}
 ```
