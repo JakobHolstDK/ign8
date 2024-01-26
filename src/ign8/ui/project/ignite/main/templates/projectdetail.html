@@ -16,7 +16,7 @@
             <ul>
                 {% for project in maindata_projects %}
                 <li>
-                    <a href="{% url 'project_detail' pk=project.pk %}">
+                    <a href="{% url 'project_detail' pk=project.name %}">
                         {{ project.name }} | {{ project.description }}
                     </a>
                 </li>
