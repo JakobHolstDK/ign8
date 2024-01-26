@@ -147,7 +147,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'http://ignite_static.openknowit.com/static/'
 STATIC_ROOT = '/var/lib/nginx/static/'
 
 
