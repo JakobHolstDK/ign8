@@ -28,7 +28,7 @@
         <tbody>
             {% for entry in selinux_entries %}
                 <tr>
-                    <td>{{ entry.healthball }}</td>
+                    <td><img src="{{ entry.healthball }}"></td>
                     <td>{{ entry.hostname }}</td>
                     <td>{{ entry.status }}</td>
                     <td bgcolor="{{ entry.detectedcolor }}">{{ entry.detected }}</td>
