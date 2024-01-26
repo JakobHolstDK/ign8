@@ -12,8 +12,10 @@
             <ul class="project-list">
                 <table>
                 {% for project in projects %}
-                    <td><a href="https://ignite.openknowit.com/{{ project.name }}">{{ project.name }}</a></td>
-                    <td>{{ project.description }}</td>
+                    <tr>
+                        <td><a href="https://ignite.openknowit.com/{{ project.name }}">{{ project.name }}</a></td>
+                        <td>{{ project.description }}</td>
+                    </tr>
                 {% endfor %}
                 </table>
             </ul>
