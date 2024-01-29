@@ -19,5 +19,5 @@ urlpatterns = [
     path('SetroubleshootEntry/<str:hostname>/', SetroubleshootEntry_host, name='SetroubleshootEntry_host'),
     path('SetroubleshootEntry_list/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
     path('SetroubleshootEntry_list_full/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
-    path('api/selinux/upload/', SelinuxUploadView.as_view(), name='selinux-upload'),
+    path('api/selinux/upload/', SelinuxUploadView, name='selinux-upload'),
 ]
