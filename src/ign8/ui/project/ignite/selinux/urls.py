@@ -4,7 +4,16 @@ from .views import selinux_list, selinux_event_list , UploadSelinuxDataView, Upl
 from .views import SetroubleshootEntry_list, SetroubleshootEntry_host, SetroubleshootEntryAPIview, messageAPIview, suggestionAPIview
 from .views import selinuxAPIview, SetroubleshootEntry_list_full, host_message
 from .views import SelinuxUploadView
-from rest_framework.routers import DefaultRouter
+from rest_framework import routers, serializers, viewsets
+
+router = routers.DefaultRouter()
+router.register(r'selinux', selinuxAPIview)
+router.register(r'setroubleshoot', SetroubleshootEntryAPIview)
+router.register(r'message', messageAPIview)
+router.register(r'suggestion', suggestionAPIview)
+
+
+
 
 urlpatterns = [
     path('', selinux_list, name='selinux_list'),
@@ -19,5 +28,5 @@ urlpatterns = [
     path('SetroubleshootEntry/<str:hostname>/', SetroubleshootEntry_host, name='SetroubleshootEntry_host'),
     path('SetroubleshootEntry_list/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
     path('SetroubleshootEntry_list_full/', SetroubleshootEntry_list, name='SetroubleshootEntry_list'),
-    path('api/selinux/upload/', SelinuxUploadView, name='selinux-upload'),
+    path('api/', include(router.urls)),
 ]
