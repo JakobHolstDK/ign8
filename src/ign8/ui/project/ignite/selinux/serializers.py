@@ -27,7 +27,7 @@ class suggestionSerializer(serializers.ModelSerializer):
         model = suggestion
         fields = '__all__'
 
-class SelinuxSerializer(serializers.ModelSerializer):
+class SelinuxSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Selinux
         fields = '__all__'
