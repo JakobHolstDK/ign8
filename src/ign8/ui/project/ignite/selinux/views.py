@@ -184,7 +184,6 @@ def host_message(request, pk=None):
     return render(request, 'host_message_template.html', context)
 
 
-@csrf_exempt
 class SelinuxUploadView(generics.CreateAPIView):
     queryset = Selinux.objects.all()
     serializer_class = SelinuxSerializer
