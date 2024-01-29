@@ -93,7 +93,9 @@
 
     <header>
         <h1>{% block header %}Ignite{% endblock %}</h1>
-        <h3>LOGO</h3>
+        <h3>{% for entry in maindata_entries %}
+            <p>{{ entry.about }}</p>
+        {% endfor %}</h3>
     </header>
 
     <main>
