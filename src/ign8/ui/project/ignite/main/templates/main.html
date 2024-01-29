@@ -20,7 +20,7 @@
             <ul>
                 {% for project in maindata_projects %}
                 <li>
-                        {{ project.name }} | {{ project.description }}
+                        <a href="https://ignite.openknowit.com/{{ project.name }}">{{ project.name }}</a>     | {{ project.description }}
                 </li>
                 {% endfor %}
             </ul>
