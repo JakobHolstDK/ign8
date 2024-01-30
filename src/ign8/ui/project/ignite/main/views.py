@@ -2,8 +2,6 @@ from django.shortcuts import render
 from .models import maindata, service, project
 from django.views.decorators.csrf import csrf_exempt
 
-from rest_framework import viewsets
-
 
 @csrf_exempt
 def mainview(request):
