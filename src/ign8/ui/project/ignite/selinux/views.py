@@ -65,55 +65,6 @@ def SetroubleshootEntry_list(request):
     return render(request, 'SetroubleshootEntry_list.html', {'events': events})
 
 @csrf_exempt
-def SetroubleshootEntry_host(request, hostname):
-    entries = SetroubleshootEntry.objects.filter(HOSTNAME=hostname).order_by('realtime_timestamp')
-    context = {'entries': entries, 'hostname': hostname}
-    return render(request, 'SetroubleshootEntry_list.html', context)
-
-@csrf_exempt
-class selinuxAPIview(generics.CreateAPIView):
-    queryset = Selinux.objects.all()
-    serializer_class = SelinuxDataSerializer
-
-@csrf_exempt
-class SetroubleshootEntryAPIview(generics.CreateAPIView):
-    queryset = SetroubleshootEntry.objects.all()
-    serializer_class = SetroubleshootEntrySerializer
-
-@csrf_exempt
-class messageAPIview(generics.CreateAPIView):
-    queryset = message.objects.all()
-    serializer_class = messageSerializer
-
-@csrf_exempt
-class suggestionAPIview(generics.CreateAPIView):
-    queryset = suggestion.objects.all()
-    serializer_class =suggestionSerializer
-
-@method_decorator(csrf_exempt, name='dispatch')
-@csrf_exempt
-class UploadSelinuxDataView(View):
-    def post(self, request, *args, **kwargs):
-        try:
-            data = json.loads(request.body.decode('utf-8'))
-
-            # Assuming 'hostname' is a unique key
-            hostname = data.get('hostname')
-
-            selinux_instance, created = Selinux.objects.update_or_create(
-                hostname=hostname,
-                defaults=data
-            )
-
-            if created:
-                return JsonResponse({'message': f'Data for {hostname} created successfully.'}, status=201)
-            else:
-                return JsonResponse({'message': f'Data for {hostname} updated successfully.'}, status=200)
-
-        except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON data.'}, status=400)
-    
-@csrf_exempt
 def selinux_event_list(request):
     selinux_event_entries = SElinuxEvent.objects.all()
     pprint.pprint(selinux_event_entries)
@@ -182,34 +133,3 @@ def host_message(request, pk=None):
     }
 
     return render(request, 'host_message_template.html', context)
-
-
-@csrf_exempt
-class SelinuxUploadView(generics.CreateAPIView):
-    queryset = Selinux.objects.all()
-    serializer_class = SelinuxSerializer
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

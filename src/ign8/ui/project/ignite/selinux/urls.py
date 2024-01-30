@@ -2,18 +2,13 @@
 from django.urls import path, include
 from .views import selinux_list, selinux_event_list , UploadSelinuxDataView, UploadSElinuxEventView, message_list
 from .views import SetroubleshootEntry_list, SetroubleshootEntry_host, SetroubleshootEntryAPIview, messageAPIview, suggestionAPIview
-from .views import selinuxAPIview, SetroubleshootEntry_list_full, host_message
-from .views import SelinuxUploadView
+from .views import SetroubleshootEntry_list_full, host_message
+from .viewsets import selinuxAPIview
+
 from rest_framework import routers, serializers, viewsets
 
 router = routers.DefaultRouter()
 router.register(r'selinux', selinuxAPIview)
-router.register(r'setroubleshoot', SetroubleshootEntryAPIview)
-router.register(r'message', messageAPIview)
-router.register(r'suggestion', suggestionAPIview)
-
-
-
 
 urlpatterns = [
     path('', selinux_list, name='selinux_list'),
