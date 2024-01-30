@@ -1,8 +1,8 @@
 
 from django.urls import path, include
-from .views import selinux_list, UploadSElinuxEventView
+from .views import selinux_list
 from .viewsets import selinuxAPIview
-from rest_framework import routers, serializers, viewsets
+from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'selinux', selinuxAPIview)
