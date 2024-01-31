@@ -5,7 +5,7 @@ from .viewsets import selinuxAPIview
 from .views import host_message_sugestion, selinux_list, message_list, suggestion_list, SetroubleshootEntry_list_full
 
 router = routers.DefaultRouter()
-#router.register(r'selinux', selinuxAPIview)
+router.register(r'host', selinuxAPIview)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
