@@ -4,7 +4,7 @@ from rest_framework import routers
 from .viewsets import selinuxAPIview
 from .views import host_message_sugestion, selinux_list, message_list, suggestion_list, SetroubleshootEntry_list_full
 
-#router = routers.DefaultRouter()
+router = routers.DefaultRouter()
 #router.register(r'selinux', selinuxAPIview)
 
 urlpatterns = [
