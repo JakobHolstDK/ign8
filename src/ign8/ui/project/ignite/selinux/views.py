@@ -2,8 +2,6 @@ from django.shortcuts import render
 from .models import Selinux, SElinuxEvent, SetroubleshootEntry
 from rest_framework import viewsets, generics
 from .models import SElinuxEvent, message, suggestion, SetroubleshootEntry
-from .serializers import SelinuxSerializer
-from .serializers import SElinuxEventSerializer, SelinuxDataSerializer, SetroubleshootEntrySerializer, messageSerializer, suggestionSerializer
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
