@@ -31,47 +31,38 @@ def main():
     args = parser.parse_args()
     ready = False
     if args.action[0] == "serve":
-        prettyllog("ui", "ui", "ui", "new", "000", "serve")
         serve.main()
         return 0
     
     if args.action[0] == "start":
-        prettyllog("ui", "ui", "ui", "new", "000", "start")
         start.main()
         return 0
     
     if args.action[0] == "stop":
-        prettyllog("ui", "ui", "ui", "new", "000", "stop")
         stop.main()
         return 0
     
     if args.action[0] == "status":
-        prettyllog("ui", "ui", "ui", "new", "000", "status")
         status.main()
         return 0
     
     if args.action[0] == "selinux":
-        prettyllog("ui", "ui", "ui", "new", "000", "selinux")
         selinux.main()
         return 0
     
     if args.action[0] == "firewall":
-        prettyllog("ui", "ui", "ui", "new", "000", "firewall")
         firewall.main()
         return 0
     
     if args.action[0] == "setup":
-        prettyllog("ui", "ui", "ui", "new", "000", "setup")
         setup.main()
         return 0
     
     if args.action[0] == "login":
-        prettyllog("ui", "ui", "ui", "new", "000", "login")
         login.main()
         return 0
     
     if args.action[0] == "logout":
-        prettyllog("ui", "ui", "ui", "new", "000", "logout")
         logout.main()
         return 0
     
