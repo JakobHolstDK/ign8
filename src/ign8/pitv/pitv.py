@@ -11,6 +11,10 @@ import hvac
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 r=redis.Redis()
+vaulturl = os.getenv("VAULT_URL", "https://vault.openknowit.com")
+vaulttoken = os.getenv("VAULT_TOKEN", "s.1J8Z1Z1Z1Z1Z1Z1Z1Z1Z1Z1Z1")
+
+vault = hvac.Client(url=vaulturl, token=vaulttoken)
 
 
 def init_redis():
@@ -33,9 +37,32 @@ def service():
   print("service")
 
 
+def registerallsystemfiles():
+#   rpm -qa --filesbypkg
+  mycmd = "rpm -qa --filesbypkg"
+  mycmd = mycmd.split()
+  p = subprocess.Popen(mycmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  out, err = p.communicate()
+  out = out.decode("utf-8")
+  lines = out.splitlines()
+  count = len(lines)
+  for line in lines:
+    line = line.split()
+    package = line[0]
+    file = line[1]
+    rediskey = "sytemfile:" + file
+    r.set(rediskey, str(time.time()))
+    print_line_and_return("%-016d" % count)
+    #print_line_and_return("Registering system file: " + file)
+    count = count - 1
+   
+
+
+
 
 def calculate_md5(filename, block_size=65536):
     if os.path.isfile(filename):
+      print_line_and_return("Calculating md5 for file: " + filename)
       md5_hash = hashlib.md5()
       try:
         with open(filename, "rb") as file:
@@ -57,7 +84,7 @@ def hashit(file):
         return hashlib.md5(data).hexdigest()
 
 def check_if_file_is_picture(file):
-  print("check if file is a picture")
+  print_line_and_return("check if file is a picture")
   file = file.lower()
   if file.endswith(".jpg") or file.endswith(".jpeg") or file.endswith(".png") or file.endswith(".gif") or file.endswith(".bmp") or file.endswith(".tiff") or file.endswith(".tif") or file.endswith(".webp") or file.endswith("cr2"):
     
@@ -74,7 +101,7 @@ def get_image_metadata(image_path):
             else:
               return None
     except Exception as e:
-        print("Error:", e)
+        print_line_and_return("Error:")
         return None
 
 def list_files_recursive(directory):
@@ -86,8 +113,15 @@ def list_files_recursive(directory):
                 with open(file_path, "rb"):
                     files.append(file_path)
             except PermissionError:
-                print("Permission denied for file:", file_path)
+                print_line_and_return("Permission denied for file:", file_path)
     return files
+
+def print_line_and_return(text):
+    terminal_width = os.get_terminal_size().columns
+    text = text.ljust(terminal_width - 1)
+
+    print(text, end='\r')
+
 
 def locate_files(keyword=""):
     try:
@@ -98,10 +132,11 @@ def locate_files(keyword=""):
         file_list = output.splitlines()
         return file_list
     except subprocess.CalledProcessError as e:
-        print("Error:", e)
+        print_line_and_return("Error:", e)
         return []
 
 def evacuate():
+  registerallsystemfiles()
   redis = init_redis()
   #get all files on the system
   files = locate_files()
@@ -118,15 +153,24 @@ def evacuate():
         
       status = redis.get(file).decode("utf-8")
       # print a status wihout newline
-      print("file " + str(count) + " of " + str(total) + " status: " + status, end="\r")
+      
+      line = "file " + str(count) + " of " + str(total) + " status: " + status
+      print_line_and_return(line)
+      rediskey = "sytemfile:" + file
+      
+      if redis.exists(rediskey):
+         next
+      else:
+         print_line_and_return("Registering non system file file: " + file)
+         
+
       md5 = calculate_md5(file)
-      print(md5)
       # scp file remotehost:/files/
       if md5 is not None: 
         keys = "MD5:" + md5
-        vault.secrets.kv.v2.existing_version(keys)
-        if vault.secrets.kv.v2.get_secret_version(keys) is None:
-          vault.secrets.kv.v2.create_or_update_secret(keys, md5=md5, file=file)
+        #i#vault.secrets.kv.v2.existing_version(keys)
+        #if vault.secrets.kv.v2.get_secret_version(keys) is None:
+        #  vault.secrets.kv.v2.create_or_update_secret(keys, md5=md5, file=file)
         
         redis.set(keys, filesize)
 
@@ -136,9 +180,9 @@ def evacuate():
            key = "metadata:" + file
            redis.set(key, str(metadata))
     else:
-      print("file " + str(count) + " of " + str(total) + " status: unknown", end="\r")
+      print_line_and_return("file " + str(count) + " of " + str(total) + " status: unknown")
       if check_if_file_is_picture(file):
-        print(file)
+        print_line_and_return("file " + str(count) + " of " + str(total) + " status: picture")
         key = "Picture:" + file
         redis.set(file, "1")
       else:

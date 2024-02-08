@@ -158,9 +158,3 @@ class suggestion(models.Model):
         verbose_name_plural = 'suggestions'
 
 
-
-
-
-
-    
-
