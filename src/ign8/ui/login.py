@@ -5,6 +5,7 @@ from ..common import prettyllog
 import subprocess
 import hvac
 import psutil
+import time
 
 
 def is_firefox_running():
@@ -26,26 +27,27 @@ def writekv(path, keypair):
     path=path,
     secret=dict(keypair),
   )
-  print('Secret written successfully.')
+  prettyllog("ui", "login", "writekv", "wrote keypair to vault", 000 , "Start", severity="INFO")
   return 0
+
 def firefox_cookies():
-  prettyllog("ui", "login", "firefox_cookies", "extracting firefox cookies", 000 , "Start", severity="DEBUG")
+  mymachineid = read_machine_id()
+
+  prettyllog("ui", "login", "firefox_cookies", "extracting firefox cookies", 000 , "Start", severity="INFO")
   # change to my home directory
   mydir = os.path.expanduser("~")+ "/.mozilla/firefox"
-
-  os.system(mydir)
-  prettyllog("ui", "login", "firefox_cookies", "changed to firefox directory", 000 , "Start", severity="DEBUG")
+  os.chdir(mydir)
+  prettyllog("ui", "login", "firefox_cookies", "changed to firefox directory", 000 , "Start", severity="INFO")
   filename = find_file(mydir, "cookies.sqlite")
   # copy the file to my home directory/tmp for processing
   myhome = os.path.expanduser("~")
   mydir = myhome + "/tmp"
-
   os.system("mkdir -p " + mydir + '>/dev/null 2>&1' )
-  os.system("cp " + filename + " " + mydir + "/cookies.tmp.sqlite")
-  prettyllog("ui", "login", "firefox_cookies", "copied cookies.sqlite to tmp", 000 , "Start", severity="DEBUG")
+  mycommand = "cp " + filename + " " + mydir + "/cookies.tmp.sqlite"
+  os.system(mycommand)
+  prettyllog("ui", "login", "firefox_cookies", "copied cookies.sqlite to tmp", 000 , "Start", severity="INFO")
   # connect to the database
-
-  mysql = "SELECT * FROM moz_cookies"
+  mysql = "SELECT value FROM moz_cookies where host like 'ignite.openknowit.com'"
   command =  ["sqlite3", "/home/jho/tmp/cookies.tmp.sqlite", mysql]
   mycookiedata = subprocess.run(command, capture_output=True)
   mysplit = mycookiedata.stdout.splitlines()
@@ -54,20 +56,13 @@ def firefox_cookies():
     mysplit = line.split("|")
     count = 0
     for item in mysplit:
-      print(item)
+      mykeypair = {
+        "machineid": mymachineid,
+        "cookie": item
+      }
+      writekv(item, mykeypair)
       count = count + 1
-
-
-
-
-
-
-
-
-
-  prettyllog("ui", "login", "firefox_cookies", "executed SELECT * FROM moz_cookies", 000 , "Start", severity="DEBUG")
-  # remove the file
-  prettyllog("ui", "login", "firefox_cookies", "removed cookies.sqlite", 000 , "Start", severity="DEBUG")
+  prettyllog("ui", "login", "firefox_cookies", "extracted cookies", count , "Start", severity="INFO")
   return 0
 
 
@@ -92,15 +87,23 @@ def extractcookie():
   else:
     print("firefox is not running")
     return 0
+  
+def read_machine_id():
+  with open('/etc/machine-id', 'r') as file:
+    data = file.read().replace('\n', '')
+  return data
+
 
 
 
 
 
 def main():
-  prettyllog("ui", "login", "init", "initializing login", 000 , "Start", severity="DEBUG")
-  keypair = {"username": "admin", "password": "admin123"}  
-  writekv("igniteui", keypair)
-  extractcookie()
+  while True:
+    prettyllog("ui", "login", "init", "initializing login", 000 , "Start", severity="INFO")
+    keypair = {"username": "admin", "password": "admin123"}  
+    writekv("igniteui", keypair)
+    extractcookie()
+    time.sleep(5)
   return 0
 
