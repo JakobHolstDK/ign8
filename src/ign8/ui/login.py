@@ -4,6 +4,7 @@ import pprint
 from ..common import prettyllog
 import subprocess
 import hvac
+import requests
 import psutil
 import time
 
@@ -88,19 +89,106 @@ def extractcookie():
     print("firefox is not running")
     return 0
   
+def gethostifo():
+  hostdata = subprocess.run(["hostnamectl"], capture_output=True)
+  if hostdata.returncode != 0:
+    prettyllog("ui", "login", "gethostinfo", "failed to read host info", 000 , "Start", severity="ERROR")
+    return 1
+  hoststdout = hostdata.stdout
+  hoststdout = hoststdout.decode('utf-8')
+  mysplit = hoststdout.splitlines()
+  myhostjson = {}
+  for line in mysplit:
+    mykey = line.split(": ")[0].strip()
+    myvalue = line.split(": ")[1].strip()
+    myhostjson[mykey] = myvalue
+  return myhostjson
+
+  
+def read_netbox_data():
+  netboxcrds =  {}
+  try:
+    mynetboxtoken = os.getenv('IGN8_NETBOX_TOKEN')
+    netboxcrds['token'] = mynetboxtoken
+  except:
+    prettyllog("ui", "login", "read_netbox_data", "failed to read netbox token", 000 , "Start", severity="ERROR")
+
+  try:
+    mynetboxurl = os.getenv('IGN8_NETBOX_URL')
+    netboxcrds['url'] = mynetboxurl
+
+  except:
+    prettyllog("ui", "login", "read_netbox_data", "failed to read netbox url", 000 , "Start", severity="ERROR")
+
+  if len(netboxcrds) != 2:
+    prettyllog("ui", "login", "read_netbox_data", "failed to read netbox credentials", 000 , "Start", severity="ERROR")
+    # try to read from the vault
+    try:
+      myvaulturl = os.environ('VAULT_URL')
+      myvaulttoken = os.environ('VAULT_TOKEN')
+      client = hvac.Client(
+        url=myvaulturl,
+        token=myvaulttoken,
+      )
+      netboxcrds = client.secrets.kv.v2.read_secret_version(path='ign8/netbox')
+      mynetboxurl = netboxcrds['data']['url']
+      mynetboxtoken = netboxcrds['data']['token']
+    except:
+      prettyllog("ui", "login", "read_netbox_data", "failed to read netbox credentials from vault", 000 , "Start", severity="ERROR")
+      return 1
+    
+
+  try: 
+    myhostname = os.getenv('HOSTNAME')
+  except:
+    prettyllog("ui", "login", "read_netbox_data", "failed to read hostname", 000 , "Start", severity="ERROR")
+    return 1
+    
+
+  myurl = mynetboxurl + "/api/dcim/devices/?name=" + myhostname
+  myheaders = {
+    "Authorization": "Token " + mynetboxtoken
+  }
+  response = requests.get(myurl, headers=myheaders)
+  if response.status_code != 200:
+    prettyllog("ui", "login", "read_netbox_data", "failed to read netbox data", 000 , "Start", severity="ERROR")
+    return 1  
+  mydata = response.json()
+  if mydata['count'] == 0:
+    # no data found
+    prettyllog("ui", "login", "read_netbox_data", "failed to read netbox data", 000 , "Start", severity="INFO")
+
+
+
+
+   
+   
+  
 def read_machine_id():
   with open('/etc/machine-id', 'r') as file:
     data = file.read().replace('\n', '')
   return data
 
 
-
+def updatecmdb():
+  mymachineid = read_machine_id()
+  read_netbox_data()
+  mykeypair = {
+    "machineid": mymachineid,
+    "username": "admin",
+    "password": "admin123"
+  }
 
 
 
 def main():
   while True:
+    hostinfo = gethostifo()
+    print(hostinfo)
+
+
     prettyllog("ui", "login", "init", "initializing login", 000 , "Start", severity="INFO")
+    updatecmdb()
     keypair = {"username": "admin", "password": "admin123"}  
     writekv("igniteui", keypair)
     extractcookie()

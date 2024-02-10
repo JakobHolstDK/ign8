@@ -1,12 +1,12 @@
 [project]
 name = "ign8"
-version = "4.7.85"
+version = "4.7.86"
 description = "Knowit automation lifecycle management"
 readme = "README.md"
 requires-python = ">=3.9"
 keywords = [ "ign8", "awx", "ansible", "automation",]
 classifiers = [ "Development Status :: 3 - Alpha", "Intended Audience :: Developers", "Topic :: Software Development :: Libraries :: Python Modules", "License :: OSI Approved :: MIT License", "Programming Language :: Python :: 3",]
-dependencies = [ "redis", "flask", "pynetbox", "wheel", "hvac", "xmltodict", "netbox", "urllib3", "cryptography", "PyYAML", "toml", "django", "djangorestframework", "gunicorn", "ansible", "ansible-core", "paramiko",]
+dependencies = [ "redis", "flask", "psutil", "pynetbox", "wheel", "hvac", "xmltodict", "netbox", "urllib3", "cryptography", "PyYAML", "toml", "django", "djangorestframework", "gunicorn", "ansible", "ansible-core", "paramiko",]
 [[project.authors]]
 name = "Jakob Holst"
 email = "jho@miracle.dk"
@@ -53,7 +53,7 @@ ign8_zabbix = "ign8.zabbix:main"
 
 [tool.poetry]
 name = "ign8"
-version = "4.7.85"
+version = "4.7.86"
 description = "Ignite it all."
 readme = "README.md"
 authors = [ "Jakob Holst <jakob.holst@knowit.dk>",]
@@ -101,6 +101,7 @@ djangorestframework = "^3.14.0"
 gunicorn = "^21.2.0"
 ansible = "^8.7.0"
 ansible-core = "^2.15.8"
+psutil = "^5.9.8"
 
 [tool.setuptools.package-data]
 ign8 = [ "*.dat",]
