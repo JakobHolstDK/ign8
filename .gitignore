@@ -5,3 +5,4 @@ src/ign8/selinux/venv/
 poetry.lock
 dist/
 src/ign8.egg-info/
+src/ign8/homeassistant/venv/
