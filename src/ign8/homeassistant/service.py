@@ -120,14 +120,39 @@ def change_state(entity_id, state):
         return False
 
 def main():
+    myparring = [
+                    { "press": "Stueswitch", "switch": "stue" },
+                    { "press": "køkkenswitch", "switch": "koekken" },
+
+                ]
     while True:
 
         logbook = get_logbook()
-        for log in logbook:
-            if log['name'] == "Main":
+        if type(logbook != "bool"):
+          for log in logbook:
+            if log['name'] == "Stueswitch":
                 if "second button pressed initially" in log['message']:
                     mykey = log['when'] + log['message']
-                
+                    if r.exists(mykey): 
+                        continue
+                    else:
+                        turn_off("stue")
+                        r.set(mykey, "true")
+                        pprint.pprint(log)
+                if "first button pressed initially" in log['message']:
+                    mykey = log['when'] + log['message']
+                    if r.exists(mykey): 
+                        continue
+                    else:
+                        turn_on("stue")
+                        r.set(mykey, "true")
+                        pprint.pprint(log)
+
+
+            if log['name'] == "Hall switch":
+                try:
+                  if "fourth button pressed initially" in log['message']:
+                    mykey = log['when'] + log['message']
                     if r.exists(mykey): 
                         continue
                     else:
@@ -140,8 +165,9 @@ def main():
                         turn_off("badstuen")
                         turn_off("bryggers")
                         r.set(mykey, "true")
+                        pprint.pprint(log)
 
-                if "first button pressed initially" in log['message']:
+                  if "third button pressed initially" in log['message']:
                     mykey = log['when'] + log['message']
                     if r.exists(mykey): 
                         continue
@@ -154,6 +180,9 @@ def main():
                         turn_on("badstuen")
                         turn_on("bryggers")
                         r.set(mykey, "true")
+                        pprint.pprint(log)
+                except: 
+                  pass
 
 
 
