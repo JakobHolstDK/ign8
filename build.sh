@@ -8,5 +8,5 @@ poetry update
 poetry build
 poetry run twine upload dist/* || echo
 #curl -X POST ${IGN8_JENKINS_URL}/job/ign8/build \
-#  --user jho:${IGN8_JENKINS_TOKEN}
+  #--user jho:${IGN8_JENKINS_TOKEN}
 
