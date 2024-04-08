@@ -99,14 +99,14 @@ def prettylog(severity, text, json = {}):
   d_date = datetime.datetime.now()
   reg_format_date = d_date.strftime("%Y-%m-%d %I:%M:%S %p")
   if severity == "INFO":
-    print(f"{bcolors.INFO}%-20s: %-12s %20s %-50s %-20s %-4s %-50s " %( reg_format_date, severity, text))
+    print(f"{bcolors.INFO}%-20s: %-12s %s" %( reg_format_date, severity, text))
   elif severity == "WARNING":
-    print(f"{bcolors.WARNING}%-20s: %-12s %20s %-50s %-20s %-4s %-50s " %( reg_format_date, severity, text))
+    print(f"{bcolors.WARNING}%-20s: %-12s %s " %( reg_format_date, severity, text))
   elif severity == "ERROR":
-    print(f"{bcolors.FAIL}%-20s: %-12s %20s %-50s %-20s %-4s %-50s " %( reg_format_date, severity, text))
+    print(f"{bcolors.FAIL}%-20s: %-12s %s " %( reg_format_date, severity, text))
   elif severity == "DEBUG":
-    print(f"{bcolors.OLCYAN}%-20s: %-12s %20s %-50s %-20s %-4s %-50s " %( reg_format_date, severity, text))
+    print(f"{bcolors.OLCYAN}%-20s: %-12s %s " %( reg_format_date, severity, text))
   else:
-    print(f"{bcolors.INFO}%-20s: %-12s %20s %-50s %-20s %-4s %-50s " %( reg_format_date, severity, text))
+    print(f"{bcolors.INFO}%-20s: %-12s %s " %( reg_format_date, severity, text))
   print(f"{bcolors.ENDC}", end='')
   return True
