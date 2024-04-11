@@ -125,4 +125,7 @@ def serve():
             prettylog("ERROR", "Config file not found")
             break
         prettylog("INFO", "Config file found")
+        prettylog("INFO", "Sleeping")
+        time.sleep(5)
+        
 
