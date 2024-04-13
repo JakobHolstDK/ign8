@@ -36,6 +36,8 @@ def is_port_open(hostname, port):
   return False
 
 
+
+
 def get_swarm_status():
     command = "docker info -f json |jq .Swarm.LocalNodeState -r"
     result = subprocess.run(command, capture_output=True, shell=True)
