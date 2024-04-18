@@ -152,7 +152,6 @@ def get_txt_records(domain):
     try:
         txt_records = dns.resolver.resolve(domain, 'TXT')
         for txt_record in txt_records:
-            print(txt_record.to_text())
             mytxt += txt_record.to_text()
     except dns.resolver.NoAnswer:
         print("No TXT records found for", domain)
