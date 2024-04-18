@@ -1,7 +1,29 @@
 import requests
 import json
 import os
+from cryptography.fernet import Fernet
+
 from ..common import prettyllog
+
+
+def save_secret(secret):
+    env = getenv()
+    encrypted = encrypt_text(secret)
+    add_record({"name": "secret", "domain": env["IGN8_DNS_DOMAIN"], "type": "TXT", "ttl": 1, "proxied": False, "ipaddress": encrypted})
+
+    
+def encrypt_text(text):
+    key = os.environ.get("IGN8_ENCRYPTION_KEY")
+    cipher_suite = Fernet(key)
+    encrypted_text = cipher_suite.encrypt(text.encode())
+    return encrypted_text
+
+def decrypt_text(encrypted_text):
+    key = os.environ.get("IGN8_ENCRYPTION_KEY")
+    cipher_suite = Fernet(key)
+    decrypted_text = cipher_suite.decrypt(encrypted_text).decode()
+    return decrypted_text
+        
 
 
 

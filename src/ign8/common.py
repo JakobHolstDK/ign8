@@ -1,4 +1,5 @@
 import os
+from cryptography.fernet import Fernet
 import datetime
 import subprocess 
 
@@ -55,8 +56,17 @@ def get_file_content_lines(file_path):
     #2326 is the size of the object returned to the client, measured in bytes.
 # we need to rewrite prettylog to use this format
     
+def encrypt_text(text):
+    key = os.environ.get("IGN8_ENCRYPTION_KEY")
+    cipher_suite = Fernet(key)
+    encrypted_text = cipher_suite.encrypt(text.encode())
+    return encrypted_text
 
-    
+def decrypt_text(encrypted_text):
+    key = os.environ.get("IGN8_ENCRYPTION_KEY")
+    cipher_suite = Fernet(key)
+    decrypted_text = cipher_suite.decrypt(encrypted_text).decode()
+    return decrypted_text
 
 def prettyllog(function, action, item, organization, statuscode, text, severity="INFO"):
   silence = False

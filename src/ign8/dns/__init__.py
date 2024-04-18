@@ -51,6 +51,7 @@ def main():
                libvirt             create dns records for virtlib\n\
                libvirt_leases      create dns records for virtlib\n\
                register            register dns record for this host\n\
+               savesecret          Save a secret as tst record\n\
 \n\
                2023 Knowit Miracle\n\
                ")
@@ -106,6 +107,25 @@ def main():
           if(cloudflare.check_access()):
             cloudflare.add_record()   
             return True
+    
+    if args.action[0] == "save_secret":
+        if check_env():
+          if(cloudflare.check_access()):
+            cloudflare.add_record()   
+            return True
+          
+    if args.action[0] == "delete_secret":
+        if check_env():
+          if(cloudflare.check_access()):
+            cloudflare.delete_record()   
+            return True
+          
+    if args.action[0] == "load_secret":
+        if check_env():
+          if(cloudflare.check_access()):
+            cloudflare.load_secret()   
+            return True
+          
 
 
     

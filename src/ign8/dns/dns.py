@@ -9,8 +9,8 @@ import json
 import subprocess
 import xmltodict
 import re
-import netifaces
 import paramiko
+import socket
 from ..common import prettyllog
 from . import cloudflare
 
