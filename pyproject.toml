@@ -10,6 +10,20 @@ dependencies = [ "redis", "flask", "psutil", "pynetbox", "wheel", "hvac", "xmlto
 [[project.authors]]
 name = "Jakob Holst"
 email = "jho@miracle.dk"
+[metadata]
+name = "example-package"
+version = "1.0.0"
+description = "An example Python package"
+author = "John Doe"
+author_email = "john@example.com"
+license = "MIT"
+keywords = ["example", "package"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
 
 [[project.maintainers]]
 name = "Jakob Holst"
@@ -86,6 +100,7 @@ ign8_vault = "ign8.vault:main"
 ign8_zabbix = "ign8.zabbix:main"
 
 [tool.poetry.dependencies]
+python = "^3.11"
 
 [tool.setuptools.package-data]
 ign8 = [ "*.dat",]
