@@ -45,6 +45,7 @@ def get_hue_light(token, service):
         return None
     
 def turn_on(host):
+    print("turn on %s " % host)
     url = "http://" + host + "/rpc/Switch.Set?id=0&on=true"
     response = get(url)
     return response.json()
@@ -61,7 +62,7 @@ def turn_off(host):
 
 def main():
     token = os.getenv('HUE_TOKEN')
-    #rules = get_hue_light(token, "rules")
+    rules = get_hue_light(token, "rules")
     sensors = get_hue_light(token, "sensors")
     mysensors = {}
     for sensor in sensors:
@@ -73,11 +74,12 @@ def main():
 
                 pressage = age(triggered)
                 print("%-30s %-20s %-20s %-20s" % (name, state, triggered, pressage))
-                if pressage > 3640:
+                if pressage > 7210:
                     state = None
                 name2 = name + "_2"
 
                 if state == 20:
+                    
                     turn_on(name)
                 if state == 21:
                     turn_off(name)
