@@ -111,7 +111,34 @@ def main():
 def in_venv():
     return sys.prefix != sys.base_prefix
 
+def initdocker():
+    if in_venv():
+        prettylog("INFO", "Running in virtual environment")
+        if os.path.exists("/usr/bin/docker"):
+            prettylog("INFO", "Docker is installed")
+        else:
+            prettylog("ERROR", "Docker is not installed")
+            return False
+    else:
+        prettylog("ERROR", "Not running in virtual environment")
+        return False
+    return True
+
 def init_service():
+    orchestrator = getenv("ORCHESTRATOR", "swarm")
+    if orchestrator == "swarm":
+        prettylog("INFO", "Orchestrator is swarm")
+    else:
+        prettylog("ERROR", "Orchestrator is not set")
+        return False
+    if not check_docker():
+        initdocker()
+        prettylog("ERROR", "Docker is not running")
+        return False
+    prettylog("INFO", "Docker is running")
+
+
+
     servicefile = "\
 [Unit]\n\
 Description=Ign8 Service\n\
