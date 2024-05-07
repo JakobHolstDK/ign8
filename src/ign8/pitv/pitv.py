@@ -39,22 +39,47 @@ def service():
 
 def registerallsystemfiles():
 #   rpm -qa --filesbypkg
-  mycmd = "rpm -qa --filesbypkg"
-  mycmd = mycmd.split()
-  p = subprocess.Popen(mycmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-  out, err = p.communicate()
-  out = out.decode("utf-8")
-  lines = out.splitlines()
-  count = len(lines)
-  for line in lines:
-    line = line.split()
-    package = line[0]
-    file = line[1]
-    rediskey = "sytemfile:" + file
-    r.set(rediskey, str(time.time()))
-    print_line_and_return("%-016d" % count)
-    #print_line_and_return("Registering system file: " + file)
-    count = count - 1
+  # We need to check if we are on a redhat system
+  if os.path.exists("/usr/bin/rpm"):
+     
+    mycmd = "rpm -qa --filesbypkg"
+    mycmd = mycmd.split()
+    p = subprocess.Popen(mycmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    out = out.decode("utf-8")
+    lines = out.splitlines()
+    count = len(lines)
+    for line in lines:
+      line = line.split()
+      package = line[0]
+      file = line[1]
+      rediskey = "sytemfile:" + file
+      r.set(rediskey, str(time.time()))
+      print_line_and_return("%-016d" % count)
+      #print_line_and_return("Registering system file: " + file)
+      count = count - 1
+  elif os.path.exists("/usr/bin/dpkg"):
+    print("This is a debian system")
+    mycmd = " dpkg -l |grep ^ii 2>/dev/null |awk '{ print $2 }'|xargs -i{} dpkg -L {}"
+    mycmd = mycmd.split()
+    p = subprocess.Popen(mycmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    out = out.decode("utf-8")
+    lines = out.splitlines()
+    count = len(lines)
+    for line in lines:
+      rediskey = "sytemfile:" + line
+      r.set(rediskey, str(time.time()))
+      print_line_and_return("%-016d" % count)
+      count = count - 1
+  else:
+    print("This is not a redhat system or a debian system")
+    exit(1)
+
+
+    print("This is not a redhat system")
+    exit(1)
+
    
 
 
@@ -123,11 +148,11 @@ def print_line_and_return(text):
     print(text, end='\r')
 
 
-def locate_files(keyword=""):
+def locate_files():
     try:
         # Run the locate command and capture the output
-        command = ["locate", keyword]
-        result = subprocess.run(command, stdout=subprocess.PIPE, text=True, check=True)
+        command = ["sudo", "find", '/home/rks221', '-type', 'f']
+        result = subprocess.run(command, stdout=subprocess.PIPE, text=True, check=True, stderr=subprocess.DEVNULL)
         output = result.stdout
         file_list = output.splitlines()
         return file_list
@@ -140,6 +165,7 @@ def evacuate():
   redis = init_redis()
   #get all files on the system
   files = locate_files()
+  print("We found " + str(len(files)) + " files")
   total = len(files)
   count = 0
   for file in files:
@@ -182,6 +208,7 @@ def evacuate():
     else:
       print_line_and_return("file " + str(count) + " of " + str(total) + " status: unknown")
       if check_if_file_is_picture(file):
+        print("file " + str(count) + " of " + str(total) + " status: picture")  # add newline
         print_line_and_return("file " + str(count) + " of " + str(total) + " status: picture")
         key = "Picture:" + file
         redis.set(file, "1")
