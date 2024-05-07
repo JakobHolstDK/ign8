@@ -151,7 +151,7 @@ def print_line_and_return(text):
 def locate_files():
     try:
         # Run the locate command and capture the output
-        command = ["sudo", "find", '/home/rks221', '-type', 'f']
+        command = ["sudo", "find", '/', '-type', 'f']
         result = subprocess.run(command, stdout=subprocess.PIPE, text=True, check=True, stderr=subprocess.DEVNULL)
         output = result.stdout
         file_list = output.splitlines()
