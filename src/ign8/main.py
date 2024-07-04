@@ -6,7 +6,6 @@ import sys
 import redis
 import pprint
 import json
-import CloudFlare
 import socket
 import random
 import string

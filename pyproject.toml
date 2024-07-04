@@ -1,6 +1,6 @@
 [project]
 name = "ign8"
-version = "4.12.1"
+version = "4.12.3"
 description = "Knowit automation lifecycle management"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -44,6 +44,7 @@ Source = "https://github.com/JakobHolstDK/ign8"
 [project.scripts]
 ign8 = "ign8:main"
 ign8_airflow = "ign8.airflow:main"
+ign8_aap = "ign8.aap:main"
 ign8_bump = "ign8.bump:main"
 ign8_dns = "ign8.dns:main"
 ign8_file = "ign8.file:main"
@@ -65,7 +66,7 @@ ign8_zabbix = "ign8.zabbix:main"
 
 [tool.poetry]
 name = "ign8"
-version = "4.12.1"
+version = "4.12.3"
 description = "Ignite it all."
 readme = "README.md"
 authors = [ "Jakob Holst <jakob.holst@knowit.dk>",]
@@ -76,6 +77,7 @@ repository = "https://github.com/miracle-as/openknowit_ign8.git"
 [tool.poetry.scripts]
 ign8 = "ign8:main"
 ign8_airflow = "ign8.airflow:main"
+ign8_aap = "ign8.aap:main"
 ign8_bump = "ign8.bump:main"
 ign8_dns = "ign8.dns:main"
 ign8_file = "ign8.file:main"
