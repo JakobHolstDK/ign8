@@ -1,6 +1,6 @@
 [project]
 name = "ign8"
-version = "4.12.11"
+version = "4.12.12"
 description = "Knowit automation lifecycle management"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -66,7 +66,7 @@ ign8_zabbix = "ign8.zabbix:main"
 
 [tool.poetry]
 name = "ign8"
-version = "4.12.11"
+version = "4.12.12"
 description = "Ignite it all."
 readme = "README.md"
 authors = [ "Jakob Holst <jakob.holst@knowit.dk>",]
@@ -110,6 +110,22 @@ crashtest = "^0.4.1"
 cryptography = "^42.0.8"
 distlib = "^0.3.8"
 Django = "^5.0.6"
+docutils = "^0.21.2"
+dulwich = "^0.21.7"
+fastjsonschema = "^2.20.0"
+filelock = "^3.15.4"
+idna = "^3.7"
+importlib_metadata = "^8.0.0"
+installer = "^0.7.0"
+jeepney = "^0.8.0"
+keyring = "^24.3.1"
+markdown-it-py = "^3.0.0"
+mdurl = "^0.1.2"
+more-itertools = "^10.3.0"
+msgpack = "^1.0.8"
 
 [tool.setuptools.package-data]
 ign8 = [ "*.dat",]
+
+[tool.poetry.dependencies.jaraco]
+classes = "^3.4.0"
