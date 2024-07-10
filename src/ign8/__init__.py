@@ -7,11 +7,24 @@ import json
 import argparse
 import requests
 from .common import prettyllog
+from .common import get_vault_client
+from .common import decrypt_text
+from .common import encrypt_text
+from .common import get_vault_secret
+from .common import get_vault_secret_data
+from .common import get_vault_secret_field
+from .common import get_vault_secret_field_decrypt
+from .common import get_vault_secret_field_encrypt
 from .main import main, serve, init_service, start_service, stop_service
-
-
 from .setup import setupign8
+import pprint
 
+hvac_client = get_vault_client()
+if hvac_client.is_authenticated():
+  print("Access to vault (%s) is ok" % os.getenv("VAULT_ADDR"))
+else:
+  print("Access to vault (%s) failed" % os.getenv("VAULT_ADDR"))
+  exit
 
 
 
