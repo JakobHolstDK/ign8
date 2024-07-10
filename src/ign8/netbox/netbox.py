@@ -4,7 +4,6 @@ import os
 import base64
 import xml.etree.ElementTree as ET
 import platform
-import yaml
 from ..common import prettyllog
 
 # we need to suppress ssl warnings
