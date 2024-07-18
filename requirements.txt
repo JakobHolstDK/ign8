@@ -48,6 +48,7 @@ rfc3986==2.0.0
 rich==13.7.1
 SecretStorage==3.3.3
 shellingham==1.5.4
+toml==0.10.2
 tomli==2.0.1
 tomlkit==0.13.0
 trove-classifiers==2024.7.2
