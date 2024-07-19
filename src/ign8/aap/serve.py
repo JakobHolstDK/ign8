@@ -99,12 +99,15 @@ def login_aap_basicauth(url, user, password):
   session.verify = False
   resp = session.get(pingurl)
   pprint.pprint(resp)
-  pprint.pprint(resp.status_code)
+  pprint.pprint(type(resp.status_code))
   print("----------------------------")
+  
   if resp.status_code != 200:
     print("Login failed")
     return False
   csrf_token = session.cookies.get('csrftoken')
+  pprint.pprint(csrf_token)
+
   if csrf_token:
     return session
   return False
