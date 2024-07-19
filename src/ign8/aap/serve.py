@@ -195,6 +195,13 @@ def read_config():
   configpath = os.getenv("IGN8_CONFIG_PATH")
   if configpath == None:
     configpath = "/etc/ign8"
+    # check if the path exists
+    if not os.path.exists(configpath):
+      os.makedirs(configpath)
+    # check if the path exists
+    if not os.path.exists(configpath):
+      return False
+    
     filesindir = os.listdir(configpath)
     print(len(filesindir))
     print("-------")
