@@ -217,7 +217,6 @@ def read_config():
       for subproject in data['subprojects']:
         subprojectname = subproject['name'].replace(" ", "_")
         if os.path.exists("/etc/ign8/ign8.d/%s.yml" % subprojectname):
-          subprojectname = subproject['name']
           with open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'r') as f:
             data = yaml.safe_load(f)
             pprint.pprint(data)
