@@ -105,7 +105,9 @@ def login_aap_basicauth(url, user, password):
   data = {"username": user, "password": password}
   pprint.pprint(data)
   pprint.pprint(tokenurl)
-  
+  pprint.pprint(headers)
+  print("....................................................................................")
+
 
   resp = requests.post(tokenurl, headers=headers, data=json.dumps(data), verify=False)
   pprint.pprint(resp.content)
