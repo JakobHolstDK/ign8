@@ -96,7 +96,6 @@ def login_aap_basicauth(url, user, password):
   if resp.status_code != 200:
     print("Login failed")
     return False
-  print("Login successful")
   # we need to create a token
   #      # `curl https://user:pass@tower.example.org/api/v2/job_templates/N/launch/`
   #      return 'Bearer realm=api authorization_url=/api/o/authorize/'
@@ -104,7 +103,9 @@ def login_aap_basicauth(url, user, password):
   headers = {"User-agent": "python-awx-client", "Content-Type": "application/json"} 
   data = {"username": user, "password": password}
   resp = requests.get(tokenurl, headers=headers, data=json.dumps(data), verify=False)
-  pprint.pprint(resp.content)
+  for line in resp.content.splitlines():
+    print(line)
+
   if resp.status_code == 200:
     print("Token created")
     pprint.pprint(resp.content)
