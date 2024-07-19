@@ -11,6 +11,17 @@ import pprint
 
 from  ..common import prettyllog
 
+
+def input_initial_secret(url=None, user=None, password=None):
+  if url == None:
+    AAP_URL = input("Enter the AAP URL: ")
+  if user == None:
+    AAP_USER = input("Enter the AAP USER: ")
+  if password == None:
+    AAP_PASS = input("Enter the AAP PASSWORD: ") # obscufate the password input
+  return dict(AAP_URL=AAP_URL, AAP_USER=AAP_USER, AAP_PASS=AAP_PASS)
+
+
 def get_credentials_from_vault():
   vaultpath = os.getenv('IGN8_VAULT_PATH')
   if vaultpath == None:
@@ -29,15 +40,29 @@ def get_credentials_from_vault():
     # If the path does not exist, create it
     # read the aap user, url and password from vault , obscufate the password input
     # create the path if it does not exist
-    AAP_URL = input("Enter the AAP URL: ")
-    AAP_USER = input("Enter the AAP USER: ")
-    AAP_PASS = input("Enter the AAP PASSWORD: ") # obscufate the password input
+    secret = input_initial_secret()
     client.secrets.kv.v2.create_or_update_secret(
       path=vaultpath,
-      secret=dict(AAP_URL=AAP_URL, AAP_USER=AAP_USER, AAP_PASS=AAP_PASS),
+      secret=secret
     )
   read_response = client.secrets.kv.read_secret_version(path=vaultpath)
+  # check if the path secret contains the AAP_URL, AAP_USER and AAP_PASS
+  URL = read_response['data']['data']['AAP_URL']
+  USER = read_response['data']['data']['AAP_USER']
+  PASS = read_response['data']['data']['AAP_PASS']
+  if URL == None or USER == None or PASS == None:
+    secret  = input_initial_secret(URL, USER, PASS)
+    client.secrets.kv.v2.create_or_update_secret(
+      path=vaultpath,
+      secret=secret
+    )
+    read_response = client.secrets.kv.read_secret_version(path=vaultpath)
   return read_response['data']['data']
+
+  
+
+  
+  
 
 
 
