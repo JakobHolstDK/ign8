@@ -47,9 +47,19 @@ def get_credentials_from_vault():
     )
   read_response = client.secrets.kv.read_secret_version(path=vaultpath)
   # check if the path secret contains the AAP_URL, AAP_USER and AAP_PASS
-  URL = read_response['data']['data']['AAP_URL']
-  USER = read_response['data']['data']['AAP_USER']
-  PASS = read_response['data']['data']['AAP_PASS']
+  try:
+    URL = read_response['data']['data']['AAP_URL']
+  except:
+    URL = None
+  try:
+    USER = read_response['data']['data']['AAP_USER']
+  except:
+    USER = None
+  try:
+    PASS = read_response['data']['data']['AAP_PASS']
+  except:
+    PASS = None
+    
   if URL == None or USER == None or PASS == None:
     secret  = input_initial_secret(URL, USER, PASS)
     client.secrets.kv.v2.create_or_update_secret(
