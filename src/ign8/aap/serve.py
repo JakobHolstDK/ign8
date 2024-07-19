@@ -93,6 +93,8 @@ def login_aap_basicauth(url, user, password):
   data = {"username": user, "password": password}
   pingurl = url + "/api/v2/ping"
   resp = requests.post(pingurl, headers=headers, data=json.dumps(data), verify=False)
+  pprint.pprint(resp.content)
+
   if resp.status_code != 200:
     print("Login failed")
     return False
