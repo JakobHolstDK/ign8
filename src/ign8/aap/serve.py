@@ -101,6 +101,8 @@ def login_aap_basicauth(url, user, password):
   print("Login successful")
   # we need to create a token
   tokenurl = url + "/api/v2/tokens"
+  pprint.pprint(data)
+  
   resp = requests.post(tokenurl, headers=headers, data=json.dumps(data), verify=False)
   pprint.pprint(resp.content)
 
