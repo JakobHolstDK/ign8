@@ -105,7 +105,7 @@ def login_aap_basicauth(url, user, password):
   tokenurl = url + "/api/login"
   headers = {"User-agent": "python-awx-client", "Content-Type": "application/json"} 
   data = {"username": user, "password": password}
-  resp = requests.post(tokenurl, headers=headers, data=json.dumps(data), verify=False)
+  resp = requests.put(tokenurl, headers=headers, data=json.dumps(data), verify=False)
   if resp.status_code == 200:
     print("Token created")
     pprint.pprint(resp.content)
