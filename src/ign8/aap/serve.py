@@ -104,15 +104,13 @@ def login_aap_basicauth(url, user, password):
   data = {"username": user, "password": password}
   resp = requests.get(tokenurl, headers=headers, data=json.dumps(data), verify=False)
   for line in resp.content.splitlines():
-    print(line)
+    if "csrfToken" in line:
+      csfrToken = line.split(":")[1]
+      return csfrToken
+  return False
 
-  if resp.status_code == 200:
-    print("Token created")
-    pprint.pprint(resp.content)
-    print("------------------------------------------------------------")
-    return resp.json()
-  else:
-    return False
+
+    
 
 
 
