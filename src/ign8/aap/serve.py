@@ -198,7 +198,7 @@ def read_config():
     filesindir = os.listdir(configpath)
     print(len(filesindir))
     print("-------")
-    
+
           
     for file in filesindir:
       if file.endswith(".json"):
@@ -240,10 +240,9 @@ def main():
 
     prettyllog("serve", "init", "login", "automation platform", "0", "initiate iternal loop", "INFO")
     while True:
-      prettyllog("serve", "Main loop", "login", "automation platform", "0", "Start of iteration", "INFO")
-      prettyllog("serve", "Main loop", "login", "automation platform", "0", "Read config", "INFO")
+      prettyllog("Ignite ansible automation platform", "Main loop", "Star", "automation platform", "0", "Start of iteration", "INFO")
       #################################################################################################################################################### Read config #######################################################
-
+      prettyllog("Ignite ansible automation platform", "Main loop", "Read Config", "automation platform", "0", "Read configuration", "INFO")
       read_config()
 
       #################################################################################################################################################### Read config #######################################################
