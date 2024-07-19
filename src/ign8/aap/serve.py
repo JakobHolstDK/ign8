@@ -13,6 +13,35 @@ import pprint
 from  ..common import prettyllog
 
 
+
+VERIFY_SSL = False
+
+
+def awx_create_schedule(name, unified_job_template,  description, tz, start, run_frequency, run_every, end, scheduletype, organization, mytoken, r):
+  headers = {"User-agent": "python-awx-client", "Content-Type": "application/json","Authorization": "Bearer {}".format(mytoken)}
+  # The scheduling is tricky and must be refined
+  if ( scheduletype == "Normal"):
+     data = {
+      "name": name,
+      "unified_job_template": unified_job_template,
+      "description": description,
+      "local_time_zone": tz,
+      "dtstart": start['year'] + "-" + start['month'] + "-" + start['day'] + "T" + start['hour'] + ":" + start['minute'] + ":" + start['second']  + "Z",
+      "rrule": "DTSTART;TZID=" + tz + ":" + start['year'] + start['month'] + start['day'] + "T" + start['hour'] + start['minute'] + start['second'] +" RRULE:INTERVAL=" + run_frequency + ";FREQ=" + run_every
+    }
+  url = os.getenv("TOWER_HOST") + "/api/v2/schedules/"
+  resp = requests.post(url,headers=headers, json=data, verify=VERIFY_SSL)
+  response = json.loads(resp.content)
+  try:
+    schedid=response['id']
+    prettyllog("manage", "schedule", name, organization, resp.status_code, schedid)
+  except:
+    prettyllog("manage", "schedule", name, organization, resp.status_code, response)
+
+
+
+
+
 def input_initial_secret(url=None, user=None, password=None):
   if url == None:
     AAP_URL = input("Enter the AAP URL: ")
@@ -224,7 +253,7 @@ def read_config():
           open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'w').close()
           subprojectheader = { "subproject": subprojectname}
           subprojectdata = { 
-            "templates": [], 
+            "templates": ["checkup.yml": ], 
             "schedules": [] 
             }
           with open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'w') as f:
