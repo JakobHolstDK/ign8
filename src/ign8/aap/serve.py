@@ -92,22 +92,29 @@ def login_aap_basicauth(url, user, password):
   headers = {"User-agent": "python-awx-client", "Content-Type": "application/json"} 
   data = {"username": user, "password": password}
   pingurl = url + "/api/v2/ping"
-  resp = requests.post(pingurl, headers=headers, data=json.dumps(data), verify=False)
+
+
+  session = requests.Session()
+  session.auth = (user, password)
+  session.verify = False
+  resp = session.get(pingurl)
   if resp.status_code != 200:
     print("Login failed")
     return False
-  # we need to create a token
-  #      # `curl https://user:pass@tower.example.org/api/v2/job_templates/N/launch/`
-  #      return 'Bearer realm=api authorization_url=/api/o/authorize/'
-  tokenurl = url + "/api/login"
-  headers = {"User-agent": "python-awx-client", "Content-Type": "application/json"} 
-  data = {"username": user, "password": password}
-  resp = requests.get(tokenurl, headers=headers, data=json.dumps(data), verify=False)
-  for line in resp.content.splitlines():
-    if "csrfToken" in line.decode():
-      csfrToken = line.decode().split(":")[1].split('"')[1]
-      return csfrToken
+  csrf_token = session.cookies.get('csrftoken')
+  if csrf_token:
+    return session
   return False
+
+def aap_ping(session)
+  pingurl = url + "/api/v2/ping"
+  resp = session.get(pingurl)
+  if resp.status_code != 200:
+    print("Login failed")
+    return False
+  return True
+
+
 
 
     
@@ -201,13 +208,24 @@ def read_config():
     json.dump(data, f)
   return True
 
+csfrtoken = None
 
 def main():
     prettyllog("serve", "init", "login", "automation platform", "0", "Testing", "INFO")
     secrets = get_credentials_from_vault()
-    csfrtoken = login_aap_basicauth(secrets['AAP_URL'], secrets['AAP_USER'], secrets['AAP_PASS'])
-    pprint.pprint(csfrtoken)
+    session = login_aap_basicauth(secrets['AAP_URL'], secrets['AAP_USER'], secrets['AAP_PASS'])
+    if session == False:
+      print("Login failed")
+      return False
+    print("Login successful")
+    if aap_ping(session):
+      print("Ping successful")
+    else:
+      print("Ping failed")
 
+
+    
+    
 
     read_config()
     return 0
