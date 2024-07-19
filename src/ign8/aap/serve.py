@@ -93,8 +93,6 @@ def login_aap_basicauth(url, user, password):
   data = {"username": user, "password": password}
   pingurl = url + "/api/v2/ping"
   resp = requests.post(pingurl, headers=headers, data=json.dumps(data), verify=False)
-  pprint.pprint(resp.content)
-
   if resp.status_code != 200:
     print("Login failed")
     return False
@@ -105,7 +103,8 @@ def login_aap_basicauth(url, user, password):
   tokenurl = url + "/api/login"
   headers = {"User-agent": "python-awx-client", "Content-Type": "application/json"} 
   data = {"username": user, "password": password}
-  resp = requests.put(tokenurl, headers=headers, data=json.dumps(data), verify=False)
+  resp = requests.get(tokenurl, headers=headers, data=json.dumps(data), verify=False)
+  pprint.pprint(resp.content)
   if resp.status_code == 200:
     print("Token created")
     pprint.pprint(resp.content)
