@@ -205,15 +205,8 @@ def read_config():
 def main():
     prettyllog("serve", "init", "login", "automation platform", "0", "Testing", "INFO")
     secrets = get_credentials_from_vault()
-    pprint.pprint(secrets)
-    token = login_aap_basicauth(secrets['AAP_URL'], secrets['AAP_USER'], secrets['AAP_PASS'])
-    pprint.pprint(token)
-    prettyllog("serve", "init", "login", "automation platform", "0", "Token refreshed", "INFO")
-    if token == False:
-      return 1
-    prettyllog("serve", "init", "login", "automation platform", "0", "Token refreshed", "INFO")
-
-
+    csfrtoken = login_aap_basicauth(secrets['AAP_URL'], secrets['AAP_USER'], secrets['AAP_PASS'])
+    pprint.pprint(csfrtoken)
 
 
     read_config()
