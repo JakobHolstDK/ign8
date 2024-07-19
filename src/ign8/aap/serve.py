@@ -102,7 +102,7 @@ def login_aap_basicauth(url, user, password):
   # we need to create a token
   #      # `curl https://user:pass@tower.example.org/api/v2/job_templates/N/launch/`
   #      return 'Bearer realm=api authorization_url=/api/o/authorize/'
-  tokenurl = url + "/api/v2/organizations"
+  tokenurl = url + "/api/login"
   headers = {"User-agent": "python-awx-client", "Content-Type": "application/json"} 
   data = {"username": user, "password": password}
   resp = requests.post(tokenurl, headers=headers, data=json.dumps(data), verify=False)
