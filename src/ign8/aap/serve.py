@@ -79,7 +79,7 @@ def check_aap_login():
 def login_aap_basicauth(url, user, password):
   headers = {"User-agent": "python-awx-client", "Content-Type": "application/json"} 
   data = {"username": user, "password": password}
-  url = url + "/api/v2/authtoken/"
+  url = url + "/api/v2/ping"
   resp = requests.post(url, headers=headers, data=json.dumps(data), verify=False)
   pprint.pprint(resp.content)
 
@@ -176,7 +176,7 @@ def main():
     prettyllog("serve", "init", "login", "automation platform", "0", "Testing", "INFO")
     secrets = get_credentials_from_vault()
     login_aap_basicauth(secrets['AAP_URL'], secrets['AAP_USER'], secrets['AAP_PASS'])
-    
+
 
     read_config()
     return 0
