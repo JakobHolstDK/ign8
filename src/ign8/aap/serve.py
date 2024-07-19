@@ -98,6 +98,8 @@ def login_aap_basicauth(url, user, password):
   session.auth = (user, password)
   session.verify = False
   resp = session.get(pingurl)
+  pprint.pprint(resp)
+  print("----------------------------")
   if resp.status_code != 200:
     print("Login failed")
     return False
