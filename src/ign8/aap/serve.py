@@ -92,8 +92,6 @@ def login_aap_basicauth(url, user, password):
   headers = {"User-agent": "python-awx-client", "Content-Type": "application/json"} 
   data = {"username": user, "password": password}
   pingurl = url + "/api/v2/ping"
-
-
   session = requests.Session()
   session.auth = (user, password)
   session.verify = False
@@ -105,8 +103,8 @@ def login_aap_basicauth(url, user, password):
     return False
   return session
 
-def aap_ping(session):
-  pingurl = "/api/v2/ping"
+def aap_ping(url, session):
+  pingurl = url + "/api/v2/ping"
   resp = session.get(pingurl)
   if resp.status_code != 200:
     print("Login failed")
@@ -212,12 +210,12 @@ csfrtoken = None
 def main():
     prettyllog("serve", "init", "login", "automation platform", "0", "Testing", "INFO")
     secrets = get_credentials_from_vault()
-    session = login_aap_basicauth(secrets['AAP_URL'], secrets['AAP_USER'], secrets['AAP_PASS'])
+    url = secrets['AAP_URL']
+    session = login_aap_basicauth(url, secrets['AAP_USER'], secrets['AAP_PASS'])
     if session == False:
       print("Login failed")
       return False
-    print("Login successful")
-    if aap_ping(session):
+    if aap_ping(url, session):
       print("Ping successful")
     else:
       print("Ping failed")
