@@ -215,7 +215,8 @@ def read_config():
     
     if "ign8.d" in filesindir:
       for subproject in data['subprojects']:
-        if os.path.exists("/etc/ign8/ign8.d/%s.yml" % subproject):
+        subprojectname = subproject['name'].replace(" ", "_")
+        if os.path.exists("/etc/ign8/ign8.d/%s.yml" % subprojectname):
           subprojectname = subproject['name']
           with open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'r') as f:
             data = yaml.safe_load(f)
