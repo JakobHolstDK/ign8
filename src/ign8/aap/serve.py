@@ -59,7 +59,7 @@ def get_credentials_from_vault():
     PASS = read_response['data']['data']['AAP_PASS']
   except:
     PASS = None
-    
+
   if URL == None or USER == None or PASS == None:
     secret  = input_initial_secret(URL, USER, PASS)
     client.secrets.kv.v2.create_or_update_secret(
@@ -71,8 +71,92 @@ def get_credentials_from_vault():
 
   
 
+def check_aap_login():
+  # Check if the user is logged in
+
+  return True  
+
+def login_aap_basicauth(url, user, password):
+  headers = {"User-agent": "python-awx-client", "Content-Type": "application/json"} 
+  data = {"username": user, "password": password}
+  url = url + "/api/v2/authtoken/"
+  resp = requests.post(url, headers=headers, data=json.dumps(data), verify=False)
+  pprint.pprint(resp.content)
+
+
+
+
+
+def getawxdata(item, mytoken, r):
+  headers = {"User-agent": "python-awx-client", "Content-Type": "application/json","Authorization": "Bearer {}".format(mytoken)}
+  url = os.getenv("TOWER_HOST") + "/api/v2/" + item
+  intheloop = "first"
+  while ( intheloop == "first" or intheloop != "out" ):
+    try:
+      resp = requests.get(url,headers=headers, verify=VERIFY_SSL)
+    except:
+      intheloop = "out"
+    try:
+      mydata = json.loads(resp.content)
+    except:
+      intheloop = "out"
+    try:
+      url = os.getenv("TOWER_HOST") + "/api/v2/" + (mydata['next'])
+    except: 
+      intheloop = "out"
+    savedata = True
+    try:
+      myresults = mydata['results'] 
+    except:
+      savedata = False
+    if ( savedata == True ):
+      for result in mydata['results']:
+        key = os.getenv("TOWER_HOST") + item +":id:" + str(result['id'])
+        r.set(key, str(result), 600)
+        key = os.getenv("TOWER_HOST") + item +":name:" + result['name']
+        r.set(key, str(result['id']), 600 )
+        key = os.getenv("TOWER_HOST") + item +":orphan:" + result['name']
+        r.set(key, str(result), 600)
+
   
-  
+def refresh_awx_data(mytoken,r ):
+  items = { 
+    "ad_hoc_commands",
+    "analytics,applications",
+    "credential_input_sources",
+    "credentials",
+    "credential_types",
+    "execution_environments",
+    "groups",
+    "hosts",
+    "inventory_sources",
+    "inventory_updates",
+    "jobs",
+    "job_templates",
+    "labels",
+    "metrics",
+    "notifications",
+    "notification_templates",
+    "organizations",
+    "projects",
+    "project_updates",
+    "roles",
+    "schedules",
+    "system_jobs",
+    "system_job_templates",
+    "teams",
+    "unified_jobs",
+    "unified_job_templates",
+    "workflow_approvals",
+    "workflow_job_nodes",
+    "workflow_jobs",
+    "workflow_job_template_nodes",
+    "workflow_job_templates"
+  }
+  #items = {"organizations", "projects", "credentials", "hosts", "inventories", "credential_types", "labels" , "instance_groups", "job_templates", "execution_environments"}    
+  for item in items:
+    getawxdata(item, mytoken, r)
+
 
 
 
@@ -91,7 +175,9 @@ def read_config():
 def main():
     prettyllog("serve", "init", "login", "automation platform", "0", "Testing", "INFO")
     secrets = get_credentials_from_vault()
-    pprint.pprint(secrets)
+    login_aap_basicauth(secrets['AAP_URL'], secrets['AAP_USER'], secrets['AAP_PASS'])
+    
+
     read_config()
     return 0
 
