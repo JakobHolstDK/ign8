@@ -224,7 +224,10 @@ def main():
       prettyllog("serve", "Main loop", "login", "automation platform", "0", "Read config", "INFO")
       read_config()
       prettyllog("serve", "Main loop", "login", "automation platform", "0", "End of iteration", "INFO")
-      time.sleep(10)
+      count = 10
+      for i in range(count):
+        prettyllog("serve", "Main loop", "login", "automation platform", "0", "Sleeping (%02d/10)" % i, "INFO")
+        time.sleep(1)
     return 0
 
 
