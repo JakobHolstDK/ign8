@@ -69,6 +69,18 @@ def get_credentials_from_vault():
     read_response = client.secrets.kv.read_secret_version(path=vaultpath)
   return read_response['data']['data']
 
+def add_token_to_vault(vaultpath, token):
+  #read current secret in vault
+  client = hvac.Client()
+  read_response = client.secrets.kv.read_secret_version(path=vaultpath)
+  read_response['data']['data']['AAP_TOKEN'] = token
+  client.secrets.kv.v2.create_or_update_secret(
+    path=vaultpath,
+    secret=read_response['data']['data']
+  )
+  return True
+
+
   
 
 def check_aap_login():
@@ -186,7 +198,12 @@ def read_config():
 def main():
     prettyllog("serve", "init", "login", "automation platform", "0", "Testing", "INFO")
     secrets = get_credentials_from_vault()
-    login_aap_basicauth(secrets['AAP_URL'], secrets['AAP_USER'], secrets['AAP_PASS'])
+    token = login_aap_basicauth(secrets['AAP_URL'], secrets['AAP_USER'], secrets['AAP_PASS'])
+    if token == False:
+      return 1
+    prettyllog("serve", "init", "login", "automation platform", "0", "Token refreshed", "INFO")
+
+
 
 
     read_config()
