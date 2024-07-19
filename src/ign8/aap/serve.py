@@ -105,7 +105,7 @@ def login_aap_basicauth(url, user, password):
   resp = requests.get(tokenurl, headers=headers, data=json.dumps(data), verify=False)
   for line in resp.content.splitlines():
     if "csrfToken" in line.decode():
-      csfrToken = line.split(":")[1]
+      csfrToken = line.decode().split(":")[1]
       return csfrToken
   return False
 
