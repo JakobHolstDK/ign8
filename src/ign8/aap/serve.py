@@ -214,6 +214,8 @@ def read_config():
   try:
     with open(configpath, 'r') as f:
       data = json.load(f)
+      pprint.pprint(data)
+      
   except:
     
     return False
