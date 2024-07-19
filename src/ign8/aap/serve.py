@@ -222,8 +222,13 @@ def read_config():
         else:
           # Create a file for the subproject
           open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'w').close()
-          subprojectdata = { "subproject": subprojectname, "X":{"templates": [], "schedules": []} }
+          subprojectheader = { "subproject": subprojectname}
+          subprojectdata = { 
+            "templates": [], 
+            "schedules": [] 
+            }
           with open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'w') as f:
+            yaml.dump(subprojectheader, f)
             yaml.dump(subprojectdata, f)
 
 
