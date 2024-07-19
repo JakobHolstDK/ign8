@@ -6,6 +6,8 @@ import time
 import json
 import hvac
 import requests
+import pprint
+
 
 from  ..common import prettyllog
 
