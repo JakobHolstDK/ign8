@@ -100,17 +100,10 @@ def login_aap_basicauth(url, user, password):
   resp = session.get(pingurl)
   pprint.pprint(resp)
   pprint.pprint(type(resp.status_code))
-  print("----------------------------")
-  
   if resp.status_code != 200:
     print("Login failed")
     return False
-  csrf_token = session.cookies.get('csrftoken')
-  pprint.pprint(csrf_token)
-
-  if csrf_token:
-    return session
-  return False
+  return session
 
 def aap_ping(session):
   pingurl = url + "/api/v2/ping"
