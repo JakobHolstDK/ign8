@@ -108,7 +108,8 @@ def login_aap_basicauth(url, user, password):
   resp = requests.post(tokenurl, headers=headers, data=json.dumps(data), verify=False)
   if resp.status_code == 200:
     print("Token created")
-    pprint.pprint(resp.json())
+    pprint.pprint(resp.content)
+    print("------------------------------------------------------------")
     return resp.json()
   else:
     return False
