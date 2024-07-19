@@ -96,8 +96,6 @@ def login_aap_basicauth(url, user, password):
   session.auth = (user, password)
   session.verify = False
   resp = session.get(pingurl)
-  pprint.pprint(resp)
-  pprint.pprint(type(resp.status_code))
   if resp.status_code != 200:
     print("Login failed")
     return False
@@ -107,7 +105,6 @@ def aap_ping(url, session):
   pingurl = url + "/api/v2/ping"
   resp = session.get(pingurl)
   if resp.status_code != 200:
-    print("Login failed")
     return False
   return True
 
@@ -213,16 +210,13 @@ def main():
     url = secrets['AAP_URL']
     session = login_aap_basicauth(url, secrets['AAP_USER'], secrets['AAP_PASS'])
     if session == False:
-      print("Login failed")
+      prettyllog("serve", "init", "login", "automation platform", "0", "Login failed", "ERROR")
       return False
     if aap_ping(url, session):
-      print("Ping successful")
+      prettyllog("serve", "init", "login", "automation platform", "0", "Login successfull", "INFO")
     else:
-      print("Ping failed")
+      prettyllog("serve", "init", "login", "automation platform", "0", "Ping aap platform api failed", "ERROR")
 
-
-    
-    
 
     read_config()
     return 0
