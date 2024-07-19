@@ -192,6 +192,26 @@ def refresh_awx_data(mytoken,r ):
 
 
 def read_config():
+  configpath = os.getenv("IGN8_CONFIG_PATH")
+  if configpath == None:
+    configpath = "/etc/ign8"
+    filesindir = os.listdir(configpath)
+    print(len(filesindir))
+    print("-------")
+    
+          
+    for file in filesindir:
+      if file.endswith(".json"):
+        configpath = os.path.join(configpath, file)
+        break
+  try:
+    with open(configpath, 'r') as f:
+      data = json.load(f)
+  except:
+    
+    return False
+  
+
   # Read config
   return True
 
@@ -222,7 +242,12 @@ def main():
     while True:
       prettyllog("serve", "Main loop", "login", "automation platform", "0", "Start of iteration", "INFO")
       prettyllog("serve", "Main loop", "login", "automation platform", "0", "Read config", "INFO")
+      #################################################################################################################################################### Read config #######################################################
+
       read_config()
+
+      #################################################################################################################################################### Read config #######################################################
+
       prettyllog("serve", "Main loop", "login", "automation platform", "0", "End of iteration", "INFO")
       count = 10
       for i in range(count):
