@@ -253,7 +253,7 @@ def read_config():
           open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'w').close()
           subprojectheader = { "subproject": subprojectname}
           subprojecttemplates =  { "templates": [{ "name":"checkup", "description": "Ping playbook to check connectivity"}] }
-          subprojectschedules =  { "schedules": [{ "name":"checkup", "description": "Ping schedule to check connectivity continiously", "type": "normal"}] }
+          subprojectschedules =  { "schedules": [{ "name":"checkup", "description": "Ping schedule to check connectivity continiously", "schedule": "run every 15 minutes"}] }
 
           with open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'w') as f:
             yaml.dump(subprojectheader, f)
