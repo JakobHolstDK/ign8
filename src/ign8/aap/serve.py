@@ -205,7 +205,7 @@ def read_config():
 csfrtoken = None
 
 def main():
-    prettyllog("serve", "init", "login", "automation platform", "0", "Testing", "INFO")
+    prettyllog("serve", "init", "login", "automation platform", "0", "Initializinf", "INFO")
     secrets = get_credentials_from_vault()
     url = secrets['AAP_URL']
     session = login_aap_basicauth(url, secrets['AAP_USER'], secrets['AAP_PASS'])
@@ -218,7 +218,13 @@ def main():
       prettyllog("serve", "init", "login", "automation platform", "0", "Ping aap platform api failed", "ERROR")
 
 
-    read_config()
+    prettyllog("serve", "init", "login", "automation platform", "0", "initiate iternal loop", "INFO")
+    while True:
+      prettyllog("serve", "Main loop", "login", "automation platform", "0", "Start of iteration", "INFO")
+      prettyllog("serve", "Main loop", "login", "automation platform", "0", "Read config", "INFO")
+      read_config()
+      prettyllog("serve", "Main loop", "login", "automation platform", "0", "End of iteration", "INFO")
+      time.sleep(10)
     return 0
 
 
