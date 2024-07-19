@@ -96,6 +96,7 @@ def login_aap_basicauth(url, user, password):
   if resp.status_code != 200:
     print("Login failed")
     return False
+  print("Login successful")
   # we need to create a token
   url = url + "/api/v2/tokens"
   resp = requests.post(url, headers=headers, data=json.dumps(data), verify=False)
