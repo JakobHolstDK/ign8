@@ -232,32 +232,32 @@ def read_config():
 csfrtoken = None
 
 def main():
-    prettyllog("serve", "init", "login", "automation platform", "0", "Initializinf", "INFO")
+    prettyllog("Ignite aap", "init", "login", "automation platform", "0", "Initializinf", "INFO")
     secrets = get_credentials_from_vault()
     url = secrets['AAP_URL']
     session = login_aap_basicauth(url, secrets['AAP_USER'], secrets['AAP_PASS'])
     if session == False:
-      prettyllog("serve", "init", "login", "automation platform", "0", "Login failed", "ERROR")
+      prettyllog("Ignite aap", "init", "login", "automation platform", "0", "Login failed", "ERROR")
       return False
     if aap_ping(url, session):
-      prettyllog("serve", "init", "login", "automation platform", "0", "Login successfull", "INFO")
+      prettyllog("Ignite aap", "init", "login", "automation platform", "0", "Login successfull", "INFO")
     else:
-      prettyllog("serve", "init", "login", "automation platform", "0", "Ping aap platform api failed", "ERROR")
+      prettyllog("Ignite aap", "init", "login", "automation platform", "0", "Ping aap platform api failed", "ERROR")
 
 
-    prettyllog("serve", "init", "login", "automation platform", "0", "initiate iternal loop", "INFO")
+    prettyllog("Ignite aap", "init", "login", "automation platform", "0", "initiate iternal loop", "INFO")
     while True:
-      prettyllog("Ignite ansible automation platform", "Main loop", "Star", "automation platform", "0", "Start of iteration", "INFO")
+      prettyllog("Ignite aap", "Main loop", "Star", "automation platform", "0", "Start of iteration", "INFO")
       #################################################################################################################################################### Read config #######################################################
-      prettyllog("Ignite ansible automation platform", "Main loop", "Read Config", "automation platform", "0", "Read configuration", "INFO")
+      prettyllog("Ignite aap", "Main loop", "Read Config", "automation platform", "0", "Read configuration", "INFO")
       read_config()
 
       #################################################################################################################################################### Read config #######################################################
 
-      prettyllog("serve", "Main loop", "login", "automation platform", "0", "End of iteration", "INFO")
+      prettyllog("Ignite aap", "Main loop", "login", "automation platform", "0", "End of iteration", "INFO")
       count = 10
       for i in range(count):
-        prettyllog("serve", "Main loop", "login", "automation platform", "0", "Sleeping (%02d/10)" % i, "INFO")
+        prettyllog("Ignite aap", "Main loop", "login", "automation platform", "0", "Sleeping (%02d/10)" % i, "INFO")
         time.sleep(1)
     return 0
 
