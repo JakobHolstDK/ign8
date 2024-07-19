@@ -91,17 +91,17 @@ def check_aap_login():
 def login_aap_basicauth(url, user, password):
   headers = {"User-agent": "python-awx-client", "Content-Type": "application/json"} 
   data = {"username": user, "password": password}
-  url = url + "/api/v2/ping"
-  resp = requests.post(url, headers=headers, data=json.dumps(data), verify=False)
+  pingurl = url + "/api/v2/ping"
+  resp = requests.post(pingurl, headers=headers, data=json.dumps(data), verify=False)
   if resp.status_code != 200:
     print("Login failed")
     return False
   print("Login successful")
   # we need to create a token
-  url = url + "/api/v2/tokens"
-  resp = requests.post(url, headers=headers, data=json.dumps(data), verify=False)
+  tokenurl = url + "/api/v2/tokens"
+  resp = requests.post(tokenurl, headers=headers, data=json.dumps(data), verify=False)
   pprint.pprint(resp.content)
-  
+
   if resp.status_code == 200:
     print("Token created")
     return resp.json()
