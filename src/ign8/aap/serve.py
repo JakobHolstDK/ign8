@@ -3,6 +3,7 @@
 import os
 import sys
 import time
+import yaml
 import json
 import hvac
 import requests
@@ -198,24 +199,40 @@ def read_config():
     # check if the path exists
     if not os.path.exists(configpath):
       os.makedirs(configpath)
+    if not os.path.exists(configpath + "/ign8.d"):
+      os.makedirs(configpath + "/ign8.d")
     # check if the path exists
-    if not os.path.exists(configpath):
+    if not os.path.exists(configpath) or not os.path.exists(configpath + "/ign8.d"):
       return False
     
     filesindir = os.listdir(configpath)
-    print(len(filesindir))
-    print("-------")
+    # we can only have one ign8.yaml and a directory ign8.d
+    if "ign8.yaml" in filesindir:
+      with open("/etc/ign8/ign8.yaml", 'r') as f:
+        data = yaml.safe_load(f)
+        pprint.pprint(data)
+    # read the yaml file and check if we have a cofiguration file for each subproject
+    
+    if "ign8.d" in filesindir:
+      for subproject in data['subprojects']:
+        if os.path.exists("/etc/ign8/ign8.d/%s.yml" % subproject):
+          with open("/etc/ign8/ign8.d/%s.yml" % subproject, 'r') as f:
+            data = yaml.safe_load(f)
+            pprint.pprint(data)
+        else:
+          # Create a file for the subproject
+          open("/etc/ign8/ign8.d/%s.yml" % subproject, 'w').close()
+          subprojectdata = data['subprojects'][subproject]
+          with open("/etc/ign8/ign8.d/%s.yml" % subproject, 'w') as f:
+            yaml.dump(subprojectdata, f)
 
-          
-    for file in filesindir:
-      if file.endswith(".json"):
-        configpath = os.path.join(configpath, file)
-        break
+
+
   try:
     with open(configpath, 'r') as f:
       data = json.load(f)
       pprint.pprint(data)
-      
+
   except:
     
     return False
