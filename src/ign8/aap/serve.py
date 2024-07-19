@@ -106,7 +106,7 @@ def login_aap_basicauth(url, user, password):
   return session
 
 def aap_ping(session):
-  pingurl = url + "/api/v2/ping"
+  pingurl = "/api/v2/ping"
   resp = session.get(pingurl)
   if resp.status_code != 200:
     print("Login failed")
