@@ -327,7 +327,7 @@ def main():
             break
         if projectkey == None:
           projectdata = {
-            "key": config['MAIN'],
+            "key": "6661",
             "name": config['mainproject']['mainproject'],
             "description": "Main project for ignite aap",
             "is_private": True
