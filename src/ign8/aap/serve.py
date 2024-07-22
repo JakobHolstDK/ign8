@@ -364,17 +364,19 @@ def main():
       #      ORGANIZATION
       ########################################################################################################################################################################################################################
 
-      prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Check if organisation exists", "INFO")
+      prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Check if Organization exists", "INFO")
 
       pingurl = url + "/api/v2/ping"
       resp = session.get(pingurl)
       if resp.status_code != 200:
-        prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Login failed", "ERROR")
+        prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Login failed", "ERROR")
         return False
-      prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Login successfull", "INFO")
-      # Check if the organisation exists
-      orgid = get_organization(config['organisation']['name'], url, session)
-      prettyllog("Ignite aap", "Main loop", "Organisation", orgid, "0", "Organisation exists", "INFO")
+      prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Login successfull", "INFO")
+      # Check if the Organization exists
+      pprint.pprint(config)
+      
+      orgid = get_organization(config['organization']['name'], url, session)
+      prettyllog("Ignite aap", "Main loop", "Organization", orgid, "0", "Organization exists", "INFO")
       ########################################################################################################################################################################################################################
 
       
