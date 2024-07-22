@@ -373,9 +373,9 @@ def main():
         return False
       prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Login successfull", "INFO")
       # Check if the Organization exists
-      pprint.pprint(config)
-      
-      orgid = get_organization(config['organization']['name'], url, session)
+      #pprint.pprint(config)
+
+      orgid = get_organization(config['mainproject']['organization']['name'], url, session)
       prettyllog("Ignite aap", "Main loop", "Organization", orgid, "0", "Organization exists", "INFO")
       ########################################################################################################################################################################################################################
 
