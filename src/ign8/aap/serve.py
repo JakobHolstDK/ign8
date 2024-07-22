@@ -319,7 +319,6 @@ def main():
       mainprojectexists = False
       while not mainprojectexists:
         projects = get_bitbucket_project_list(bbtoken)
-        pprint.pprint(config)
       # Check if må main project exists i bitbucket
         projectkey = None
         for project in projects:
@@ -336,14 +335,9 @@ def main():
         else:
           mainprojectexists = True
       # Check if the main project exists in AWX
-
-
-      
-
-
-
-
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main project exists", "INFO")
+      print("HELLO")
+      
 
       
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Check if main project exists", "INFO")
