@@ -402,6 +402,10 @@ def main():
         }
         orgurl = url + "/api/v2/organizations"
         resp = session.post(orgurl, json=orgdata)
+        pprint.pprint(resp.reason)
+        pprint.pprint(resp.content)
+        pprint.pprint(resp.status_code)
+        print("------------------")
         orgdata = json.loads(resp.content)
         pprint.pprint(orgdata)
         orgid = orgdata['id']
