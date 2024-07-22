@@ -381,7 +381,7 @@ def main():
       orgexists = False
       orgs = data["results"]
       for org in orgs:
-        if org["name"] == config['mainproject']['organization'['name']]:
+        if org["name"] == config['mainproject']['organization']['name']:
           orgexists = True
           break
       if not orgexists:
