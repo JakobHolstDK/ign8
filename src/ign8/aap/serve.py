@@ -391,19 +391,20 @@ def main():
             orgid = org['id']
             break
         if not orgexists:
-          prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Organisation is missing", "ERROR")
-          # create the organisation
-          orgdata = {
-            "name": config['mainproject']['mainproject'],
-            "description": "Main project for ignite aap"
-          }
-          orgurl = url + "/api/v2/organizations"
-          resp = session.post(orgurl, json=orgdata)
-          orgdata = json.loads(resp.content)
-          pprint.pprint(orgdata)
-          orgid = orgdata['id']
-        else:
-          orgid = org['id']
+          createorg = True
+        
+      if createorg:
+        prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Organisation is missing", "ERROR")
+        # create the organisation
+        orgdata = {
+          "name": config['mainproject']['mainproject'],
+          "description": "Main project for ignite aap"
+        }
+        orgurl = url + "/api/v2/organizations"
+        resp = session.post(orgurl, json=orgdata)
+        orgdata = json.loads(resp.content)
+        pprint.pprint(orgdata)
+        orgid = orgdata['id']
       prettyllog("Ignite aap", "Main loop", "Organisation", orgid, "0", "Organisation exists", "INFO")
       ########################################################################################################################################################################################################################
 
