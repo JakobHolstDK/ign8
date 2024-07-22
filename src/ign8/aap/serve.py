@@ -329,7 +329,8 @@ def main():
         # Create the main project
       else:
         # there are only one project
-        pprint.pprint(projects['values'])
+        pprint.pprint(projects)
+        print("------------------------")
         if projects['values']['name'] == config['mainproject']['mainproject']:
           projectkey = projects['values']['key']
         else:
