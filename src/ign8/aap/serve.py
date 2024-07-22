@@ -345,6 +345,8 @@ def main():
       # check if the main repo exists
       repositories = get_bitbucket_repositories(bbtoken, projectkey)
       repoexists = False
+      pprint.pprint(repositories)
+      print("---------------------------------------------------------")
       for repository in repositories:
         if repository['name'] == config['mainproject']['mainrepo']:
           repoexists = True
