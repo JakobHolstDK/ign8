@@ -327,6 +327,7 @@ def main():
             break
         if projectkey == None:
           projectdata = {
+            "key": config['MAIN'],
             "name": config['mainproject']['mainproject'],
             "description": "Main project for ignite aap",
             "is_private": True
@@ -334,7 +335,7 @@ def main():
           print("creating project")
           projectkey = create_bitbucket_project(bbtoken, projectdata)
           pprint.pprint(projectkey)
-          
+
         else:
           mainprojectexists = True
       # Check if the main project exists in AWX
