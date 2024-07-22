@@ -332,7 +332,7 @@ def main():
             "description": "Main project for ignite aap",
             "is_private": True
           }
-          projectkey = create_bitbucket_project(bbtoken, config['mainproject']['mainproject'])
+          projectkey = create_bitbucket_project(bbtoken, projectdata)
         else:
           mainprojectexists = True
       # Check if the main project exists in AWX
