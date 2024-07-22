@@ -317,9 +317,11 @@ def main():
       bbtoken = get_bitbucket_token("ignite/bitbucket")
       projects = get_bitbucket_project_list(bbtoken)
       # Check if må main project exists i bitbucket
-      if not check_git(config['mainproject']['name']):
-
-
+      project = get_bitbucket_project(bbtoken, config['mainproject']['name'])
+      if project == False:
+        prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main project does not exist", "ERROR")
+        return False
+      
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Check if main project exists", "INFO")
 
 
