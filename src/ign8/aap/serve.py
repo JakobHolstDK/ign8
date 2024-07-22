@@ -235,68 +235,62 @@ def check_git(repository):
 
 
 def read_config():
+  config = {}
+  config['mainproject'] = {}
+  config['subprojects'] = {}
   configpath = os.getenv("IGN8_CONFIG_PATH")
   if configpath == None:
     configpath = "/etc/ign8"
     # check if the path exists
-    if not os.path.exists(configpath):
-      os.makedirs(configpath)
-    if not os.path.exists(configpath + "/ign8.d"):
-      os.makedirs(configpath + "/ign8.d")
-    # check if the path exists
-    if not os.path.exists(configpath) or not os.path.exists(configpath + "/ign8.d"):
-      return False
-    
-    filesindir = os.listdir(configpath)
-    # we can only have one ign8.yaml and a directory ign8.d
-    if "ign8.yaml" in filesindir:
-      with open("/etc/ign8/ign8.yaml", 'r') as f:
-        data = yaml.safe_load(f)
-        pprint.pprint(data)
-    # read the yaml file and check if we have a cofiguration file for each subproject
-    
-    if "ign8.d" in filesindir:
-      for subproject in data['subprojects']:
-        subprojectname = subproject['name'].replace(" ", "_")
-        if os.path.exists("/etc/ign8/ign8.d/%s.yml" % subprojectname):
-          with open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'r') as f:
-            data = yaml.safe_load(f)
-        else:
-          # Create a file for the subproject
-          open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'w').close()
-          subprojectheader = { "subproject": subprojectname}
-          subprojecttemplates =  { "templates": [{ "name":"checkup", "description": "Ping playbook to check connectivity"}] }
-          subprojectschedules =  { "schedules": [{ "name":"checkup", "description": "Ping schedule to check connectivity continiously", "schedule": "run every 15 minutes"}] }
-
-          with open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'w') as f:
-            yaml.dump(subprojectheader, f)
-            yaml.dump(subprojecttemplates, f)
-            yaml.dump(subprojectschedules, f)
-
-
-
-
-  try:
-    with open(configpath, 'r') as f:
-      data = json.load(f)
-      pprint.pprint(data)
-
-  except:
-    
+  if not os.path.exists(configpath):
+    os.makedirs(configpath)
+  if not os.path.exists(configpath + "/ign8.d"):
+    os.makedirs(configpath + "/ign8.d")
+  # check if the path exists
+  if not os.path.exists(configpath) or not os.path.exists(configpath + "/ign8.d"):
     return False
   
+  filesindir = os.listdir(configpath)
+  # we can only have one ign8.yaml and a directory ign8.d
+  if "ign8.yaml" in filesindir:
+    with open("/etc/ign8/ign8.yml", 'r') as f:
+      data = yaml.safe_load(f)
+      config['mainproject'] = data  
+    
+  if "ign8.d" in filesindir:
+    for subproject in data['subprojects']:
+      subprojectname = subproject['name'].replace(" ", "_")
+      if os.path.exists("/etc/ign8/ign8.d/%s.yml" % subprojectname):
+        with open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'r') as f:
+          data = yaml.safe_load(f)
+          config['subprojects'][subprojectname] = {}
+      else:
+        # Create a file for the subproject
+        open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'w').close()
+        subprojectheader = { "subproject": subprojectname}
+        subprojecttemplates =  { "templates": [{ "name":"checkup", "description": "Ping playbook to check connectivity"}] }
+        subprojectschedules =  { "schedules": [{ "name":"checkup", "description": "Ping schedule to check connectivity continiously", "schedule": "run every 15 minutes"}] }
 
-  # Read config
-  return True
+        with open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'w') as f:
+          yaml.dump(subprojectheader, f)
+          yaml.dump(subprojecttemplates, f)
+          yaml.dump(subprojectschedules, f)
+  # We need to read the main project file  in config path
+  with open("/etc/ign8/ign8.yml", 'r') as f:
+    data = yaml.safe_load(f)
+    config['mainproject'] = data
+  # iterate over the subprojects
+  for subproject in data['subprojects']:
+    subprojectname = subproject['name'].replace(" ", "_")
+    with open("/etc/ign8/ign8.d/%s.yml" % subprojectname, 'r') as f:
+      data = yaml.safe_load(f)
+      config['subprojects'][subprojectname] = data
+  return config
 
-
-
-  open("/etc/ign8/ign8.d/%s.json" % subproject, 'w').close()
-  with open("/etc/ign8/ign8.d/%s.json" % subproject, 'w') as f:
-    json.dump(data, f)
   return True
 
 csfrtoken = None
+
 
 def main():
     prettyllog("Ignite aap", "init", "login", "automation platform", "0", "Initializinf", "INFO")
@@ -317,14 +311,20 @@ def main():
       prettyllog("Ignite aap", "Main loop", "Star", "automation platform", "0", "Start of iteration", "INFO")
       #################################################################################################################################################### Read config #######################################################
       prettyllog("Ignite aap", "Main loop", "Read Config", "automation platform", "0", "Read configuration", "INFO")
-      read_config()
-
+      config = read_config()
+      print("Config: ", config)
+      print("----------------------")
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Get access to GIT repo", "INFO")
       bbtoken = get_bitbucket_token("ignite/bitbucket")
       pprint.pprint(bbtoken)
       projects = get_bitbucket_project_list(bbtoken)
       pprint.pprint(projects)
-      
+      # Check if må main project exists
+
+      prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Check if main project exists", "INFO")
+
+
+
 
       #################################################################################################################################################### Read config #######################################################
 
