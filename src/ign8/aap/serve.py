@@ -377,6 +377,8 @@ def main():
       orggurl = url + "/api/v2/organizations"
       resp = session.get(orggurl, verify=False)
       data = json.loads(resp.text)
+      pprint.pprint(data)
+      print("------------------------------------------")
       orgs = data["results"]
       orgexists = False
       for org in orgs:
