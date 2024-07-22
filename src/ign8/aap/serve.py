@@ -11,6 +11,7 @@ import pprint
 
 from  ..common import prettyllog
 from .bitbucket import get_bitbucket_project_list, get_bitbucket_token, get_bitbucket_project, create_bitbucket_project, get_bitbucket_repositories, create_repository
+from .aap import get_organization
 VERIFY_SSL = False
 
 
@@ -372,43 +373,7 @@ def main():
         return False
       prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Login successfull", "INFO")
       # Check if the organisation exists
-      orgurl = url + "/api/v2/organizations"
-      resp = session.get(orgurl)
-      orgexists = False
-      orgdata = json.loads(resp.content)
-
-      pprint.pprint(orgdata)
-      print("--------------------------------------------------------------------------------------")
-      createorg = False
-      orgid = None
-
-      if orgdata['count'] == 0:
-        createorg = True
-      else:
-        for org in orgdata['results']:
-          if org['name'] == config['mainproject']['mainproject']:
-            orgexists = True
-            orgid = org['id']
-            break
-        if not orgexists:
-          createorg = True
-        
-      if createorg:
-        prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Organisation is missing", "ERROR")
-        # create the organisation
-        orgdata = {
-          "name": config['mainproject']['mainproject'],
-          "description": "Main project for ignite aap"
-        }
-        orgurl = url + "/api/v2/organizations"
-        resp = session.post(orgurl, json=orgdata)
-        pprint.pprint(resp.reason)
-        pprint.pprint(resp.content)
-        pprint.pprint(resp.status_code)
-        print("------------------")
-        orgdata = json.loads(resp.content)
-        pprint.pprint(orgdata)
-        orgid = orgdata['id']
+      orgid = get_organization(config['organisation']['name'], url, session)
       prettyllog("Ignite aap", "Main loop", "Organisation", orgid, "0", "Organisation exists", "INFO")
       ########################################################################################################################################################################################################################
 
