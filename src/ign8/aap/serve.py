@@ -327,6 +327,11 @@ def main():
             projectkey = project['key']
             break
         if projectkey == None:
+          projectdata = {
+            "name": config['mainproject']['mainproject'],
+            "description": "Main project for ignite aap",
+            "is_private": True
+          }
           projectkey = create_bitbucket_project(bbtoken, config['mainproject']['mainproject'])
         else:
           mainprojectexists = True
