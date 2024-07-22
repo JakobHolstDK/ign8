@@ -319,17 +319,11 @@ def main():
       projects = get_bitbucket_project_list(bbtoken)
       # Check if må main project exists i bitbucket
       projectkey = None
-      if type(projects) == dict:
-        for project in projects:
-          if project['name'] == config['mainproject']['mainproject']:
-            projectkey = project['key']
-            break
-        if projectkey == None:
-          prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main project does not exist", "ERROR")
-        # Create the main project
-      else:
+      for project in projects['values']:
+        if project['name'] == config['mainproject']['mainproject']:
+          projectkey = project['key']
+          break
         # there are only one project
-        pprint.pprint(projects)
         print("------------------------")
         if projects['values']['name'] == config['mainproject']['mainproject']:
           projectkey = projects['values']['key']
