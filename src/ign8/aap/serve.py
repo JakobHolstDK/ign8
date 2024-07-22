@@ -379,25 +379,31 @@ def main():
 
       pprint.pprint(orgdata)
       print("--------------------------------------------------------------------------------------")
-      for org in orgdata['results']:
-        if org['name'] == config['mainproject']['mainproject']:
-          orgexists = True
-          break
-      if not orgexists:
-        prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Organisation is missing", "ERROR")
-        # create the organisation
-        orgdata = {
-          "name": config['mainproject']['mainproject'],
-          "description": "Main project for ignite aap"
-        }
-        orgurl = url + "/api/v2/organizations"
-        resp = session.post(orgurl, json=orgdata)
-        orgdata = json.loads(resp.content)
-        pprint.pprint(orgdata)
-        orgid = orgdata['id']
+      createorg = False
+      orgid = None
+
+      if orgdata['count'] == 0:
+        createorg = True
       else:
-        orgid = org['id']
-      prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Organisation exists", "INFO")
+        for org in orgdata['results']:
+          if org['name'] == config['mainproject']['mainproject']:
+            orgexists = True
+            break
+        if not orgexists:
+          prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Organisation is missing", "ERROR")
+          # create the organisation
+          orgdata = {
+            "name": config['mainproject']['mainproject'],
+            "description": "Main project for ignite aap"
+          }
+          orgurl = url + "/api/v2/organizations"
+          resp = session.post(orgurl, json=orgdata)
+          orgdata = json.loads(resp.content)
+          pprint.pprint(orgdata)
+          orgid = orgdata['id']
+        else:
+          orgid = org['id']
+      prettyllog("Ignite aap", "Main loop", "Organisation", orgid, "0", "Organisation exists", "INFO")
       ########################################################################################################################################################################################################################
 
       
