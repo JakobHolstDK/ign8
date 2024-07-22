@@ -329,7 +329,7 @@ def main():
         # Create the main project
       else:
         # there are only one project
-        pprint.pprint(projects['values']['name'])
+        pprint.pprint(projects['values'])
         if projects['values']['name'] == config['mainproject']['mainproject']:
           projectkey = projects['values']['key']
         else:
@@ -342,7 +342,7 @@ def main():
           prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main project created", "INFO")
       else:
         prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main project exists", "INFO")
-        
+
 
 
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main project exists", "INFO")
