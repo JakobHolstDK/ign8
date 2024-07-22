@@ -352,8 +352,10 @@ def main():
           repoexists = True
           break
       if not repoexists:
+        prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main repo is missing", "INFO")
         # create the repo
         repodata = {
+          "projectkey": projectkey,
           "name": config['mainproject']['mainrepo'],
           "scm": "git",
           "project": projectkey
