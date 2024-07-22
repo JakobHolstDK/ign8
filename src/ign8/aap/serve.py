@@ -252,7 +252,7 @@ def read_config():
   
   filesindir = os.listdir(configpath)
   # we can only have one ign8.yaml and a directory ign8.d
-  if "ign8.yaml" in filesindir:
+  if "ign8.yml" in filesindir:
     with open("/etc/ign8/ign8.yml", 'r') as f:
       data = yaml.safe_load(f)
       config['mainproject'] = data  
@@ -313,7 +313,7 @@ def main():
       prettyllog("Ignite aap", "Main loop", "Read Config", "automation platform", "0", "Read configuration", "INFO")
       config = read_config()
       print("Config: ", config)
-      print("----------------------")
+
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Get access to GIT repo", "INFO")
       bbtoken = get_bitbucket_token("ignite/bitbucket")
       pprint.pprint(bbtoken)
