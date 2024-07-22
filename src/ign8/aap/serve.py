@@ -11,7 +11,8 @@ import pprint
 
 from  ..common import prettyllog
 from .bitbucket import get_bitbucket_project_list, get_bitbucket_token, get_bitbucket_project, create_bitbucket_project, get_bitbucket_repositories, create_repository
-from .aap import get_organization
+from .aap import get_organization, create_organization
+
 VERIFY_SSL = False
 
 
@@ -376,7 +377,11 @@ def main():
       #pprint.pprint(config)
 
       orgid = get_organization(config['mainproject']['organization']['name'], url, session)
-      pprint.pprint(orgid)
+      if orgid == None:
+        prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Organization does not exist", "ERROR")
+        orgid = create_organization(config['mainproject']['organization'], url, session)
+      else:
+        pprint.pprint(orgid)
 
       prettyllog("Ignite aap", "Main loop", "Organization", orgid, "0", "Organization exists", "INFO")
       ########################################################################################################################################################################################################################
