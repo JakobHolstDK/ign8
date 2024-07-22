@@ -11,7 +11,7 @@ import pprint
 
 
 from  ..common import prettyllog
-from .bitbucket import get_bitbucket_project_list, get_bitbucket_token, get_bitbucket_project, create_bitbucket_project, get_bitbucket_repositories
+from .bitbucket import get_bitbucket_project_list, get_bitbucket_token, get_bitbucket_project, create_bitbucket_project, get_bitbucket_repositories, create_repository
 
 
 
@@ -334,7 +334,6 @@ def main():
           }
           print("creating project")
           projectkey = create_bitbucket_project(bbtoken, projectdata)
-          pprint.pprint(projectkey)
 
         else:
           mainprojectexists = True
@@ -345,8 +344,6 @@ def main():
       # check if the main repo exists
       repositories = get_bitbucket_repositories(bbtoken, projectkey)
       repoexists = False
-      pprint.pprint(repositories)
-      print("---------------------------------------------------------")
       for repository in repositories:
         if repository['name'] == config['mainproject']['mainrepo']:
           repoexists = True
@@ -355,12 +352,11 @@ def main():
         prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main repo is missing", "INFO")
         # create the repo
         repodata = {
-          "projectkey": projectkey,
           "name": config['mainproject']['mainrepo'],
           "scm": "git",
           "project": projectkey
         }
-        createrepo = create_bitbucket_project(bbtoken, repodata)
+        createrepo = create_repository(bbtoken, projectkey, repodata)
         pprint.pprint(createrepo)
       # Check if the main repo exists in AWX
 
