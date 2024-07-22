@@ -388,6 +388,7 @@ def main():
         for org in orgdata['results']:
           if org['name'] == config['mainproject']['mainproject']:
             orgexists = True
+            orgid = org['id']
             break
         if not orgexists:
           prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Organisation is missing", "ERROR")
