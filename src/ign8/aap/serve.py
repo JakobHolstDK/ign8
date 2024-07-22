@@ -381,13 +381,11 @@ def main():
       orgexists = False
       orgs = data["results"]
       for org in orgs:
-        pprint.pprint(org['name'])
-        pprint.pprint(config['mainproject'])
-        if org["name"] == config['mainproject']['organisation'['name']]:
+        if org["name"] == config['mainproject']['organization'['name']]:
           orgexists = True
           break
       if not orgexists:
-        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject']['mainproject'] , "0", "Organization is missing", "ERROR")
+        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject']['organization']['name'] , "0", "Organization is missing", "ERROR")
         orgdata = {
           "name": config['mainproject']['mainproject'],
           "description": "Main project for ignite aap",
@@ -396,9 +394,9 @@ def main():
         }
         create_organization(orgdata, url, session)
       if not orgexists:
-        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject']['mainproject'], "0", "Organization created", "INFO")
+        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject']['organization']['name'], "0", "Organization created", "INFO")
       else:
-        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject']['mainproject'], "0", "Organization exists", "INFO")
+        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject']['organization']['name'], "0", "Organization exists", "INFO")
 
 
       ########################################################################################################################################################################################################################
