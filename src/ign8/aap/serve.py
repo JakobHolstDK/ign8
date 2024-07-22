@@ -331,13 +331,16 @@ def main():
             "description": "Main project for ignite aap",
             "is_private": True
           }
+          print("creating project")
           projectkey = create_bitbucket_project(bbtoken, projectdata)
+          pprint.pprint(projectkey)
+          
         else:
           mainprojectexists = True
       # Check if the main project exists in AWX
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main project exists", "INFO")
       print("HELLO")
-      
+
 
       
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Check if main project exists", "INFO")
