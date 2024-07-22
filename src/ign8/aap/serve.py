@@ -377,11 +377,9 @@ def main():
       orggurl = url + "/api/v2/organizations"
       resp = session.get(orggurl, verify=False)
       data = json.loads(resp.text)
-      pprint.pprint(data['results'][0]['name'])
 
-      print("------------------------------------------")
-      orgs = data["results"]
       orgexists = False
+      orgs = data["results"]
       for org in orgs:
         if org["name"] == config['mainproject']['mainproject']:
           orgexists = True
@@ -395,8 +393,11 @@ def main():
           "default_environment": 1
         }
         create_organization(orgdata, url, session)
-      # Check if the main project exists in AWX
-      prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Organization exists", "INFO")
+      if not orgexists:
+        prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Organization created", "INFO")
+      else:
+        prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Organization exists", "INFO")
+
 
       ########################################################################################################################################################################################################################
 
