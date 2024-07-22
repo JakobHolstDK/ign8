@@ -385,7 +385,7 @@ def main():
           orgexists = True
           break
       if not orgexists:
-        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject'] , "0", "Organization is missing", "ERROR")
+        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject']['mainproject'] , "0", "Organization is missing", "ERROR")
         orgdata = {
           "name": config['mainproject']['mainproject'],
           "description": "Main project for ignite aap",
@@ -394,9 +394,9 @@ def main():
         }
         create_organization(orgdata, url, session)
       if not orgexists:
-        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject'], "0", "Organization created", "INFO")
+        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject']['mainproject'], "0", "Organization created", "INFO")
       else:
-        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject'], "0", "Organization exists", "INFO")
+        prettyllog("Ignite aap", "Main loop", "Organization", config['mainproject']['mainproject'], "0", "Organization exists", "INFO")
 
 
       ########################################################################################################################################################################################################################
