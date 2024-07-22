@@ -11,7 +11,7 @@ import pprint
 
 
 from  ..common import prettyllog
-from .bitbucket import get_bitbucket_project_list, get_bitbucket_token
+from .bitbucket import get_bitbucket_project_list, get_bitbucket_token, get_bitbucket_project 
 
 
 
@@ -312,14 +312,13 @@ def main():
       #################################################################################################################################################### Read config #######################################################
       prettyllog("Ignite aap", "Main loop", "Read Config", "automation platform", "0", "Read configuration", "INFO")
       config = read_config()
-      print("Config: ", config)
 
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Get access to GIT repo", "INFO")
       bbtoken = get_bitbucket_token("ignite/bitbucket")
-      pprint.pprint(bbtoken)
       projects = get_bitbucket_project_list(bbtoken)
-      pprint.pprint(projects)
-      # Check if må main project exists
+      # Check if må main project exists i bitbucket
+      if not check_git(config['mainproject']['name']):
+
 
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Check if main project exists", "INFO")
 
