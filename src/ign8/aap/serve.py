@@ -9,14 +9,8 @@ import hvac
 import requests
 import pprint
 
-
 from  ..common import prettyllog
 from .bitbucket import get_bitbucket_project_list, get_bitbucket_token, get_bitbucket_project, create_bitbucket_project, get_bitbucket_repositories, create_repository
-
-
-
-
-
 VERIFY_SSL = False
 
 
@@ -42,7 +36,12 @@ def awx_create_schedule(name, unified_job_template,  description, tz, start, run
     prettyllog("manage", "schedule", name, organization, resp.status_code, response)
 
 
-
+def awx_create_project(name, description, organization, mytoken, r):
+  headers = {"User-agent": "python-awx-client", "Content-Type": "application/json","Authorization ": "Bearer {}".format(mytoken)}
+  data = {
+    "name": name,
+    "description": description
+  }
 
 
 def input_initial_secret(url=None, user=None, password=None):
@@ -53,7 +52,6 @@ def input_initial_secret(url=None, user=None, password=None):
   if password == None:
     AAP_PASS = input("Enter the AAP PASSWORD: ") # obscufate the password input
   return dict(AAP_URL=AAP_URL, AAP_USER=AAP_USER, AAP_PASS=AAP_PASS)
-
 
 def get_credentials_from_vault():
   vaultpath = os.getenv('IGN8_VAULT_PATH')
@@ -349,7 +347,7 @@ def main():
           repoexists = True
           break
       if not repoexists:
-        prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main repo is missing", "INFO")
+        prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main repo is missing", "ERROR")
         # create the repo
         repodata = {
           "name": config['mainproject']['mainrepo'],
@@ -357,12 +355,51 @@ def main():
           "project": projectkey
         }
         createrepo = create_repository(bbtoken, projectkey, repodata)
-        pprint.pprint(createrepo)
       # Check if the main repo exists in AWX
+      prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "main project exists in bitbucket", "INFO")
 
+      # check if the project exists in AAP
+      ########################################################################################################################################################################################################################
+      #      ORGANIZATION
+      ########################################################################################################################################################################################################################
 
+      prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Check if organisation exists", "INFO")
+
+      pingurl = url + "/api/v2/ping"
+      resp = session.get(pingurl)
+      pprint.pprint(resp.content)
+      if resp.status_code != 200:
+        prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Login failed", "ERROR")
+        return False
+      prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Login successfull", "INFO")
+      # Check if the organisation exists
+      orgurl = url + "/api/v2/organizations"
+      resp = session.get(orgurl)
+      orgexists = False
+      orgdata = json.loads(resp.content)
+      for org in orgdata['results']:
+        if org['name'] == config['mainproject']['mainproject']:
+          orgexists = True
+          break
+      if not orgexists:
+        prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Organisation is missing", "ERROR")
+        # create the organisation
+        orgdata = {
+          "name": config['mainproject']['mainproject'],
+          "description": "Main project for ignite aap"
+        }
+        orgurl = url + "/api/v2/organizations"
+        resp = session.post(orgurl, json=orgdata)
+        orgdata = json.loads(resp.content)
+        orgid = orgdata['id']
+      else:
+        orgid = org['id']
+      prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Organisation exists", "INFO")
+      ########################################################################################################################################################################################################################
       
-      prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Check if main project exists", "INFO")
+      
+
+
 
 
 
