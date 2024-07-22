@@ -11,6 +11,8 @@ import pprint
 
 
 from  ..common import prettyllog
+from .bitbucket import get_bitbucket_project_list, get_bitbucket_token
+
 
 
 
@@ -221,6 +223,17 @@ def refresh_awx_data(mytoken,r ):
 
 
 
+def check_git(repository):
+  
+  # Check if the git repository exists
+  return True
+
+
+  
+
+
+
+
 def read_config():
   configpath = os.getenv("IGN8_CONFIG_PATH")
   if configpath == None:
@@ -305,6 +318,13 @@ def main():
       #################################################################################################################################################### Read config #######################################################
       prettyllog("Ignite aap", "Main loop", "Read Config", "automation platform", "0", "Read configuration", "INFO")
       read_config()
+
+      prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Get access to GIT repo", "INFO")
+      bbtoken = get_bitbucket_token("ignite/bitbucket")
+      pprint.pprint(bbtoken)
+      projects = get_bitbucket_project_list(bbtoken)
+      pprint.pprint(projects)
+      
 
       #################################################################################################################################################### Read config #######################################################
 
