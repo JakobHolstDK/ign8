@@ -374,16 +374,27 @@ def main():
         return False
       prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Login successfull", "INFO")
       # Check if the Organization exists
-      #pprint.pprint(config)
-
-      orgid = get_organization(config['mainproject']['organization']['name'], url, session)
-      if orgid == None:
-        prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Organization does not exist", "ERROR")
-        orgid = create_organization(config['mainproject']['organization'], url, session)
-      else:
-        pprint.pprint(orgid)
-
-      prettyllog("Ignite aap", "Main loop", "Organization", orgid, "0", "Organization exists", "INFO")
+      orggurl = url + "/api/v2/organizations"
+      resp = session.get(orggurl, verify=False)
+      data = json.loads(resp.text)
+      orgs = data["results"]
+      orgexists = False
+      for org in orgs:
+        if org["name"] == config['mainproject']['mainproject']:
+          orgexists = True
+          break
+      if not orgexists:
+        prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Organization is missing", "ERROR")
+        orgdata = {
+          "name": config['mainproject']['mainproject'],
+          "description": "Main project for ignite aap",
+          "max_hosts": 100,
+          "default_environment": 1
+        }
+        create_organization(orgdata, url, session)
+      # Check if the main project exists in AWX
+      prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Organization exists", "INFO")
+      
       ########################################################################################################################################################################################################################
 
       
