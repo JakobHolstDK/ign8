@@ -319,6 +319,7 @@ def main():
       mainprojectexists = False
       while not mainprojectexists:
         projects = get_bitbucket_project_list(bbtoken)
+        pprint.pprint(config)
       # Check if må main project exists i bitbucket
         projectkey = None
         for project in projects:
