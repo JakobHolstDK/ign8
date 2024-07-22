@@ -316,10 +316,22 @@ def main():
 
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Get access to GIT repo", "INFO")
       bbtoken = get_bitbucket_token("ignite/bitbucket")
-      projects = get_bitbucket_project_list(bbtoken)
+      mainprojectexits = False:
+      while not mainprojectexists:
+        projects = get_bitbucket_project_list(bbtoken)
       # Check if må main project exists i bitbucket
-      projectkey = None
-      pprint.pprint(projects)
+        projectkey = None
+        for project in projects:
+          if project['name'] == config['mainproject']['name']:
+            projectkey = project['key']
+            break
+        if projectkey == None:
+          projectkey = create_bitbucket_project(bbtoken, config['mainproject']['name'])
+        else:
+          mainprojectexists = True
+      # Check if the main project exists in AWX
+
+
       
 
 
