@@ -376,8 +376,8 @@ def main():
       #pprint.pprint(config)
 
       orgid = get_organization(config['mainproject']['organization']['name'], url, session)
-      pprint.ppqrint(orgid)
-      
+      pprint.pprint(orgid)
+
       prettyllog("Ignite aap", "Main loop", "Organization", orgid, "0", "Organization exists", "INFO")
       ########################################################################################################################################################################################################################
 
