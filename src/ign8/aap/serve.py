@@ -323,11 +323,11 @@ def main():
       # Check if må main project exists i bitbucket
         projectkey = None
         for project in projects:
-          if project['name'] == config['mainproject']['name']:
+          if project['name'] == config['mainproject']['mainproject']:
             projectkey = project['key']
             break
         if projectkey == None:
-          projectkey = create_bitbucket_project(bbtoken, config['mainproject']['name'])
+          projectkey = create_bitbucket_project(bbtoken, config['mainproject']['mainproject'])
         else:
           mainprojectexists = True
       # Check if the main project exists in AWX
