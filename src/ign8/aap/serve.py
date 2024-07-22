@@ -367,7 +367,6 @@ def main():
 
       pingurl = url + "/api/v2/ping"
       resp = session.get(pingurl)
-      pprint.pprint(resp.content)
       if resp.status_code != 200:
         prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Login failed", "ERROR")
         return False
@@ -377,6 +376,9 @@ def main():
       resp = session.get(orgurl)
       orgexists = False
       orgdata = json.loads(resp.content)
+
+      pprint.pprint(orgdata)
+      print("--------------------------------------------------------------------------------------")
       for org in orgdata['results']:
         if org['name'] == config['mainproject']['mainproject']:
           orgexists = True
@@ -396,7 +398,7 @@ def main():
         orgid = org['id']
       prettyllog("Ignite aap", "Main loop", "Organisation", "automation platform", "0", "Organisation exists", "INFO")
       ########################################################################################################################################################################################################################
-      
+
       
 
 
