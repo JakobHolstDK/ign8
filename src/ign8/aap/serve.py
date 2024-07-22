@@ -316,7 +316,7 @@ def main():
 
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Get access to GIT repo", "INFO")
       bbtoken = get_bitbucket_token("ignite/bitbucket")
-      mainprojectexits = False:
+      mainprojectexits = False
       while not mainprojectexists:
         projects = get_bitbucket_project_list(bbtoken)
       # Check if må main project exists i bitbucket
