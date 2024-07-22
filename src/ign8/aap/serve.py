@@ -11,7 +11,8 @@ import pprint
 
 from  ..common import prettyllog
 from .bitbucket import get_bitbucket_project_list, get_bitbucket_token, get_bitbucket_project, create_bitbucket_project, get_bitbucket_repositories, create_repository
-from .aap import get_organizations, create_organization
+from .aap import get_organizations, create_organization, create_project
+
 
 VERIFY_SSL = False
 
@@ -400,6 +401,34 @@ def main():
 
 
       ########################################################################################################################################################################################################################
+      #      Main Project
+      ########################################################################################################################################################################################################################
+
+      prettyllog("Ignite aap", "Main loop", "Main Project", "automation platform", "0", "Check if Main Project exists", "INFO")
+      # Check if the main project exists
+      projecturl = url + "/api/v2/projects"
+      resp = session.get(projecturl, verify=False)
+      data = json.loads(resp.text)
+      projectexists = False
+      projects = data["results"]
+      for project in projects:
+        if project["name"] == config['mainproject']['mainproject']:
+          projectexists = True
+          break
+      if not projectexists:
+        prettyllog("Ignite aap", "Main loop", "Main Project", config['mainproject']['mainproject'], "0", "Main project is missing", "ERROR")
+        projectdata = {
+          "name": config['mainproject']['mainproject'],
+          "description": "Main project for ignite aap"
+        }
+        create_project(projectdata, url, session)
+      if not projectexists:
+        prettyllog("Ignite aap", "Main loop", "Main Project", config['mainproject']['mainproject'], "0", "Main project created", "INFO")
+      else:
+        prettyllog("Ignite aap", "Main loop", "Main Project", config['mainproject']['mainproject'], "0", "Main project exists", "INFO")
+
+      ########################################################################################################################################################################################################################
+
 
       
 
