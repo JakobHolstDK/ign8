@@ -382,7 +382,7 @@ def main():
       orgs = data["results"]
       for org in orgs:
         pprint.pprint(org['name'])
-        pprint.pprint(config['mainproject']['organization']['name'])
+        pprint.pprint(config['mainproject'])
         if org["name"] == config['mainproject']['organisation'['name']]:
           orgexists = True
           break
