@@ -11,7 +11,8 @@ import pprint
 
 
 from  ..common import prettyllog
-from .bitbucket import get_bitbucket_project_list, get_bitbucket_token, get_bitbucket_project 
+from .bitbucket import get_bitbucket_project_list, get_bitbucket_token, get_bitbucket_project, create_bitbucket_project
+
 
 
 
@@ -317,10 +318,18 @@ def main():
       bbtoken = get_bitbucket_token("ignite/bitbucket")
       projects = get_bitbucket_project_list(bbtoken)
       # Check if må main project exists i bitbucket
-      project = get_bitbucket_project(bbtoken, config['mainproject']['mainproject'])
-      if project == False:
+      projectkey = None
+      for project in projects:
+        if project['name'] == config['mainproject']['mainproject']:
+          projectkey = project['key']
+          break
+      if projectkey == None:
         prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main project does not exist", "ERROR")
-        return False
+        # Create the main project
+        project = create_bitbucket_project(config['mainproject']['mainproject'], bbtoken)
+
+      prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Main project exists", "INFO")
+
       
       prettyllog("Ignite aap", "Main loop", "Refresh AWX data", "automation platform", "0", "Check if main project exists", "INFO")
 
