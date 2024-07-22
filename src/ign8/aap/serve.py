@@ -11,7 +11,7 @@ import pprint
 
 from  ..common import prettyllog
 from .bitbucket import get_bitbucket_project_list, get_bitbucket_token, get_bitbucket_project, create_bitbucket_project, get_bitbucket_repositories, create_repository
-from .aap import get_organization, create_organization
+from .aap import get_organizations, create_organization
 
 VERIFY_SSL = False
 
@@ -394,7 +394,7 @@ def main():
         create_organization(orgdata, url, session)
       # Check if the main project exists in AWX
       prettyllog("Ignite aap", "Main loop", "Organization", "automation platform", "0", "Organization exists", "INFO")
-      
+
       ########################################################################################################################################################################################################################
 
       
