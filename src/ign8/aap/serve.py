@@ -393,6 +393,7 @@ def main():
         orgurl = url + "/api/v2/organizations"
         resp = session.post(orgurl, json=orgdata)
         orgdata = json.loads(resp.content)
+        pprint.pprint(orgdata)
         orgid = orgdata['id']
       else:
         orgid = org['id']
