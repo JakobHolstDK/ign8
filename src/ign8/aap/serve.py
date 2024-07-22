@@ -128,7 +128,7 @@ def login_aap_basicauth(url, user, password):
   session = requests.Session()
   session.auth = (user, password)
   session.verify = False
-  resp = session.get(pingurl, verify=False))
+  resp = session.get(pingurl, verify=False)
   if resp.status_code != 200:
     print("Login failed")
     return False
@@ -136,7 +136,7 @@ def login_aap_basicauth(url, user, password):
 
 def aap_ping(url, session):
   pingurl = url + "/api/v2/ping"
-  resp = session.get(pingurl, verify=False))
+  resp = session.get(pingurl, verify=False)
   if resp.status_code != 200:
     return False
   return True
