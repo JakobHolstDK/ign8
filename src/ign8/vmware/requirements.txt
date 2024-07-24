@@ -5,3 +5,4 @@ suds>=0.4,<0.7 ; python_version < '3'
 suds>=1.0 ; python_version >= '3.0'
 vcrpy>=1.1.1
 
+urllib3>=2.2.2 # not directly required, pinned by Snyk to avoid a vulnerability
