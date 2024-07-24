@@ -177,7 +177,7 @@ def get_bitbucket_token(vaultpath):
       bbtoken = input("Please enter your Bitbucket token: ")
       bburl = input("Please enter your Bitbucket URL: ")
       bitbucket = {"token": bbtoken, "url": bburl}
-      client.write(vaultpath, bitbucket=bitbucket)
+      client.secrets.v2.create_or_update_secret(path=vaultpath, bitbucket=bitbucket)
        
     try: 
        bb = response["data"]["bitbucket"]
@@ -185,7 +185,7 @@ def get_bitbucket_token(vaultpath):
       bbtoken = input("Please enter your Bitbucket token: ")
       bburl = input("Please enter your Bitbucket URL: ")
       bitbucket = {"token": bbtoken, "url": bburl}
-      client.write(vaultpath, bitbucket=bitbucket)
+      client.secrets.v2.create_or_update_secret(path=vaultpath, bitbucket=bitbucket)
     response = client.read(vaultpath)
     bb = response["data"]["bitbucket"]
     return bb
