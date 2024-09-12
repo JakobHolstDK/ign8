@@ -1,4 +1,8 @@
 import os
+import sys
+
+
+
 """
 Django settings for ignite project.
 
@@ -55,9 +59,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_tables2',
     'rest_framework',  # Add this line for Django REST framework
     'main',
     'selinux',
+    'nudgeme',
 ]
 
 MIDDLEWARE = [
@@ -98,9 +104,7 @@ dbhost = os.environ.get("IGN8_DB_HOST", "localhost")
 dbport = os.environ.get("IGN8_DB_PORT", "5432")
 dbuser = os.environ.get("IGN8_DB_USER", "ign8")
 dbname = os.environ.get("IGN8_DB_NAME", "ign8")
-dbpass = os.environ.get("IGN8_DB_PASS", "ign8")
-
-
+dbpass = os.environ.get("IGN8_DB_PASS", "ixj90j2s")
 
 DATABASES = {
     'default': {
@@ -147,13 +151,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'http://ignite_static.openknowit.com/static/'
+STATIC_URL = 'http://localhost:8081/'
 STATIC_ROOT = '/var/lib/nginx/static/'
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+SHARED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.admin',
+    # other shared apps
+]
 

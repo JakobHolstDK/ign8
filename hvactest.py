@@ -28,3 +28,18 @@ if password != 'Hashi123':
     sys.exit('unexpected password')
 
 print('Access granted!')
+
+def read_patchwindows():
+    # read the and convert the file to a list
+    patchwindows = []
+    filename = "/UNIXDOC/PatchManagement/PatchWindowsUnix.csv"
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+        for line in lines:
+            patchwindows.append(line.strip())
+    return patchwindows
+
+
+
+    
+

@@ -1,7 +1,6 @@
 import os
 import sys
 import pprint
-from ..common import prettyllog
 import subprocess
 import hvac
 
